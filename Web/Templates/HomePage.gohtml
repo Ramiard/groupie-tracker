@@ -12,6 +12,12 @@
     </header>
     <main>
         <p>Here you can find all the music groups taken from an API</p>
+        {{range .List}}
+            <div>
+                <img src="{{.Image}}" alt="{{.Name}}">
+                <h2>{{.Name}}</h2>
+            </div>
+        {{end}}
     </main>
     <footer>
         <p>Made by Amiard Renaud</p>
