@@ -8,9 +8,8 @@ import (
 func Routes() {
 	// Route par défaut
 	http.HandleFunc("/", Handlers.HomePageHandler)
-	http.HandleFunc("/homePage", Handlers.HomePageHandler)
 
 	// Reste des routes
-	//http.HandleFunc("/group", Handlers.GroupPageHandler)
+	http.HandleFunc("/group", Handlers.GroupPageHandler)
 	//http.HandleFunc("/search", Handlers.SearchHandler)
 }
