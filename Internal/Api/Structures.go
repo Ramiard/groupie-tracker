@@ -1,9 +1,5 @@
 package Api
 
-type GroupList struct {
-	List []GroupInfos
-}
-
 type GroupInfos struct {
 	Id           int      `json:"id"`
 	Image        string   `json:"image"`

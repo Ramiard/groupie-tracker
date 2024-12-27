@@ -7,48 +7,38 @@ import (
 	"net/http"
 )
 
-func GetAllGroups() GroupList {
+func GetAllGroups() []GroupInfos {
 	// Getting all the groups present in the API
-	var groups GroupList
-	var groupsLeft bool = true
-	var id int = 1
+	var groups []GroupInfos
 
-	for groupsLeft == true {
-		// Sending a GET request to the API
-		response, err := http.Get("https://groupietrackers.herokuapp.com/api/artists/" + fmt.Sprint(id))
-		if err != nil {
-			fmt.Print("LOG: Error while sending the GET request (", err, ")")
-			return groups
-		}
-
-		// Reading the response
-		responseData, err := ioutil.ReadAll(response.Body)
-		if err != nil {
-			fmt.Print("LOG: Error while reading the response (", err, ")")
-			return groups
-		}
-
-		// We need to Unmarshal the data and put it in a Struct to be able to use it
-		var UnmarshalledData GroupInfos
-		err = json.Unmarshal(responseData, &UnmarshalledData)
-		if err != nil {
-			fmt.Print("LOG: Error while unmarshalling the data (", err, ")")
-			return groups
-		}
-
-		// Checking if we got all the groups present in the API
-		if UnmarshalledData.Name == "" {
-			groupsLeft = false
-			fmt.Println("LOG: All groups have been loaded")
-			fmt.Println("LOG: Last group loaded :", id-1)
-			return groups
-		}
-		var tempGroupInfos GroupInfos
-		tempGroupInfos = UnmarshalledData
-		tempGroupInfos.Relations = GetGroupRelations(fmt.Sprint(id))
-		groups.List = append(groups.List, tempGroupInfos)
-		id++
+	// Sending a GET request to the API
+	response, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	if err != nil {
+		fmt.Print("LOG: Error while sending the GET request (", err, ")")
+		return groups
 	}
+
+	// Reading the response
+	responseData, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		fmt.Print("LOG: Error while reading the response (", err, ")")
+		return groups
+	}
+
+	// We need to Unmarshal the data and put it in a Struct to be able to use it
+	var UnmarshalledData []GroupInfos
+	err = json.Unmarshal(responseData, &UnmarshalledData)
+	if err != nil {
+		fmt.Print("LOG: Error while unmarshalling the data (", err, ")")
+		return groups
+	}
+
+	for index, group := range UnmarshalledData {
+		group.Relations = GetGroupRelations(fmt.Sprint(group.Id))
+		UnmarshalledData[index] = group
+	}
+
+	groups = UnmarshalledData
 	return groups
 }
 
