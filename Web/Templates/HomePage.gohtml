@@ -12,6 +12,14 @@
     </header>
     <main>
         <p>Here you can find all the music groups taken from an API</p>
+        {{range .}}
+            <div>
+                <form method="post" action="/group">
+                <button type="submit" name="id" value="{{.Id}}"><img src="{{.Image}}" alt="{{.Name}}"></button>
+                <h2>{{.Name}}</h2>
+                </form>
+            </div>
+        {{end}}
     </main>
     <footer>
         <p>Made by Amiard Renaud</p>
