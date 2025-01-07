@@ -9,7 +9,7 @@ func StartServer() {
 
 	// Gestion des fichiers Static et configuration de la route pour y acceder
 	fileServer := http.FileServer(http.Dir("Web/Static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fileServer))
+	http.Handle("/Static/", http.StripPrefix("/Static/", fileServer))
 
 	// Initialisation des routes
 	Routes()
