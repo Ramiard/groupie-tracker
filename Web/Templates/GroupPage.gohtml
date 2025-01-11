@@ -7,6 +7,14 @@
     <title>{{.Name}}'s details</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" type="image/jpeg" href="{{.Image}}">
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.2/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.2/mapbox-gl.js"></script>
+    <style>
+        body { margin: 0; padding: 0; }
+        #map { position: absolute; top: 25vh; bottom: 0; right: 10vh; width: 50%; }
+    </style>
+
 </head>
 <body>
 <header>
@@ -41,6 +49,52 @@
         {{end}}
         </ul>
     </div>
+
+    <div id="map"></div>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoicmFtaWFyZDEyIiwiYSI6ImNtNXBibmE1cTA4bWcybXNpaWg4cWgydDgifQ.eZ661gjAiBWtfYMxXvN9Hw';
+        const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
+
+        const map = new mapboxgl.Map({
+            style: 'mapbox://styles/mapbox/satellite-streets-v11', // style URL
+            container: 'map', // container ID
+            center: [46.169006, 1.869232], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+            zoom: 1, // starting zoom
+            projection: 'globe'
+        });
+        {{ range $key, $value := .Relations.DatesLocations}}
+        mapboxClient.geocoding
+            .forwardGeocode({
+                query: '{{$key}}',
+                autocomplete: false,
+                limit: 1
+            })
+            .send()
+            .then((response) => {
+                if (
+                    !response ||
+                    !response.body ||
+                    !response.body.features ||
+                    !response.body.features.length
+                ) {
+                    console.error('Invalid response:');
+                    console.error(response);
+                    return;
+                }
+                const feature = response.body.features[0];
+
+                const marker = new mapboxgl.Marker({ color: 'red' })
+                    .setLngLat(feature.center)
+                    .setPopup(new mapboxgl.Popup().setHTML("<h2>{{$key}}</h2> <ul>{{range $value}}<li>{{.}}</li>{{end}}</ul>"))
+                    // .setPopup(popup)
+                    .addTo(map);
+            });
+        {{end}}
+    </script>
+
+
+
 </main>
 <footer>
     <p>&copy; 2023 Groupie Tracker</p>
@@ -48,3 +102,128 @@
 </body>
 </html>
 {{end}}
+
+
+{{/*{{define "GroupPage"}}*/}}
+{{/*    <!DOCTYPE html>*/}}
+{{/*    <html>*/}}
+{{/*    <head>*/}}
+{{/*        <meta charset="utf-8">*/}}
+{{/*        <title>Display a map on a webpage</title>*/}}
+{{/*        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">*/}}
+{{/*        <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.2/mapbox-gl.css" rel="stylesheet">*/}}
+{{/*        <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.2/mapbox-gl.js"></script>*/}}
+{{/*        <style>*/}}
+{{/*            body { margin: 0; padding: 0; }*/}}
+{{/*            #map { position: absolute; top: 0; bottom: 0; width: 100%; }*/}}
+{{/*        </style>*/}}
+{{/*    </head>*/}}
+{{/*    <body>*/}}
+{{/*    {{ range $location, $date := .Relations.DatesLocations }}*/}}
+{{/*        <h1>{{$location}}</h1>*/}}
+{{/*    {{end}}*/}}
+{{/*    <div id="map"></div>*/}}
+{{/*    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>*/}}
+{{/*    <script>*/}}
+{{/*        mapboxgl.accessToken = 'pk.eyJ1IjoicmFtaWFyZDEyIiwiYSI6ImNtNXBibmE1cTA4bWcybXNpaWg4cWgydDgifQ.eZ661gjAiBWtfYMxXvN9Hw';*/}}
+{{/*        const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });*/}}
+
+{{/*                const map = new mapboxgl.Map({*/}}
+{{/*                    style: 'mapbox://styles/mapbox/satellite-streets-v11', // style URL*/}}
+{{/*                    container: 'map', // container ID*/}}
+{{/*                    center: [46.169006, 1.869232], // starting position [lng, lat]. Note that lat must be set between -90 and 90*/}}
+{{/*                    zoom: 1, // starting zoom*/}}
+{{/*                    projection: 'globe'*/}}
+{{/*                });*/}}
+{{/*        {{ range $key, $value := .Relations.DatesLocations}}*/}}
+{{/*        mapboxClient.geocoding*/}}
+{{/*            .forwardGeocode({*/}}
+{{/*                query: '{{$key}}',*/}}
+{{/*                autocomplete: false,*/}}
+{{/*                limit: 1*/}}
+{{/*            })*/}}
+{{/*            .send()*/}}
+{{/*            .then((response) => {*/}}
+{{/*                if (*/}}
+{{/*                    !response ||*/}}
+{{/*                    !response.body ||*/}}
+{{/*                    !response.body.features ||*/}}
+{{/*                    !response.body.features.length*/}}
+{{/*                ) {*/}}
+{{/*                    console.error('Invalid response:');*/}}
+{{/*                    console.error(response);*/}}
+{{/*                    return;*/}}
+{{/*                }*/}}
+{{/*                const feature = response.body.features[0];*/}}
+
+{{/*                const marker = new mapboxgl.Marker({ color: 'red' })*/}}
+{{/*                    .setLngLat(feature.center)*/}}
+{{/*                    .setPopup(new mapboxgl.Popup().setHTML("<h2>{{$key}}</h2> <ul>{{range $value}}<li>{{.}}</li>{{end}}</ul>"))*/}}
+{{/*                    // .setPopup(popup)*/}}
+{{/*                    .addTo(map);*/}}
+{{/*            });*/}}
+{{/*        {{end}}*/}}
+{{/*    </script>*/}}
+
+{{/*    </body>*/}}
+{{/*    </html>*/}}
+{{/*{{end}}*/}}
+
+{{/*{{ define "GroupPage" }}*/}}
+{{/*<!DOCTYPE html>*/}}
+{{/*<html>*/}}
+{{/*<head>*/}}
+{{/*    <meta charset="utf-8">*/}}
+{{/*    <title>Add a marker using a place name</title>*/}}
+{{/*    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">*/}}
+{{/*    <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.2/mapbox-gl.css" rel="stylesheet">*/}}
+{{/*    <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.2/mapbox-gl.js"></script>*/}}
+{{/*    <style>*/}}
+{{/*        body { margin: 0; padding: 0; }*/}}
+{{/*        #map { position: absolute; top: 0; bottom: 0; width: 100%; }*/}}
+{{/*    </style>*/}}
+{{/*</head>*/}}
+{{/*<body>*/}}
+{{/*<div id="map"></div>*/}}
+
+{{/*<script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>*/}}
+
+{{/*<script>*/}}
+{{/*    mapboxgl.accessToken = 'pk.eyJ1IjoicmFtaWFyZDEyIiwiYSI6ImNtNXBibmE1cTA4bWcybXNpaWg4cWgydDgifQ.eZ661gjAiBWtfYMxXvN9Hw';*/}}
+{{/*    const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });*/}}
+{{/*    mapboxClient.geocoding*/}}
+{{/*        .forwardGeocode({*/}}
+{{/*            query: 'dunedin-new_zealand',*/}}
+{{/*            autocomplete: false,*/}}
+{{/*            limit: 1*/}}
+{{/*        })*/}}
+{{/*        .send()*/}}
+{{/*        .then((response) => {*/}}
+{{/*            if (*/}}
+{{/*                !response ||*/}}
+{{/*                !response.body ||*/}}
+{{/*                !response.body.features ||*/}}
+{{/*                !response.body.features.length*/}}
+{{/*            ) {*/}}
+{{/*                console.error('Invalid response:');*/}}
+{{/*                console.error(response);*/}}
+{{/*                return;*/}}
+{{/*            }*/}}
+{{/*            const feature = response.body.features[0];*/}}
+
+{{/*            const map = new mapboxgl.Map({*/}}
+{{/*                container: 'map',*/}}
+{{/*                // Choose from Mapbox's core styles, or make your own style with Mapbox Studio*/}}
+{{/*                style: 'mapbox://styles/mapbox/streets-v12',*/}}
+{{/*                center: feature.center,*/}}
+{{/*                zoom: 10*/}}
+{{/*            });*/}}
+
+{{/*            // Create a marker and add it to the map.*/}}
+{{/*            new mapboxgl.Marker().setLngLat(feature.center).addTo(map);*/}}
+{{/*        });*/}}
+{{/*</script>*/}}
+
+{{/*</body>*/}}
+{{/*</html>*/}}
+{{/*{{end}}*/}}
