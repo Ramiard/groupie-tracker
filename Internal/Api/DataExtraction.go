@@ -74,6 +74,7 @@ func GetGroupInfos(id string) GroupInfos {
 
 	chosenGroupInfos = UnmarshalledData
 	chosenGroupInfos.Relations = GetGroupRelations(id)
+	chosenGroupInfos.Relations.Coordinates = getConcertsCoordinates(chosenGroupInfos.Relations.DatesLocations)
 	return chosenGroupInfos
 }
 
@@ -106,10 +107,15 @@ func GetGroupRelations(id string) Relation {
 		fmt.Println("LOG: Group not found")
 		return relations
 	}
+	relations = UnmarshalledData
 
+	return relations
+}
+
+func getConcertsCoordinates(datesLocations map[string][]string) map[string][]float64 {
 	// Now we need to get all coordinates of all concerts locations
 	coordinates := make(map[string][]float64)
-	for key, _ := range UnmarshalledData.DatesLocations {
+	for key, _ := range datesLocations {
 
 		// Creation of all structures needed to get the coordinates from the Geocoding API
 		type geoResponse struct {
@@ -124,14 +130,14 @@ func GetGroupRelations(id string) Relation {
 		apiResponse, err := http.Get("https://api.mapbox.com/search/geocode/v6/forward?q=" + key + "&access_token=pk.eyJ1IjoicmFtaWFyZDEyIiwiYSI6ImNtNXBibmE1cTA4bWcybXNpaWg4cWgydDgifQ.eZ661gjAiBWtfYMxXvN9Hw")
 		if err != nil {
 			fmt.Print("LOG Geocoding: Error while sending the GET request to the Geocoding API (", err, ")")
-			return relations
+			return coordinates
 		}
 
 		// Reading the response
 		apiResponseData, err := ioutil.ReadAll(apiResponse.Body)
 		if err != nil {
 			fmt.Println("LOG Geocoding: Error while reading the response from the Geocoding API (", err, ")")
-			return relations
+			return coordinates
 		}
 
 		// Now we need to Unmarshal the data and put it into our previous 'geoResponse' struct to be able to use it
@@ -139,14 +145,10 @@ func GetGroupRelations(id string) Relation {
 		err = json.Unmarshal(apiResponseData, &UnmarshalledGeoData)
 		if err != nil {
 			fmt.Println("LOG Geocoding: Error while unmarshalling the data from the Geocoding API (", err, ")")
-			return relations
+			return coordinates
 		}
 		// Add to the map the coordinates of the locations
 		coordinates[key] = UnmarshalledGeoData.Features[0].Geometry.Coordinates
 	}
-
-	relations = UnmarshalledData
-	relations.Coordinates = coordinates
-
-	return relations
+	return coordinates
 }
