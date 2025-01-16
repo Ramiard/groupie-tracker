@@ -53,44 +53,80 @@
     <div id="map"></div>
     <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
     <script>
+        // Setting up the mapbox accessToken
         mapboxgl.accessToken = 'pk.eyJ1IjoicmFtaWFyZDEyIiwiYSI6ImNtNXBibmE1cTA4bWcybXNpaWg4cWgydDgifQ.eZ661gjAiBWtfYMxXvN9Hw';
-        const mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
 
+
+
+        // Setting up the map style
         const map = new mapboxgl.Map({
-            style: 'mapbox://styles/mapbox/satellite-streets-v11', // style URL
+            // style: 'mapbox://styles/mapbox/outdoors-v12', // mapbox style URL
+            style: 'mapbox://styles/ramiard12/cm5y7wkf1000301s9gzem8rp7', // our style URL
             container: 'map', // container ID
-            center: [46.169006, 1.869232], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+            center: [-33.002872,30.973201], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+            pitch: 60, // The angle of the map in degrees (0 is straight down)
+            bearing: 0,
             zoom: 1, // starting zoom
-            projection: 'globe'
+            projection: 'mercator'
         });
-        {{ range $key, $value := .Relations.DatesLocations}}
-        mapboxClient.geocoding
-            .forwardGeocode({
-                query: '{{$key}}',
-                autocomplete: false,
-                limit: 1
-            })
-            .send()
-            .then((response) => {
-                if (
-                    !response ||
-                    !response.body ||
-                    !response.body.features ||
-                    !response.body.features.length
-                ) {
-                    console.error('Invalid response:');
-                    console.error(response);
-                    return;
-                }
-                const feature = response.body.features[0];
 
-                const marker = new mapboxgl.Marker({ color: 'red' })
-                    .setLngLat(feature.center)
-                    .setPopup(new mapboxgl.Popup().setHTML("<h2>{{$key}}</h2> <ul>{{range $value}}<li>{{.}}</li>{{end}}</ul>"))
-                    // .setPopup(popup)
-                    .addTo(map);
-            });
+        // Setting up the coordinates for the future markers
+        let concertsCoordinates = [];
+        {{ range $coordinates := .Relations.Coordinates}}
+        concertsCoordinates.push({{$coordinates}});
         {{end}}
+
+        // Adding the markers one by one to the map
+        let i =0;
+        {{ range $location, $value := .Relations.DatesLocations}}
+        marker = new mapboxgl.Marker({ color: 'red' })
+            .setLngLat(concertsCoordinates[i])
+            .setPopup(new mapboxgl.Popup().setHTML("<h2>{{$location}}</h2> <ul>{{range $value}}<li>{{.}}</li>{{end}}</ul>"))
+            .addTo(map);
+            i++;
+        {{end}}
+
+        // Jump to all the locations
+        map.on('load', async () => {
+            for (const coordinate of concertsCoordinates) {
+                    map.flyTo({ center: coordinate, zoom: 12 });
+                    await new Promise(resolve => setTimeout(resolve, 15000));
+            }
+        });
+
+
+        // Just in case, I keep the old code that was supposed to get the coordinates from the location in javascript
+{{/*        {{ range $location, $value := .Relations.DatesLocations}}*/}}
+
+{{/*        mapboxClient.geocoding*/}}
+{{/*            .forwardGeocode({*/}}
+{{/*                query: '{{$key}}',*/}}
+{{/*                autocomplete: false,*/}}
+{{/*                limit: 1*/}}
+{{/*            })*/}}
+{{/*            .send()*/}}
+{{/*            .then((response) => {*/}}
+{{/*                if (*/}}
+{{/*                    !response ||*/}}
+{{/*                    !response.body ||*/}}
+{{/*                    !response.body.features ||*/}}
+{{/*                    !response.body.features.length*/}}
+{{/*                ) {*/}}
+{{/*                    console.error('Invalid response:');*/}}
+{{/*                    console.error(response);*/}}
+{{/*                    return;*/}}
+{{/*                }*/}}
+{{/*                const feature = response.body.features[0];*/}}
+{{/*            });*/}}
+
+{{/*        const marker = new mapboxgl.Marker({ color: 'red' })*/}}
+{{/*            .setLngLat(feature.center)*/}}
+{{/*            .setPopup(new mapboxgl.Popup().setHTML("<h2>{{$location}}</h2> <ul>{{range $value}}<li>{{.}}</li>{{end}}</ul>"))*/}}
+{{/*            // .setPopup(popup)*/}}
+{{/*            .addTo(map);*/}}
+
+{{/*        {{end}}*/}}
+        console.log("Coordonnées: ",concertsCoordinates);
     </script>
 
 
