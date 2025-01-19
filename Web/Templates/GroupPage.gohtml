@@ -76,6 +76,12 @@
         concertsCoordinates.push({{$coordinates}});
         {{end}}
 
+        // Transfer the golang 'map' to a javascript 'map'
+        let relations = {};
+        {{ range $location, $value := .Relations.DatesLocations}}
+            relations["{{$location}}"] = {{$value}};
+        {{end}}
+
         // Adding the markers one by one to the map
         let i =0;
         {{ range $location, $value := .Relations.DatesLocations}}
@@ -88,9 +94,35 @@
 
         // Jump to all the locations
         map.on('load', async () => {
+
+            // Set currentPopup to null
+            let currentPopup = null;
+
+
             for (const coordinate of concertsCoordinates) {
+                // Initialize the city and dates variables
+                // 'cityName' is the key that correspond to the current index of 'coordinate' in the 'relations' map
+                const cityName = Object.keys(relations)[concertsCoordinates.indexOf(coordinate)];
+                // 'dates' is an array of all the dates that correspond to the current 'cityName'
+                const dates = relations[cityName];
+
+                // If there is a popup, remove it before displaying the new one
+                if (currentPopup) {
+                    currentPopup.remove();
+                    currentPopup = null;
+                }
+
                     map.flyTo({ center: coordinate, zoom: 12 });
-                    await new Promise(resolve => setTimeout(resolve, 15000));
+                    map.once('moveend', () => {
+                        // Create and display popup after flyTo completes
+                        currentPopup = new mapboxgl.Popup({ offset: 25 })
+                            .setLngLat(coordinate)
+                            // Display the current city name and do a range on the dates array to display them in a list
+                            .setHTML(`<h3>${cityName}</h3><ul>${dates.map(date => `<li>${date}</li>`).join('')}</ul>`)
+                            .addTo(map)
+                    });
+                    // Wait 10 seconds before moving to the next location
+                    await new Promise(resolve => setTimeout(resolve, 10000));
             }
         });
 
