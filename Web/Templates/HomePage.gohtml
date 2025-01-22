@@ -11,13 +11,15 @@
     <header>
         <h1>Welcome to the Groupie Tracker</h1>
         <form action="" method="post">
+            <!-- 'Creation Date' filter -->
+            <!-- Range for 'min' value -->
             <div class="range-container">
                 <label for="creation_date"> Filtrer par date de création :</label> <input type="range"
-                                                                                          id="creation_date"
-                                                                                          name="filterBy-CreationDate"
+                                                                                          id="creation_date_min"
+                                                                                          name="filterBy-CreationDate-min"
                                                                                           min="1960" max="2024" step="1"
                                                                                           value="2024"
-                                                                                          oninput="updateValue(this)">
+                                                                                          oninput="updateValue(this,'min')">
                 <div class="range-markers">
                     <div class="range-markers-middle"></div>
                 </div>
@@ -26,18 +28,55 @@
                     <span>1992</span>
                     <span>2024</span>
                 </div>
-                <span id="currentRangeValue"></span>
-                <script>
-                    const rangeSlider = document.getElementById('creation_date');
-                    const currentValue = document.getElementById('currentRangeValue');
+                <div class="selected-value-container">
+                <div class="selected-value"> Min select:</div>
+                <span class="selected-value" id="currentRangeValue_min"></span>
+                </div>
+            </div>
+            <script>
+
+                let updateValue = (slider,minMax) => {
+                    const rangeSlider = document.getElementById('creation_date_'+minMax);
+                    const currentValue = document.getElementById('currentRangeValue_'+minMax);
 
                     currentValue.textContent = rangeSlider.value;
 
-                    let updateValue = (slider) => {
-                        currentValue.textContent = slider.value;
-                    }
-                </script>
-                <button type="submit">Filter now !</button>
+                    currentValue.textContent = slider.value;
+                }
+            </script>
+
+{{/*            <script>*/}}
+{{/*                const rangeSlider = document.getElementById('creation_date_min');*/}}
+{{/*                const currentValue = document.getElementById('currentRangeValue_min');*/}}
+
+{{/*                currentValue.textContent = rangeSlider.value;*/}}
+
+{{/*                let updateValue = (slider) => {*/}}
+{{/*                    currentValue.textContent = slider.value;*/}}
+{{/*                }*/}}
+{{/*            </script>*/}}
+            <!-- Range for 'max' value -->
+            <div class="range-container">
+                <label for="creation_date"> Filtrer par date de création :</label> <input type="range"
+                                                                                          id="creation_date_max"
+                                                                                          name="filterBy-CreationDate-max"
+                                                                                          min="1960" max="2024" step="1"
+                                                                                          value="2024"
+                                                                                          oninput="updateValue(this,'max')">
+                <div class="range-markers">
+                    <div class="range-markers-middle"></div>
+                </div>
+                <div class="range-labels">
+                    <span>1960</span>
+                    <span>1992</span>
+                    <span>2024</span>
+                </div>
+                <div class="selected-value-container">
+                    <div class="selected-value"> Max select:</div>
+                    <span class="selected-value" id="currentRangeValue_max"></span>
+                </div>
+            </div>
+            <button type="submit">Filter now !</button>
             </div>
         </form>
     </header>

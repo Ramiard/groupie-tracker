@@ -5,6 +5,7 @@ import (
 	"groupie-tracker/Internal/Api"
 	"html/template"
 	"net/http"
+	"strconv"
 )
 
 func HomePageHandler(w http.ResponseWriter, r *http.Request) {
@@ -31,10 +32,28 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if r.FormValue("filterBy-CreationDate") != "" {
-			creationDate := r.FormValue("filterBy-CreationDate")
+		if r.FormValue("filterBy-CreationDate-min") != "" && r.FormValue("filterBy-CreationDate-max") != "" {
+
+			// Check if the user sent an integer
+			minCreationDate, err := strconv.Atoi(r.FormValue("filterBy-CreationDate-min"))
+			if err != nil {
+				http.Error(w, "Error, the value of 'minCreationDate' that you sent is not an integer", http.StatusBadRequest)
+				return
+			}
+			maxCreationDate, err := strconv.Atoi(r.FormValue("filterBy-CreationDate-max"))
+			if err != nil {
+				http.Error(w, "Error, the value of 'maxCreationDate' that you sent is not an integer", http.StatusBadRequest)
+				return
+			}
+
+			// Check if the user sent a valid range
+			if minCreationDate > maxCreationDate {
+				http.Error(w, "Error, the minimum value is higher than the maximum value", http.StatusBadRequest)
+				return
+			}
+
 			// Apply the filter
-			GroupList = Api.FilterGroupsByCreationDate(creationDate, GroupList)
+			GroupList = Api.FilterGroupsByCreationDate(minCreationDate, maxCreationDate, GroupList)
 		}
 
 		// Run the template with the filtered data

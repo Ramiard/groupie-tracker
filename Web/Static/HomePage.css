@@ -66,3 +66,15 @@ input[type=range]::-webkit-slider-thumb {
     font-size: 0.7em;
 }
 /* ---------------------------------------------------------- */
+
+.selected-value-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+.selected-value {
+    font-size: 1em;
+    text-align: center;
+}
