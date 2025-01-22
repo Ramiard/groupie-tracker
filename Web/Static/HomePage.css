@@ -1,0 +1,68 @@
+* {
+    background-color: antiquewhite;
+}
+
+/* Css concernant l'esthetique pur du slider */
+.range-container {
+    width: 10.5em;
+    margin: auto auto;
+    text-align: center;
+}
+input[type="range"] {
+    -webkit-appearance: none;
+    width:100%;
+    margin : 0;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 0.5em;
+    background: #6e6e6e;
+    border-radius: 0.2em;
+    border: 0.1em solid #1c7241;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 1em;
+    width: 1em;
+    background: #269857;
+    border-radius: 50%;
+    border: 1px solid #000000;
+    margin-top: -0.30em;
+}
+/* ---------------------------------------------------------- */
+
+
+/* Css concernant les marqueurs (tirets et noms) */
+
+.range-markers {
+    position : relative;
+    display: flex;
+    justify-content: space-between;
+    margin-top: -0.7em;
+}
+.range-markers::before,
+.range-markers::after,
+.range-markers-middle {
+    content: "";
+    position: absolute;
+    height: 0.5em;
+    width: 0.1em;
+    background-color: black;
+}
+.range-markers::before {
+    left: 0;
+}
+.range-markers::after {
+    right: 0;
+}
+.range-markers-middle {
+    left: 50%;
+}
+
+.range-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
+    font-size: 0.7em;
+}
+/* ---------------------------------------------------------- */

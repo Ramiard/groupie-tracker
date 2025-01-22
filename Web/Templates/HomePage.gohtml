@@ -1,23 +1,53 @@
 {{define "HomePage"}}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Static/HomePage.css">
-    <title>Groupie Tracker</title>
-</head>
-<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../Static/HomePage.css">
+        <title>Groupie Tracker</title>
+    </head>
+    <body>
     <header>
         <h1>Welcome to the Groupie Tracker</h1>
+        <form action="" method="post">
+            <div class="range-container">
+                <label for="creation_date"> Filtrer par date de création :</label> <input type="range"
+                                                                                          id="creation_date"
+                                                                                          name="filterBy-CreationDate"
+                                                                                          min="1960" max="2024" step="1"
+                                                                                          value="2024"
+                                                                                          oninput="updateValue(this)">
+                <div class="range-markers">
+                    <div class="range-markers-middle"></div>
+                </div>
+                <div class="range-labels">
+                    <span>1960</span>
+                    <span>1992</span>
+                    <span>2024</span>
+                </div>
+                <span id="currentRangeValue"></span>
+                <script>
+                    const rangeSlider = document.getElementById('creation_date');
+                    const currentValue = document.getElementById('currentRangeValue');
+
+                    currentValue.textContent = rangeSlider.value;
+
+                    let updateValue = (slider) => {
+                        currentValue.textContent = slider.value;
+                    }
+                </script>
+                <button type="submit">Filter now !</button>
+            </div>
+        </form>
     </header>
     <main>
         <p>Here you can find all the music groups taken from an API</p>
         {{range .}}
             <div>
                 <form method="post" action="/group">
-                <button type="submit" name="id" value="{{.Id}}"><img src="{{.Image}}" alt="{{.Name}}"></button>
-                <h2>{{.Name}}</h2>
+                    <button type="submit" name="id" value="{{.Id}}"><img src="{{.Image}}" alt="{{.Name}}"></button>
+                    <h2>{{.Name}}</h2>
                 </form>
             </div>
         {{end}}
@@ -26,6 +56,6 @@
         <p>Made by Amiard Renaud</p>
         <p>&copy; 2024 Groupie Tracker</p>
     </footer>
-</body>
-</html>
+    </body>
+    </html>
 {{end}}
