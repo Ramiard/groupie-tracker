@@ -5,9 +5,10 @@ type GroupInfos struct {
 	Image        string   `json:"image"`
 	Name         string   `json:"name"`
 	Members      []string `json:"members"`
-	CreationDate int      `json:"creationDate"`
-	FirstAlbum   string   `json:"firstAlbum"`
-	RelationsUrl string   `json:"relations"`
+	QtyOfMembers int
+	CreationDate int    `json:"creationDate"`
+	FirstAlbum   string `json:"firstAlbum"`
+	RelationsUrl string `json:"relations"`
 	Relations    Relation
 }
 

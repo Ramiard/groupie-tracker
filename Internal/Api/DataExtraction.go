@@ -35,6 +35,8 @@ func GetAllGroups() []GroupInfos {
 
 	for index, group := range UnmarshalledData {
 		group.Relations = GetGroupRelations(fmt.Sprint(group.Id))
+		qtyOfMembers := len(group.Members)
+		group.QtyOfMembers = qtyOfMembers
 		UnmarshalledData[index] = group
 	}
 
@@ -73,6 +75,7 @@ func GetGroupInfos(id string) GroupInfos {
 	}
 
 	chosenGroupInfos = UnmarshalledData
+	chosenGroupInfos.QtyOfMembers = len(chosenGroupInfos.Members)
 	chosenGroupInfos.Relations = GetGroupRelations(id)
 	chosenGroupInfos.Relations.Coordinates = getConcertsCoordinates(chosenGroupInfos.Relations.DatesLocations)
 	return chosenGroupInfos
