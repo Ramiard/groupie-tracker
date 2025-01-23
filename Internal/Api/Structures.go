@@ -12,8 +12,9 @@ type GroupInfos struct {
 }
 
 type Relation struct {
-	Id             int                 `json:"id"`
-	DatesLocations map[string][]string `json:"datesLocations"`
+	Id             int                  `json:"id"`
+	DatesLocations map[string][]string  `json:"datesLocations"`
+	Coordinates    map[string][]float64 `json:"coordinates"`
 }
 
 //var Groups GroupList
