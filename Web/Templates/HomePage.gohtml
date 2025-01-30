@@ -7,24 +7,29 @@
     <link rel="stylesheet" href="../Static/HomePage.css">
     <title>Groupie Tracker</title>
 </head>
-<body>
+<body style="background: gray">
     <header>
-        <h1>Welcome to the Groupie Tracker</h1>
+            <h1 class="no-padding">Welcome to the Groupie Tracker</h1>
     </header>
-    <main>
-        <p>Here you can find all the music groups taken from an API</p>
-        {{range .}}
-            <div>
+    <p>Here you can find all the music groups taken from an API</p>
+    <main class="container">
+        {{range $index, $element := .}}
+            <div class="image-frame frame">
                 <form method="post" action="/group">
-                <button type="submit" name="id" value="{{.Id}}"><img src="{{.Image}}" alt="{{.Name}}"></button>
-                <h2>{{.Name}}</h2>
+                    <button type="submit" name="id" value="{{.Id}}" class="test-image">
+                        <img src="{{.Image}}" alt="{{.Name}}">
+                    </button>
+                    <h2 class="box">{{.Name}}</h2>
                 </form>
             </div>
         {{end}}
     </main>
-    <footer>
-        <p>Made by Amiard Renaud</p>
-        <p>&copy; 2024 Groupie Tracker</p>
+
+    <footer class="TextEndPage">
+        <h3>© 2024 Groupie</h3>
+        <p>
+            Amiard Renaud Castaing Gaetan
+        </p>
     </footer>
 </body>
 </html>
