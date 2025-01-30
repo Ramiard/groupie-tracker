@@ -3,8 +3,11 @@ package Api
 import (
 	"encoding/json"
 	"fmt"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 	"io/ioutil"
 	"net/http"
+	"strings"
 )
 
 func GetAllGroups() []GroupInfos {
@@ -100,6 +103,14 @@ func GetGroupRelations(id string) Relation {
 	// Now we need to Unmarshal the data and put it in a Struct to be able to use it
 	var UnmarshalledData Relation
 	err = json.Unmarshal(responseData, &UnmarshalledData)
+	// Let's stylise the location (Capitalizing the first letter of each word and deleting '_')
+	for key, value := range UnmarshalledData.DatesLocations {
+		keyStylized := strings.ReplaceAll(key, "-", " - ")
+		keyStylized = strings.ReplaceAll(keyStylized, "_", " ")
+		keyStylized = cases.Title(language.English).String(keyStylized)
+		delete(UnmarshalledData.DatesLocations, key)
+		UnmarshalledData.DatesLocations[keyStylized] = value
+	}
 	if err != nil {
 		fmt.Print("LOG: Error while unmarshalling the data (", err, ")")
 		return relations
