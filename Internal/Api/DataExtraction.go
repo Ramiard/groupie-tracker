@@ -7,6 +7,7 @@ import (
 	"golang.org/x/text/language"
 	"io/ioutil"
 	"net/http"
+	"slices"
 	"strings"
 )
 
@@ -104,8 +105,9 @@ func GetGroupRelations(id string) Relation {
 	var UnmarshalledData Relation
 	err = json.Unmarshal(responseData, &UnmarshalledData)
 	// Let's stylise the location (Capitalizing the first letter of each word and deleting '_')
+	// ("north_carolina-usa" become "North Carolina-Usa")
 	for key, value := range UnmarshalledData.DatesLocations {
-		keyStylized := strings.ReplaceAll(key, "-", " - ")
+		keyStylized := key
 		keyStylized = strings.ReplaceAll(keyStylized, "_", " ")
 		keyStylized = cases.Title(language.English).String(keyStylized)
 		delete(UnmarshalledData.DatesLocations, key)
@@ -115,6 +117,17 @@ func GetGroupRelations(id string) Relation {
 		fmt.Print("LOG: Error while unmarshalling the data (", err, ")")
 		return relations
 	}
+
+	// Make the countries list
+	var countriesList []string
+	for key, _ := range UnmarshalledData.DatesLocations {
+		_, after, _ := strings.Cut(key, "-")
+		if slices.Contains(countriesList, after) {
+			continue
+		}
+		countriesList = append(countriesList, after)
+	}
+	UnmarshalledData.CountriesList = countriesList
 
 	// Checking if the group is present in the API
 	if UnmarshalledData.Id == 0 {
@@ -165,4 +178,19 @@ func getConcertsCoordinates(datesLocations map[string][]string) map[string][]flo
 		coordinates[key] = UnmarshalledGeoData.Features[0].Geometry.Coordinates
 	}
 	return coordinates
+}
+
+func GetAllCountries(groupList []GroupInfos) []string {
+
+	var countriesList []string
+	for _, group := range groupList {
+		for _, country := range group.Relations.CountriesList {
+			if slices.Contains(countriesList, country) {
+				continue
+			}
+			countriesList = append(countriesList, country)
+		}
+	}
+	slices.Sort(countriesList)
+	return countriesList
 }

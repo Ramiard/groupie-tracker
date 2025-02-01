@@ -1,5 +1,10 @@
 package Api
 
+type Data struct {
+	Groups    []GroupInfos `json:"artists"`
+	Countries []string     `json:"countries"`
+}
+
 type GroupInfos struct {
 	Id           int      `json:"id"`
 	Image        string   `json:"image"`
@@ -16,6 +21,7 @@ type Relation struct {
 	Id             int                  `json:"id"`
 	DatesLocations map[string][]string  `json:"datesLocations"`
 	Coordinates    map[string][]float64 `json:"coordinates"`
+	CountriesList  []string
 }
 
 //var Groups GroupList

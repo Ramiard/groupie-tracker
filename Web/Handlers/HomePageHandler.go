@@ -12,12 +12,13 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 	// Load the template
 	tmpl := template.Must(template.ParseFiles("Web/Templates/HomePage.gohtml"))
 
-	GroupList := Api.GetAllGroups()
-
+	var HomePageData Api.Data
+	HomePageData.Groups = Api.GetAllGroups()
+	HomePageData.Countries = Api.GetAllCountries(HomePageData.Groups)
 	// Check if the user send a POST request containing a filter
 	if r.Method != http.MethodPost {
 		// Run the template without filtering
-		err := tmpl.ExecuteTemplate(w, "HomePage", GroupList)
+		err := tmpl.ExecuteTemplate(w, "HomePage", HomePageData)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Error while loading the template : %v", err), http.StatusInternalServerError)
 		}
@@ -54,7 +55,9 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Apply the 'CreationDate' filter
-		GroupList = Api.FilterGroupsByCreationDate(minCreationDate, maxCreationDate, GroupList)
+		HomePageData.Groups = Api.FilterGroupsByCreationDate(minCreationDate, maxCreationDate, HomePageData.Groups)
+
+		// --------------------------------------------------------------------------------------------------------- //
 
 		// Checking the 'QtyOfMembers' filter
 		fmt.Println("FILTER LOG : minQtyOfMembers = [", r.FormValue("filterBy-NumberOfMembers-min"), "] AND maxQtyOfMembers = [", r.FormValue("filterBy-NumberOfMembers-max"), "]")
@@ -78,12 +81,18 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Apply the filter
-		GroupList = Api.FilterGroupsByQtyOfMembers(minQtyOfMembers, maxQtyOfMembers, GroupList)
+		HomePageData.Groups = Api.FilterGroupsByQtyOfMembers(minQtyOfMembers, maxQtyOfMembers, HomePageData.Groups)
 
 		// Run the template with the filtered data
-		err = tmpl.ExecuteTemplate(w, "HomePage", GroupList)
+		err = tmpl.ExecuteTemplate(w, "HomePage", HomePageData)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Error while loading the template : %v", err), http.StatusInternalServerError)
 		}
+
+		// --------------------------------------------------------------------------------------------------------- //
+
+		// Checking the 'Country' filter
+		fmt.Println("FILTER LOG : Country = [", r.FormValue("filterBy-Country"), "]")
+
 	}
 }
