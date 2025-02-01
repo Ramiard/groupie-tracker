@@ -5,7 +5,6 @@ import (
 	"groupie-tracker/Internal/Api"
 	"html/template"
 	"net/http"
-	"strconv"
 )
 
 func HomePageHandler(w http.ResponseWriter, r *http.Request) {
@@ -34,65 +33,67 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Checking the 'CreationDate' filter
-		fmt.Println("FILTER LOG : minCreationDate = [", r.FormValue("filterBy-CreationDate-min"), "] AND maxCreationDate = [", r.FormValue("filterBy-CreationDate-max"), "]")
 
-		// Check if the user sent an integer
-		minCreationDate, err := strconv.Atoi(r.FormValue("filterBy-CreationDate-min"))
-		if err != nil {
-			http.Error(w, "Error, the value of 'minCreationDate' that you sent is not an integer", http.StatusBadRequest)
-			return
-		}
-		maxCreationDate, err := strconv.Atoi(r.FormValue("filterBy-CreationDate-max"))
-		if err != nil {
-			http.Error(w, "Error, the value of 'maxCreationDate' that you sent is not an integer", http.StatusBadRequest)
-			return
-		}
+		if r.FormValue("filterBy-CreationDate-min") != "" && r.FormValue("filterBy-CreationDate-max") != "" {
 
-		// Check if the user sent a valid range
-		if minCreationDate > maxCreationDate {
-			http.Error(w, "Error, the minimum value is higher than the maximum value", http.StatusBadRequest)
-			return
-		}
+			fmt.Println("FILTER LOG : minCreationDate = [", r.FormValue("filterBy-CreationDate-min"), "] AND maxCreationDate = [", r.FormValue("filterBy-CreationDate-max"), "]")
 
-		// Apply the 'CreationDate' filter
-		HomePageData.Groups = Api.FilterGroupsByCreationDate(minCreationDate, maxCreationDate, HomePageData.Groups)
+			// Check if the user sent an integer
+			minCreationDate, isValid1 := Api.IsAnInteger("minCreationDate", r.FormValue("filterBy-CreationDate-min"), w)
+
+			maxCreationDate, isValid2 := Api.IsAnInteger("maxCreationDate", r.FormValue("filterBy-CreationDate-max"), w)
+
+			// Check if the user sent a valid range and apply the filter if all the entries are valid
+			if isValid1 && isValid2 && Api.IsValidRange(minCreationDate, maxCreationDate, w) == true {
+
+				// Apply the 'CreationDate' filter
+				HomePageData.Groups = Api.FilterGroupsByCreationDate(minCreationDate, maxCreationDate, HomePageData.Groups)
+
+			}
+		}
 
 		// --------------------------------------------------------------------------------------------------------- //
 
 		// Checking the 'QtyOfMembers' filter
-		fmt.Println("FILTER LOG : minQtyOfMembers = [", r.FormValue("filterBy-NumberOfMembers-min"), "] AND maxQtyOfMembers = [", r.FormValue("filterBy-NumberOfMembers-max"), "]")
 
-		// Check if the user sent an integer
-		minQtyOfMembers, err := strconv.Atoi(r.FormValue("filterBy-NumberOfMembers-min"))
-		if err != nil {
-			http.Error(w, "Error, the value of 'minQtyOfMembers' that you sent is not an integer", http.StatusBadRequest)
-			return
-		}
-		maxQtyOfMembers, err := strconv.Atoi(r.FormValue("filterBy-NumberOfMembers-max"))
-		if err != nil {
-			http.Error(w, "Error, the value of 'maxQtyOfMembers' that you sent is not an integer", http.StatusBadRequest)
-			return
-		}
+		if r.FormValue("filterBy-NumberOfMembers-min") != "" && r.FormValue("filterBy-NumberOfMembers-max") != "" {
 
-		// Check if the user sent a valid range
-		if minQtyOfMembers > maxQtyOfMembers {
-			http.Error(w, "Error, the minimum value is higher than the maximum value", http.StatusBadRequest)
-			return
+			fmt.Println("FILTER LOG : minQtyOfMembers = [", r.FormValue("filterBy-NumberOfMembers-min"), "] AND maxQtyOfMembers = [", r.FormValue("filterBy-NumberOfMembers-max"), "]")
+
+			// Check if the user sent an integer
+			minQtyOfMembers, isValid1 := Api.IsAnInteger("minQtyOfMembers", r.FormValue("filterBy-NumberOfMembers-min"), w)
+
+			maxQtyOfMembers, isValid2 := Api.IsAnInteger("maxQtyOfMembers", r.FormValue("filterBy-NumberOfMembers-max"), w)
+
+			// Check if the user sent a valid range and apply the filter if all the entries are valid
+			if isValid1 && isValid2 && Api.IsValidRange(minQtyOfMembers, maxQtyOfMembers, w) == true {
+				// Apply the filter
+				HomePageData.Groups = Api.FilterGroupsByQtyOfMembers(minQtyOfMembers, maxQtyOfMembers, HomePageData.Groups)
+			}
 		}
 
-		// Apply the filter
-		HomePageData.Groups = Api.FilterGroupsByQtyOfMembers(minQtyOfMembers, maxQtyOfMembers, HomePageData.Groups)
+		// --------------------------------------------------------------------------------------------------------- //
+
+		// Checking the 'Country' filter
+
+		if r.FormValue("filterBy-Country") != "" {
+
+			fmt.Println("FILTER LOG : Country = [", r.FormValue("filterBy-Country"), "]")
+
+			// Check if the user sent a string
+			if Api.IsAString("Country", r.FormValue("filterBy-Country"), w) == true {
+				// Apply the filter
+				HomePageData.Groups = Api.FilterGroupsByCountry(r.FormValue("filterBy-Country"), HomePageData.Groups)
+			}
+
+		}
+
+		// --------------------------------------------------------------------------------------------------------- //
 
 		// Run the template with the filtered data
 		err = tmpl.ExecuteTemplate(w, "HomePage", HomePageData)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Error while loading the template : %v", err), http.StatusInternalServerError)
 		}
-
-		// --------------------------------------------------------------------------------------------------------- //
-
-		// Checking the 'Country' filter
-		fmt.Println("FILTER LOG : Country = [", r.FormValue("filterBy-Country"), "]")
-
 	}
 }
