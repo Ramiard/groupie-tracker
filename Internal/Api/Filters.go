@@ -21,3 +21,21 @@ func FilterGroupsByQtyOfMembers(minQtyOfMembers int, maxQtyOfMembers int, groups
 	}
 	return filteredGroups
 }
+
+func FilterGroupsByCountry(countryToFilter string, groupList []GroupInfos) []GroupInfos {
+	var filteredGroups []GroupInfos
+
+	if countryToFilter == "All Countries" || countryToFilter == "Tous" {
+		return groupList
+	}
+
+	for _, group := range groupList {
+		for _, country := range group.Relations.CountriesList {
+			if country == countryToFilter {
+				filteredGroups = append(filteredGroups, group)
+				break
+			}
+		}
+	}
+	return filteredGroups
+}

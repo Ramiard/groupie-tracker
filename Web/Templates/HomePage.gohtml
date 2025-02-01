@@ -98,6 +98,17 @@
                         <div class="selected-value" id="currentValue_numMembers_max"></div>
                     </div>
                 </div>
+                <!-- 'Country' filter -->
+                <div class="dropdown-container">
+                    <label for="dropdown_country">Filtrer Pays de concert :</label>
+                    <select id="dropdown_country" name="filterBy-Country">
+                        <option value="All Countries">All Countries</option>
+                        {{ range .Countries }}
+                            <option value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+
+                </div>
 
             </div>
             <button type="submit">Filter now !</button>
@@ -105,7 +116,7 @@
     </header>
     <main>
         <p>Here you can find all the music groups taken from an API</p>
-        {{range .}}
+        {{range .Groups}}
             <div>
                 <form method="post" action="/group">
                     <button type="submit" name="id" value="{{.Id}}"><img src="{{.Image}}" alt="{{.Name}}"></button>
