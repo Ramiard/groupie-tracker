@@ -35,3 +35,19 @@ func IsAString(variableName string, value string, w http.ResponseWriter) bool {
 	}
 	return true
 }
+
+func IsAIntList(variableName string, qtyList []string, w http.ResponseWriter) ([]int, bool) {
+	qtyOfMembers := []int{}
+	isListValid := false
+	for _, value := range qtyList {
+		number, isValid := IsAnInteger("QtyOfMembers", value, w)
+		if isValid != true {
+			isListValid = false
+			break
+		} else {
+			isListValid = true
+			qtyOfMembers = append(qtyOfMembers, number)
+		}
+	}
+	return qtyOfMembers, isListValid
+}

@@ -55,21 +55,17 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		// --------------------------------------------------------------------------------------------------------- //
 
 		// Checking the 'QtyOfMembers' filter
+		if r.FormValue("filterBy-membersNumber") != "" {
 
-		if r.FormValue("filterBy-numberOfMembers-min") != "" && r.FormValue("filterBy-numberOfMembers-max") != "" {
+			fmt.Println("FILTER LOG : QtyOfMembers = [", r.Form["filterBy-membersNumber"], "]")
+			// Check if the user sent an integer list
+			qtyOfMembers, isValid := Api.IsAIntList("QtyOfMembers", r.Form["filterBy-membersNumber"], w)
 
-			fmt.Println("FILTER LOG : minQtyOfMembers = [", r.FormValue("filterBy-numberOfMembers-min"), "] AND maxQtyOfMembers = [", r.FormValue("filterBy-numberOfMembers-max"), "]")
-
-			// Check if the user sent an integer
-			minQtyOfMembers, isValid1 := Api.IsAnInteger("minQtyOfMembers", r.FormValue("filterBy-numberOfMembers-min"), w)
-
-			maxQtyOfMembers, isValid2 := Api.IsAnInteger("maxQtyOfMembers", r.FormValue("filterBy-numberOfMembers-max"), w)
-
-			// Check if the user sent a valid range and apply the filter if all the entries are valid
-			if isValid1 && isValid2 && Api.IsValidRange(minQtyOfMembers, maxQtyOfMembers, w) == true {
+			if isValid == true {
 				// Apply the filter
-				HomePageData.Groups = Api.FilterGroupsByQtyOfMembers(minQtyOfMembers, maxQtyOfMembers, HomePageData.Groups)
+				HomePageData.Groups = Api.FilterGroupsByQtyOfMembers(qtyOfMembers, HomePageData.Groups)
 			}
+
 		}
 
 		// --------------------------------------------------------------------------------------------------------- //
@@ -103,14 +99,13 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 				// Apply the filter
 				HomePageData.Groups = Api.FilterGroupsByFirstAlbumDate(minFirstAlbumDate, maxFirstAlbumDate, HomePageData.Groups)
 			}
+		}
+		// --------------------------------------------------------------------------------------------------------- //
 
-			// --------------------------------------------------------------------------------------------------------- //
-
-			// Run the template with the filtered data
-			err = tmpl.ExecuteTemplate(w, "HomePage", HomePageData)
-			if err != nil {
-				http.Error(w, fmt.Sprintf("Error while loading the template : %v", err), http.StatusInternalServerError)
-			}
+		// Run the template with the filtered data
+		err = tmpl.ExecuteTemplate(w, "HomePage", HomePageData)
+		if err != nil {
+			http.Error(w, fmt.Sprintf("Error while loading the template : %v", err), http.StatusInternalServerError)
 		}
 	}
 }
