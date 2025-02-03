@@ -39,6 +39,7 @@ func GetAllGroups() []GroupInfos {
 
 	for index, group := range UnmarshalledData {
 		group.Relations = GetGroupRelations(fmt.Sprint(group.Id))
+		group.Relations = setCountriesList(group.Relations)
 		qtyOfMembers := len(group.Members)
 		group.QtyOfMembers = qtyOfMembers
 		UnmarshalledData[index] = group
@@ -82,6 +83,7 @@ func GetGroupInfos(id string) GroupInfos {
 	chosenGroupInfos.QtyOfMembers = len(chosenGroupInfos.Members)
 	chosenGroupInfos.Relations = GetGroupRelations(id)
 	chosenGroupInfos.Relations.Coordinates = getConcertsCoordinates(chosenGroupInfos.Relations.DatesLocations)
+	chosenGroupInfos.Relations = setCountriesList(chosenGroupInfos.Relations)
 	return chosenGroupInfos
 }
 
@@ -104,31 +106,10 @@ func GetGroupRelations(id string) Relation {
 	// Now we need to Unmarshal the data and put it in a Struct to be able to use it
 	var UnmarshalledData Relation
 	err = json.Unmarshal(responseData, &UnmarshalledData)
-	// Let's stylise the location (Capitalizing the first letter of each word and deleting '_')
-	// ("north_carolina-usa" become "North Carolina-Usa")
-	for key, value := range UnmarshalledData.DatesLocations {
-		keyStylized := key
-		keyStylized = strings.ReplaceAll(keyStylized, "_", " ")
-		keyStylized = cases.Title(language.English).String(keyStylized)
-		delete(UnmarshalledData.DatesLocations, key)
-		UnmarshalledData.DatesLocations[keyStylized] = value
-	}
 	if err != nil {
 		fmt.Print("LOG: Error while unmarshalling the data (", err, ")")
 		return relations
 	}
-
-	// Make the countries list
-	var countriesList []string
-	for key, _ := range UnmarshalledData.DatesLocations {
-		_, after, _ := strings.Cut(key, "-")
-		if slices.Contains(countriesList, after) {
-			continue
-		}
-		countriesList = append(countriesList, after)
-	}
-	UnmarshalledData.CountriesList = countriesList
-
 	// Checking if the group is present in the API
 	if UnmarshalledData.Id == 0 {
 		fmt.Println("LOG: Group not found")
@@ -178,6 +159,30 @@ func getConcertsCoordinates(datesLocations map[string][]string) map[string][]flo
 		coordinates[key] = UnmarshalledGeoData.Features[0].Geometry.Coordinates
 	}
 	return coordinates
+}
+
+func setCountriesList(relations Relation) Relation {
+	// Let's stylise the location (Capitalizing the first letter of each word and deleting '_')
+	// ("north_carolina-usa" become "North Carolina-Usa")
+	groupRelation := relations
+	for key, value := range groupRelation.DatesLocations {
+		keyStylized := key
+		keyStylized = strings.ReplaceAll(keyStylized, "_", " ")
+		keyStylized = cases.Title(language.English).String(keyStylized)
+		delete(groupRelation.DatesLocations, key)
+		groupRelation.DatesLocations[keyStylized] = value
+	}
+	// Make the countries list
+	var countriesList []string
+	for key, _ := range groupRelation.DatesLocations {
+		_, after, _ := strings.Cut(key, "-")
+		if slices.Contains(countriesList, after) {
+			continue
+		}
+		countriesList = append(countriesList, after)
+	}
+	groupRelation.CountriesList = countriesList
+	return groupRelation
 }
 
 func GetAllCountries(groupList []GroupInfos) []string {
