@@ -34,14 +34,14 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Checking the 'CreationDate' filter
 
-		if r.FormValue("filterBy-CreationDate-min") != "" && r.FormValue("filterBy-CreationDate-max") != "" {
+		if r.FormValue("filterBy-creationDate-min") != "" && r.FormValue("filterBy-creationDate-max") != "" {
 
-			fmt.Println("FILTER LOG : minCreationDate = [", r.FormValue("filterBy-CreationDate-min"), "] AND maxCreationDate = [", r.FormValue("filterBy-CreationDate-max"), "]")
+			fmt.Println("FILTER LOG : minCreationDate = [", r.FormValue("filterBy-creationDate-min"), "] AND maxCreationDate = [", r.FormValue("filterBy-creationDate-max"), "]")
 
 			// Check if the user sent an integer
-			minCreationDate, isValid1 := Api.IsAnInteger("minCreationDate", r.FormValue("filterBy-CreationDate-min"), w)
+			minCreationDate, isValid1 := Api.IsAnInteger("minCreationDate", r.FormValue("filterBy-creationDate-min"), w)
 
-			maxCreationDate, isValid2 := Api.IsAnInteger("maxCreationDate", r.FormValue("filterBy-CreationDate-max"), w)
+			maxCreationDate, isValid2 := Api.IsAnInteger("maxCreationDate", r.FormValue("filterBy-creationDate-max"), w)
 
 			// Check if the user sent a valid range and apply the filter if all the entries are valid
 			if isValid1 && isValid2 && Api.IsValidRange(minCreationDate, maxCreationDate, w) == true {
@@ -56,14 +56,14 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Checking the 'QtyOfMembers' filter
 
-		if r.FormValue("filterBy-NumberOfMembers-min") != "" && r.FormValue("filterBy-NumberOfMembers-max") != "" {
+		if r.FormValue("filterBy-numberOfMembers-min") != "" && r.FormValue("filterBy-numberOfMembers-max") != "" {
 
-			fmt.Println("FILTER LOG : minQtyOfMembers = [", r.FormValue("filterBy-NumberOfMembers-min"), "] AND maxQtyOfMembers = [", r.FormValue("filterBy-NumberOfMembers-max"), "]")
+			fmt.Println("FILTER LOG : minQtyOfMembers = [", r.FormValue("filterBy-numberOfMembers-min"), "] AND maxQtyOfMembers = [", r.FormValue("filterBy-numberOfMembers-max"), "]")
 
 			// Check if the user sent an integer
-			minQtyOfMembers, isValid1 := Api.IsAnInteger("minQtyOfMembers", r.FormValue("filterBy-NumberOfMembers-min"), w)
+			minQtyOfMembers, isValid1 := Api.IsAnInteger("minQtyOfMembers", r.FormValue("filterBy-numberOfMembers-min"), w)
 
-			maxQtyOfMembers, isValid2 := Api.IsAnInteger("maxQtyOfMembers", r.FormValue("filterBy-NumberOfMembers-max"), w)
+			maxQtyOfMembers, isValid2 := Api.IsAnInteger("maxQtyOfMembers", r.FormValue("filterBy-numberOfMembers-max"), w)
 
 			// Check if the user sent a valid range and apply the filter if all the entries are valid
 			if isValid1 && isValid2 && Api.IsValidRange(minQtyOfMembers, maxQtyOfMembers, w) == true {
@@ -76,14 +76,14 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Checking the 'Country' filter
 
-		if r.FormValue("filterBy-Country") != "" {
+		if r.FormValue("filterBy-country") != "" {
 
-			fmt.Println("FILTER LOG : Country = [", r.FormValue("filterBy-Country"), "]")
+			fmt.Println("FILTER LOG : Country = [", r.FormValue("filterBy-country"), "]")
 
 			// Check if the user sent a string
-			if Api.IsAString("Country", r.FormValue("filterBy-Country"), w) == true {
+			if Api.IsAString("Country", r.FormValue("filterBy-country"), w) == true {
 				// Apply the filter
-				HomePageData.Groups = Api.FilterGroupsByCountry(r.FormValue("filterBy-Country"), HomePageData.Groups)
+				HomePageData.Groups = Api.FilterGroupsByCountry(r.FormValue("filterBy-country"), HomePageData.Groups)
 			}
 
 		}

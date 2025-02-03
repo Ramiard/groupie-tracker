@@ -1,80 +1,359 @@
-* {
-    background-color: antiquewhite;
+/** {*/
+/*    background-color: antiquewhite;*/
+/*}*/
+
+/*!* dualRange containers center and dimensions *!*/
+/*.dualRange-container {*/
+/*    position: relative;*/
+/*    display: flex;*/
+/*    flex-direction: column ;*/
+/*    align-items: center;*/
+/*    max-width: 15vw;*/
+/*    height: 5em;*/
+/*    margin-top: 1em;*/
+/*    margin-bottom: 1em;*/
+/*}*/
+
+/*.dualRange-container .dualRange-values-container {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    gap: 1em;*/
+/*    position: relative;*/
+/*    bottom: 1.5em;*/
+/*    width: 100%;*/
+/*}*/
+
+/*.dualRange-values-container .dualRange-minValue {*/
+/*    left: 0;*/
+/*}*/
+
+/*.dualRange-values-container .dualRange-maxValue {*/
+/*    right: 0;*/
+/*}*/
+
+/*.dualRange-label-container {*/
+/*    position: absolute;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    top: 1.5em;*/
+/*    width : 10vw;*/
+/*    border: 0.1em solid black;*/
+/*    border-radius: 25px;*/
+/*    background: white;*/
+
+/*}*/
+/*.dualRange-label-container .dualRange-label {*/
+/*    font-size: 1rem;*/
+/*    background: white;*/
+/*}*/
+
+/*!* Make the 2 ranges being superposed *!*/
+/*.dualRange-container input[type="range"] {*/
+/*    position: absolute;*/
+/*    width: 100%;*/
+/*    pointer-events: none;*/
+/*}*/
+/*.dualRange-container input[type="range"]::-webkit-slider-thumb {*/
+/*    pointer-events: all;*/
+/*}*/
+/*.dualRange-container input[type="range"]::-moz-range-thumb {*/
+/*    pointer-events: all;*/
+/*}*/
+
+/*!* Customizing the range *!*/
+/*!* Hide default appearance *!*/
+/*.dualRange-container input[type="range"] {*/
+/*    appearance: none;*/
+/*    background: none;*/
+/*}*/
+/*.dualRange-container input[type="range"]::-webkit-slider-thumb {*/
+/*    appearance: none;*/
+/*}*/
+/*.dualRange-container input[type="range"]::-moz-range-thumb {*/
+/*    appearance: none;*/
+/*}*/
+/*.dualRange-container input[type="range"]:focus {*/
+/*    outline: none;*/
+/*}*/
+
+/*!* Change appearance *!*/
+/*!* THUMB *!*/
+/*.dualRange-container input[type="range"]::-webkit-slider-thumb {*/
+/*    width: 1.1em;*/
+/*    height: 1.1em;*/
+/*    border: black 0.1em solid;*/
+/*    border-radius: 50%;*/
+/*    background: #2c7216;*/
+/*    cursor: pointer;*/
+/*}*/
+/*.dualRange-container input[type="range"]::-moz-range-thumb {*/
+/*    width: 1.1em;*/
+/*    height: 1.1em;*/
+/*    border: 0;*/
+/*    border-radius: 50%;*/
+/*    background: crimson;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*!* TRACK 1st slider *!*/
+/*.dualRange-container input[type="range"]:first-child::-webkit-slider-runnable-track {*/
+/*    background: #9d9d9d;*/
+/*}*/
+/*.dualRange-container input[type="range"]::-webkit-slider-runnable-track {*/
+/*    height : 0.5em;*/
+/*}*/
+/*.dualRange-container input[type="range"]::-webkit-slider-thumb {*/
+/*    margin-top: -0.25em ;*/
+/*}*/
+
+/*!* 'min'/'max' values display *!*/
+/*.dualRange-container .dualRange-label-min, .dualRange-container .dualRange-label-max {*/
+/*    position: absolute;*/
+/*    top : 1em;*/
+/*}*/
+/*.dualRange-container .dualRange-label-min {*/
+/*    left: 0;*/
+/*}*/
+/*.dualRange-container .dualRange-label-max {*/
+/*    right: 0;*/
+/*}*/
+
+/*.range-markers {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    margin-top: -1.1em;*/
+/*}*/
+/*.range-markers::before,*/
+/*.range-markers::after,*/
+/*.range-markers-middle {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    height: 0.5em;*/
+/*    width: 0.1em;*/
+/*    background-color: black;*/
+/*}*/
+/*.range-markers::before {*/
+/*    left: 0;*/
+/*}*/
+/*.range-markers::after {*/
+/*    right: 0;*/
+/*}*/
+/*.range-markers-middle {*/
+/*    left: 50%;*/
+/*}*/
+
+
+
+
+
+
+/* Global styles */
+/** {*/
+/*    background-color: antiquewhite;*/
+/*}*/
+
+/*body {*/
+/*    font-size: 1rem;*/
+/*    !*line-height: 1.5;*!*/
+/*    !*display: flex;*!*/
+/*    !*flex-direction: column;*!*/
+/*    !*align-items: center;*!*/
+/*    !*text-align: center;*!*/
+/*    padding: 1rem;*/
+/*}*/
+
+/*header, main, footer {*/
+/*    width: 100%;*/
+/*    max-width: 1200px;*/
+/*    padding: 1rem;*/
+/*}*/
+
+.text-container {
+    display : flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.filters-container {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 3px solid #000000;
+    box-shadow: 0 5px 20px rgb(30, 215, 96);
+    color:#121212;
+    padding : 0.5em;
 }
 
-/* Css concernant l'esthetique pur du slider */
-.range-container {
-    width: 10.5em;
-    margin: auto auto;
-    text-align: center;
+.filters-container form {
+    display : flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width : 100%;
 }
-input[type="range"] {
-    -webkit-appearance: none;
-    width:100%;
-    margin : 0;
+
+/*.filters-container {*/
+/*    position: absolute;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    width : 20vw;*/
+/*    right: 1vw;*/
+/*    background: #ffffff;*/
+/*    border-radius: 10px;*/
+/*    border: 3px solid #000000;*/
+/*    box-shadow: 0 5px 20px rgb(30, 215, 96);*/
+/*    color:#121212;*/
+/*    padding : 1em;*/
+/*}*/
+.filter {
+    width: 25rem;
 }
-input[type=range]::-webkit-slider-runnable-track {
+
+/* dualRange containers */
+.dualRange-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 300px;
+    height: auto;
+    margin-top: 2rem;
+}
+
+.dualRange-values-container {
+    display: flex;
+    position: relative;
+    bottom: 2rem;
+    justify-content: space-between;
     width: 100%;
-    height: 0.5em;
-    background: #6e6e6e;
-    border-radius: 0.2em;
-    border: 0.1em solid #1c7241;
+    margin-bottom: 0.5rem;
 }
-input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    height: 1em;
-    width: 1em;
-    background: #269857;
+
+.dualRange-label-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    padding: 0.3rem;
+    margin-top: 0.3rem;
+    border: 1px solid black;
+    border-radius: 25px;
+    background: white;
+}
+
+.dualRange-label {
+    font-size: 1rem;
+    background: white;
+}
+
+
+/* Customizing the range */
+/* Hide default appearance */
+.dualRange-container input[type="range"] {
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+    appearance: none;
+    background: none;
+}
+.dualRange-container input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+}
+.dualRange-container input[type="range"]::-moz-range-thumb {
+    appearance: none;
+}
+
+.dualRange-container input[type="range"]:focus {
+    outline: none;
+}
+
+/* Make the 2 ranges being superposed */
+
+.dualRange-container input[type="range"]::-webkit-slider-thumb {
+    pointer-events: all;
+}
+.dualRange-container input[type="range"]::-moz-range-thumb {
+    pointer-events: all;
+}
+
+
+
+
+.dualRange-container input[type="range"]::-webkit-slider-thumb{
+    width: 1rem;
+    height: 1rem;
+    border: black 2px solid;
     border-radius: 50%;
-    border: 1px solid #000000;
-    margin-top: -0.30em;
+    background: #1ed760;
+    cursor: pointer;
+    pointer-events: all;
 }
-/* ---------------------------------------------------------- */
 
+.dualRange-container input[type="range"]::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    border: black 2px solid;
+    border-radius: 50%;
+    background: #1ed760;
+    cursor: pointer;
+    pointer-events: all;
+}
 
-/* Css concernant les marqueurs (tirets et noms) */
+/* Track styles */
+.dualRange-container input[type="range"]:first-child::-webkit-slider-runnable-track {
+    background: #9d9d9d;
+}
+.dualRange-container input[type="range"]::-webkit-slider-runnable-track {
+    height: 0.5rem;
+}
+.dualRange-container input[type="range"]::-webkit-slider-thumb {
+    margin-top: -0.25rem ;
+}
 
+/* Min/Max Labels */
+.dualRange-label-min, .dualRange-label-max {
+    position: absolute;
+    top: 1rem;
+    font-size: 0.9rem;
+}
+
+.dualRange-label-min {
+    left: 0;
+}
+
+.dualRange-label-max {
+    right: 0;
+}
+
+/* Range markers */
 .range-markers {
-    position : relative;
     display: flex;
     justify-content: space-between;
-    margin-top: -0.7em;
+    margin-top: -1rem;
 }
+
 .range-markers::before,
 .range-markers::after,
 .range-markers-middle {
     content: "";
     position: absolute;
-    height: 0.5em;
-    width: 0.1em;
+    height: 0.5rem;
+    top:0.1rem;
+    width: 2px;
     background-color: black;
 }
+
 .range-markers::before {
     left: 0;
 }
+
 .range-markers::after {
     right: 0;
 }
+
 .range-markers-middle {
     left: 50%;
 }
 
-.range-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1em;
-    font-size: 0.7em;
-}
-/* ---------------------------------------------------------- */
 
-.selected-value-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5em;
-}
-
-.selected-value {
-    font-size: 1em;
-    text-align: center;
-}

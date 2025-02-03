@@ -5,114 +5,71 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../Static/HomePage.css">
+        <script src="../Static/DualRange.js"></script>
         <title>Groupie Tracker</title>
     </head>
     <body>
     <header>
         <h1>Welcome to the Groupie Tracker</h1>
-        <form action="" method="post">
-            <script>
-
-                let updateRangeValue = (slider, sliderName, currentValueName, minMax) => {
-                    const rangeSlider = document.getElementById(sliderName + minMax);
-                    const currentValue = document.getElementById(currentValueName + minMax);
-
-                    currentValue.textContent = rangeSlider.value;
-
-                    currentValue.textContent = slider.value;
-                }
-            </script>
-
-            <!-- 'Creation Date' filter -->
-            <!-- Range for 'min' value -->
-            <div class="range-container">
-                <label for="creation_date"> Filtrer par date de création :</label> <input type="range"
-                                                                                          id="creation_date_min"
-                                                                                          name="filterBy-CreationDate-min"
-                                                                                          min="1960" max="2024" step="1" value="1960"
-                                                                                          oninput="updateRangeValue(this,'creation_date_', 'currentValue_creatDate_','min')">
-                <div class="range-markers">
-                    <div class="range-markers-middle"></div>
-                </div>
-                <div class="range-labels">
-                    <span>1960</span>
-                    <span>1992</span>
-                    <span>2024</span>
-                </div>
-                <div class="selected-value-container">
-                    <div class="selected-value"> Min select:</div>
-                    <span class="selected-value" id="currentValue_creatDate_min"></span>
-                </div>
-            </div>
-            <!-- Range for 'max' value -->
-            <div class="range-container">
-                <input type="range" id="creation_date_max" name="filterBy-CreationDate-max" min="1960" max="2024"
-                       step="1" value="2024" oninput="updateRangeValue(this,'creation_date_', 'currentValue_creatDate_','max')">
-                <div class="range-markers">
-                    <div class="range-markers-middle"></div>
-                </div>
-                <div class="range-labels">
-                    <span>1960</span>
-                    <span>1992</span>
-                    <span>2024</span>
-                </div>
-                <div class="selected-value-container">
-                    <div class="selected-value"> Max select:</div>
-                    <span class="selected-value" id="currentValue_creatDate_max"></span>
-                </div>
-            </div>
-            <!-- 'Number of Members' filter -->
-            <!-- Range for 'min' value -->
-            <div class="range-container">
-                <label for="number_of_members">Filtrer par nombre de membres</label> <input type="range"
-                                                                                            id="number_of_members_min"
-                                                                                            name="filterBy-NumberOfMembers-min"
-                                                                                            min="1" max="11" step="1" value="1"
-                                                                                            oninput="updateRangeValue(this,'number_of_members_', 'currentValue_numMembers_','min')">
-                <div class="range-markers">
-                    <div class="range-markers-middle"></div>
-                </div>
-                <div class="range-labels">
-                    <span>1</span>
-                    <span>6</span>
-                    <span>11</span>
-                </div>
-                <div class="selected-value-container">
-                    <div class="selected-value"> Min select:</div>
-                    <div class="selected-value" id="currentValue_numMembers_min"></div>
-                </div>
-                <!-- Range for 'max' value -->
-                <div class="range-container">
-                    <input type="range" id="number_of_members_max" name="filterBy-NumberOfMembers-max" min="1" max="11"
-                            step="1" value="11" oninput="updateRangeValue(this,'number_of_members_','currentValue_numMembers_','max')">
+        <div class="filters-container">
+            <form action="" method="post">
+                <!-- 'Creation Date' filter -->
+                <div class="filter">
+                <div class="dualRange-container">
+                    <input type="range" id="creation_date_min" name="filterBy-creationDate-min" min="1960" max="2024"
+                           value="1960">
+                    <input type="range" id="creation_date_max" name="filterBy-creationDate-max" min="1960" max="2024"
+                           value="2024">
+                    <div class="dualRange-values-container">
+                        <span class="dualRange-minValue">From : 1960</span>
+                        <span class="dualRange-maxValue">To : 2024</span>
+                    </div>
                     <div class="range-markers">
                         <div class="range-markers-middle"></div>
                     </div>
-                    <div class="range-labels">
-                        <span>1</span>
-                        <span>6</span>
-                        <span>11</span>
-                    </div>
-                    <div class="selected-value-container">
-                        <div class="selected-value"> Max select:</div>
-                        <div class="selected-value" id="currentValue_numMembers_max"></div>
+                    <span class="dualRange-label-min">1960</span>
+                    <span class="dualRange-label-max">2024</span>
+                    <div class="dualRange-label-container">
+                        <span class="dualRange-label">Creation Date Filter</span>
                     </div>
                 </div>
-                <!-- 'Country' filter -->
+                </div>
+                <!-- ------------------------------------------------------------- -->
+                <!-- 'Number of Members' filter -->
+                <div class="filter">
+                <div class="dualRange-container">
+                    <input type="range" name="filterBy-numberOfMembers-min" min="1" max="11" value="1">
+                    <input type="range" name="filterBy-numberOfMembers-max" min="1" max="11" value="11">
+                    <div class="dualRange-values-container">
+                        <span class="dualRange-minValue">From : 1</span>
+                        <span class="dualRange-maxValue">To : 11</span>
+                    </div>
+                    <div class="range-markers">
+                        <div class="range-markers-middle"></div>
+                    </div>
+                    <span class="dualRange-label-min">1</span>
+                    <span class="dualRange-label-max">11</span>
+                    <div class="dualRange-label-container">
+                        <span class="dualRange-label">Number Of Members Filter</span>
+                    </div>
+                </div>
+                </div>
+{{/*                <!-- 'Country' filter -->*/}}
+                <div class="filter">
                 <div class="dropdown-container">
                     <label for="dropdown_country">Filtrer Pays de concert :</label>
-                    <select id="dropdown_country" name="filterBy-Country">
+                    <select id="dropdown_country" name="filterBy-country">
                         <option value="All Countries">All Countries</option>
                         {{ range .Countries }}
                             <option value="{{.}}">{{.}}</option>
                         {{end}}
                     </select>
-
+                </div>
                 </div>
 
-            </div>
-            <button type="submit">Filter now !</button>
-        </form>
+                <button type="submit">Filter</button>
+            </form>
+        </div>
     </header>
     <main>
         <p>Here you can find all the music groups taken from an API</p>
