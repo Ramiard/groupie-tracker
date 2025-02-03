@@ -90,10 +90,27 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 
 		// --------------------------------------------------------------------------------------------------------- //
 
-		// Run the template with the filtered data
-		err = tmpl.ExecuteTemplate(w, "HomePage", HomePageData)
-		if err != nil {
-			http.Error(w, fmt.Sprintf("Error while loading the template : %v", err), http.StatusInternalServerError)
+		// Checking the 'First Album Date' filter
+		if r.FormValue("filterBy-firstAlbumDate-min") != "" && r.FormValue("filterBy-firstAlbumDate-max") != "" {
+
+			fmt.Println("FILTER LOG : minFirstAlbumDate = [", r.FormValue("filterBy-firstAlbumDate-min"), "] AND maxFirstAlbumDate = [", r.FormValue("filterBy-firstAlbumDate-max"), "]")
+
+			// Check if the user sent an integer
+			minFirstAlbumDate, valid1 := Api.IsAnInteger("minFirstAlbumDate", r.FormValue("filterBy-firstAlbumDate-min"), w)
+			maxFirstAlbumDate, valid2 := Api.IsAnInteger("maxFirstAlbumDate", r.FormValue("filterBy-firstAlbumDate-max"), w)
+
+			if valid1 && valid2 && Api.IsValidRange(minFirstAlbumDate, maxFirstAlbumDate, w) == true {
+				// Apply the filter
+				HomePageData.Groups = Api.FilterGroupsByFirstAlbumDate(minFirstAlbumDate, maxFirstAlbumDate, HomePageData.Groups)
+			}
+
+			// --------------------------------------------------------------------------------------------------------- //
+
+			// Run the template with the filtered data
+			err = tmpl.ExecuteTemplate(w, "HomePage", HomePageData)
+			if err != nil {
+				http.Error(w, fmt.Sprintf("Error while loading the template : %v", err), http.StatusInternalServerError)
+			}
 		}
 	}
 }

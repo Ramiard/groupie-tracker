@@ -1,5 +1,9 @@
 package Api
 
+import (
+	"strconv"
+)
+
 func FilterGroupsByCreationDate(minCreationDate int, maxCreationDate int, groups []GroupInfos) []GroupInfos {
 	var filteredGroups []GroupInfos
 
@@ -35,6 +39,19 @@ func FilterGroupsByCountry(countryToFilter string, groupList []GroupInfos) []Gro
 				filteredGroups = append(filteredGroups, group)
 				break
 			}
+		}
+	}
+	return filteredGroups
+}
+
+func FilterGroupsByFirstAlbumDate(minFirstAlbumDate int, maxFirstAlbumDate int, groups []GroupInfos) []GroupInfos {
+	var filteredGroups []GroupInfos
+
+	for _, group := range groups {
+		// Extract the year from the 'FirstAlbum' string and pass it to an integer
+		groupFirstAlbum, _ := strconv.Atoi(group.FirstAlbum[len(group.FirstAlbum)-4:])
+		if groupFirstAlbum >= minFirstAlbumDate && groupFirstAlbum <= maxFirstAlbumDate {
+			filteredGroups = append(filteredGroups, group)
 		}
 	}
 	return filteredGroups
