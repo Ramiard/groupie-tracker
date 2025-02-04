@@ -19,6 +19,7 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 	var HomePageData Api.Data
 	HomePageData.Groups = Api.GetAllGroups()
 	HomePageData.Countries = Api.GetAllCountries(HomePageData.Groups)
+	Api.GetFiltersMinAndMax(HomePageData.Groups, &HomePageData)
 
 	// Check if the user send a POST request containing a filter
 	if r.Method != http.MethodPost {

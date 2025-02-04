@@ -1,8 +1,13 @@
 package Api
 
 type Data struct {
-	Groups    []GroupInfos `json:"artists"`
-	Countries []string     `json:"countries"`
+	Groups          []GroupInfos `json:"artists"`
+	Countries       []string     `json:"countries"`
+	MinCreationDate int
+	MaxCreationDate int
+	QtyOfMemberList []int
+	MinFirstAlbum   int
+	MaxFirstAlbum   int
 }
 
 type GroupInfos struct {

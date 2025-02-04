@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"slices"
+	"strconv"
 	"strings"
 )
 
@@ -198,4 +199,58 @@ func GetAllCountries(groupList []GroupInfos) []string {
 	}
 	slices.Sort(countriesList)
 	return countriesList
+}
+
+func GetFiltersMinAndMax(groupList []GroupInfos, data *Data) {
+	// Getting the 'min' creation date
+	minCreationDate := 9999999
+	for _, group := range groupList {
+		if group.CreationDate < minCreationDate {
+			minCreationDate = group.CreationDate
+		}
+	}
+	data.MinCreationDate = minCreationDate
+
+	// Getting the 'max' creation date
+	maxCreationDate := 0
+	for _, group := range groupList {
+		if group.CreationDate > maxCreationDate {
+			maxCreationDate = group.CreationDate
+		}
+	}
+	data.MaxCreationDate = maxCreationDate
+
+	// Getting the 'max' qty of members
+	maxQtyOfMembers := 0
+	for _, group := range groupList {
+		if group.QtyOfMembers > maxQtyOfMembers {
+			maxQtyOfMembers = group.QtyOfMembers
+		}
+	}
+	// Making a list containing all the possible qty of members to use it in our go template
+	qtyOfMemberList := []int{}
+	for i := 0; i < maxQtyOfMembers; i++ {
+		qtyOfMemberList = append(qtyOfMemberList, i+1)
+	}
+	data.QtyOfMemberList = qtyOfMemberList
+
+	// Getting the 'min' first album date
+	minFirstAlbum := 9999999
+	for _, group := range groupList {
+		firstAlbum, _ := strconv.Atoi(group.FirstAlbum[len(group.FirstAlbum)-4:])
+		if firstAlbum < minFirstAlbum {
+			minFirstAlbum = firstAlbum
+		}
+	}
+	data.MinFirstAlbum = minFirstAlbum
+
+	// Getting the 'max' first album date
+	maxFirstAlbum := 0
+	for _, group := range groupList {
+		firstAlbum, _ := strconv.Atoi(group.FirstAlbum[len(group.FirstAlbum)-4:])
+		if firstAlbum > maxFirstAlbum {
+			maxFirstAlbum = firstAlbum
+		}
+	}
+	data.MaxFirstAlbum = maxFirstAlbum
 }
