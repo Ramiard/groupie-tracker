@@ -39,21 +39,66 @@
                 <!-- ------------------------------------------------------------- -->
                 <!-- 'Number of Members' filter -->
                 <div class="filter">
-                    <div class="checkboxFilter-container">
-                        <label><input type="checkbox" name="filterBy-membersNumber" value="1">1</label>
-                        <label><input type="checkbox" name="filterBy-membersNumber" value="2">2</label>
-                        <label><input type="checkbox" name="filterBy-membersNumber" value="3">3</label>
-                        <label><input type="checkbox" name="filterBy-membersNumber" value="4">4</label>
-                        <label><input type="checkbox" name="filterBy-membersNumber" value="5">5</label>
-                        <label><input type="checkbox" name="filterBy-membersNumber" value="6">6</label>
-                        <label><input type="checkbox" name="filterBy-membersNumber" value="7">7</label>
-                        <label><input type="checkbox" name="filterBy-membersNumber" value="8">8</label>
-                        <label><input type="checkbox" name="filterBy-membersNumber" value="9">9</label>
-                        <label><input type="checkbox" name="filterBy-membersNumber" value="10">10</label>
-                        <label><input type="checkbox" name="filterBy-membersNumber" value="11">11</label>
-                        <div class="checkBox-label-container">
+                    <div class="checkbox-container">
+                        <label>
+                            <input type="checkbox" name="filterBy-membersNumber" value="1">
+                            <div class="checkmark"></div>
+                            <span>1</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="filterBy-membersNumber" value="2">
+                            <div class="checkmark"></div>
+                            <span>2</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="filterBy-membersNumber" value="3">
+                            <div class="checkmark"></div>
+                            <span>3</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="filterBy-membersNumber" value="4">
+                            <div class="checkmark"></div>
+                            <span>4</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="filterBy-membersNumber" value="5">
+                            <div class="checkmark"></div>
+                            <span>5</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="filterBy-membersNumber" value="6">
+                            <div class="checkmark"></div>
+                            <span>6</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="filterBy-membersNumber" value="7">
+                            <div class="checkmark"></div>
+                            <span>7</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="filterBy-membersNumber" value="8">
+                            <div class="checkmark"></div>
+                            <span>8</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="filterBy-membersNumber" value="9">
+                            <div class="checkmark"></div>
+                            <span>9</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="filterBy-membersNumber" value="10">
+                            <div class="checkmark"></div>
+                            <span>10</span>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="filterBy-membersNumber" value="11">
+                            <div class="checkmark"></div>
+                            <span>11</span>
+                        </label>
+
+                    </div>
+                    <div class="checkBox-label-container">
                         <span class="checkBox-label">Number of Members Filter</span>
-                        </div>
                     </div>
                 </div>
                 <!-- ------------------------------------------------------------- -->
@@ -81,19 +126,22 @@
                 <!-- 'Country' filter -->
                 <div class="filter">
                     <div class="dropdown-container">
-                        <label for="dropdown_country">Filtrer Pays de concert :</label>
                         <select id="dropdown_country" name="filterBy-country">
                             <option value="All Countries">All Countries</option>
                             {{ range .Countries }}
                                 <option value="{{.}}">{{.}}</option>
                             {{end}}
                         </select>
+                        <div class="dropdown-label-container">
+                            <span class="dropdown-label">Country Filter</span>
+                        </div>
                     </div>
                 </div>
 
                 <button type="submit">Filter</button>
             </form>
         </div>
+
     </header>
     <main>
         <p>Here you can find all the music groups taken from an API</p>
