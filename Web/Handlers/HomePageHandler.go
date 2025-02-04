@@ -11,9 +11,15 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 	// Load the template
 	tmpl := template.Must(template.ParseFiles("Web/Templates/HomePage.gohtml"))
 
+	// Prevent the webbrowser from loading the favicon, and sending 2 request to the website
+	if r.URL.Path == "/favicon.ico" {
+		return
+	}
+
 	var HomePageData Api.Data
 	HomePageData.Groups = Api.GetAllGroups()
 	HomePageData.Countries = Api.GetAllCountries(HomePageData.Groups)
+
 	// Check if the user send a POST request containing a filter
 	if r.Method != http.MethodPost {
 		// Run the template without filtering
