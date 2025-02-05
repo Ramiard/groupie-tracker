@@ -1,13 +1,24 @@
 package Api
 
+type Data struct {
+	Groups          []GroupInfos `json:"artists"`
+	Countries       []string     `json:"countries"`
+	MinCreationDate int
+	MaxCreationDate int
+	QtyOfMemberList []int
+	MinFirstAlbum   int
+	MaxFirstAlbum   int
+}
+
 type GroupInfos struct {
 	Id           int      `json:"id"`
 	Image        string   `json:"image"`
 	Name         string   `json:"name"`
 	Members      []string `json:"members"`
-	CreationDate int      `json:"creationDate"`
-	FirstAlbum   string   `json:"firstAlbum"`
-	RelationsUrl string   `json:"relations"`
+	QtyOfMembers int
+	CreationDate int    `json:"creationDate"`
+	FirstAlbum   string `json:"firstAlbum"`
+	RelationsUrl string `json:"relations"`
 	Relations    Relation
 }
 
@@ -15,6 +26,7 @@ type Relation struct {
 	Id             int                  `json:"id"`
 	DatesLocations map[string][]string  `json:"datesLocations"`
 	Coordinates    map[string][]float64 `json:"coordinates"`
+	CountriesList  []string
 }
 
 //var Groups GroupList
