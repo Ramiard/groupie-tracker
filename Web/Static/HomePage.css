@@ -295,3 +295,25 @@
     font-size: 1rem;
 }
 /* DROPDOWN RELATIVE CSS END */
+
+/* FOOTER RELATIVE CSS */
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1ed760;
+    color: white;
+    height: 5rem;
+    width: 100%;
+    bottom: 0;
+}
+footer #copyright , footer #credits {
+    margin : auto 1rem;
+}
+
+footer input[type="text"] {
+    border: black 2px solid;
+    border-radius: 15px;
+}
+/* FOOTER RELATIVE CSS END */
