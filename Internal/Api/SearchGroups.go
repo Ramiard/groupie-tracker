@@ -57,7 +57,7 @@ func SearchGroups(searchQuery string, groups []GroupInfos) []GroupInfos {
 			}
 			for _, dates := range value {
 				if strings.Contains(strings.ToLower(dates), strings.ToLower(searchQuery)) {
-					fmt.Println("LOG: Search query found in the", group.Name, "dates")
+					fmt.Println("SEARCH LOG: Search query found in the", group.Name, "dates")
 					searchResults = append(searchResults, group)
 					isInRelation = true
 					break
