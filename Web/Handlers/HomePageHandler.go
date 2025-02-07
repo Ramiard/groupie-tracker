@@ -39,75 +39,30 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// Checking the 'CreationDate' filter
-
+		// Setting up the filters
+		var filters Api.Filters
 		if r.FormValue("filterBy-creationDate-min") != "" && r.FormValue("filterBy-creationDate-max") != "" {
-
-			fmt.Println("FILTER LOG : minCreationDate = [", r.FormValue("filterBy-creationDate-min"), "] AND maxCreationDate = [", r.FormValue("filterBy-creationDate-max"), "]")
-
-			// Check if the user sent an integer
-			minCreationDate, isValid1 := Api.IsAnInteger("minCreationDate", r.FormValue("filterBy-creationDate-min"), w)
-
-			maxCreationDate, isValid2 := Api.IsAnInteger("maxCreationDate", r.FormValue("filterBy-creationDate-max"), w)
-
-			// Check if the user sent a valid range and apply the filter if all the entries are valid
-			if isValid1 && isValid2 && Api.IsValidRange(minCreationDate, maxCreationDate, w) == true {
-
-				// Apply the 'CreationDate' filter
-				HomePageData.Groups = Api.FilterGroupsByCreationDate(minCreationDate, maxCreationDate, HomePageData.Groups)
-
-			}
+			filters.IsCreationDateFilter = true
+			filters.MinCreationDate = r.FormValue("filterBy-creationDate-min")
+			filters.MaxCreationDate = r.FormValue("filterBy-creationDate-max")
 		}
-
-		// --------------------------------------------------------------------------------------------------------- //
-
-		// Checking the 'QtyOfMembers' filter
 		if r.FormValue("filterBy-membersNumber") != "" {
-
-			fmt.Println("FILTER LOG : QtyOfMembers = [", r.Form["filterBy-membersNumber"], "]")
-			// Check if the user sent an integer list
-			qtyOfMembers, isValid := Api.IsAIntList("QtyOfMembers", r.Form["filterBy-membersNumber"], w)
-
-			if isValid == true {
-				// Apply the filter
-				HomePageData.Groups = Api.FilterGroupsByQtyOfMembers(qtyOfMembers, HomePageData.Groups)
-			}
-
+			filters.IsQtyOfMembersFilter = true
+			filters.QtyOfMembersList = r.Form["filterBy-membersNumber"]
 		}
-
-		// --------------------------------------------------------------------------------------------------------- //
-
-		// Checking the 'Country' filter
-
-		if r.FormValue("filterBy-country") != "" {
-
-			fmt.Println("FILTER LOG : Country = [", r.FormValue("filterBy-country"), "]")
-
-			// Check if the user sent a string
-			if Api.IsAString("Country", r.FormValue("filterBy-country"), w) == true {
-				// Apply the filter
-				HomePageData.Groups = Api.FilterGroupsByCountry(r.FormValue("filterBy-country"), HomePageData.Groups)
-			}
-
-		}
-
-		// --------------------------------------------------------------------------------------------------------- //
-
-		// Checking the 'First Album Date' filter
 		if r.FormValue("filterBy-firstAlbumDate-min") != "" && r.FormValue("filterBy-firstAlbumDate-max") != "" {
-
-			fmt.Println("FILTER LOG : minFirstAlbumDate = [", r.FormValue("filterBy-firstAlbumDate-min"), "] AND maxFirstAlbumDate = [", r.FormValue("filterBy-firstAlbumDate-max"), "]")
-
-			// Check if the user sent an integer
-			minFirstAlbumDate, valid1 := Api.IsAnInteger("minFirstAlbumDate", r.FormValue("filterBy-firstAlbumDate-min"), w)
-			maxFirstAlbumDate, valid2 := Api.IsAnInteger("maxFirstAlbumDate", r.FormValue("filterBy-firstAlbumDate-max"), w)
-
-			if valid1 && valid2 && Api.IsValidRange(minFirstAlbumDate, maxFirstAlbumDate, w) == true {
-				// Apply the filter
-				HomePageData.Groups = Api.FilterGroupsByFirstAlbumDate(minFirstAlbumDate, maxFirstAlbumDate, HomePageData.Groups)
-			}
+			filters.IsFirstAlbumDateFilter = true
+			filters.MinFirstAlbumDate = r.FormValue("filterBy-firstAlbumDate-min")
+			filters.MaxFirstAlbumDate = r.FormValue("filterBy-firstAlbumDate-max")
 		}
-		// --------------------------------------------------------------------------------------------------------- //
+		if r.FormValue("filterBy-country") != "" {
+			filters.IsCountryFilter = true
+			filters.CountryToFilter = r.FormValue("filterBy-country")
+		}
+		// Apply the filters
+		HomePageData.Groups = Api.ApplyFilters(filters, HomePageData.Groups, w)
+
+		//// --------------------------------------------------------------------------------------------------------- //
 
 		// Run the template with the filtered data
 		err = tmpl.ExecuteTemplate(w, "HomePage", HomePageData)

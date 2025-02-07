@@ -29,5 +29,22 @@ type Relation struct {
 	CountriesList  []string
 }
 
-//var Groups GroupList
-//var Group GroupInfos
+type Filters struct {
+	// 'CreationDate' filter
+	IsCreationDateFilter bool
+	MinCreationDate      string
+	MaxCreationDate      string
+
+	// 'QtyOfMembers' filter
+	IsQtyOfMembersFilter bool
+	QtyOfMembersList     []string
+
+	// 'FirstAlbumDate' filter
+	IsFirstAlbumDateFilter bool
+	MinFirstAlbumDate      string
+	MaxFirstAlbumDate      string
+
+	// 'Country' filter
+	IsCountryFilter bool
+	CountryToFilter string
+}
