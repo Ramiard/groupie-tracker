@@ -209,6 +209,9 @@ func GetFiltersMinAndMax(groupList []GroupInfos, data *Data) {
 			minCreationDate = group.CreationDate
 		}
 	}
+	if minCreationDate == 9999999 {
+		minCreationDate = 0
+	}
 	data.MinCreationDate = minCreationDate
 
 	// Getting the 'max' creation date
@@ -232,6 +235,9 @@ func GetFiltersMinAndMax(groupList []GroupInfos, data *Data) {
 	for i := 0; i < maxQtyOfMembers; i++ {
 		qtyOfMemberList = append(qtyOfMemberList, i+1)
 	}
+	if len(qtyOfMemberList) == 0 {
+		qtyOfMemberList = append(qtyOfMemberList, 0)
+	}
 	data.QtyOfMemberList = qtyOfMemberList
 
 	// Getting the 'min' first album date
@@ -241,6 +247,9 @@ func GetFiltersMinAndMax(groupList []GroupInfos, data *Data) {
 		if firstAlbum < minFirstAlbum {
 			minFirstAlbum = firstAlbum
 		}
+	}
+	if minFirstAlbum == 9999999 {
+		minFirstAlbum = 0
 	}
 	data.MinFirstAlbum = minFirstAlbum
 
