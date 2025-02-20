@@ -4,46 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Static/GroupPage.css">
     <title>{{.Name}}'s details</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" type="image/jpeg" href="{{.Image}}">
 </head>
-<body>
-<header>
-    <a href="/"><span class="material-icons">arrow_back</span></a>
-    <h1>Welcome to the Group Detail WebPage</h1>
-</header>
-<main>
-    <p>Here you can have all the informations for the chosen group.</p>
-    <div class="group1stCard">
-        <img class="groupImage" src="{{.Image}}" alt="{{.Name}}">
+<body class="background">
+    <header>
+        <main class="BackButton"><a href="/"><span class="material-icons">arrow_back</span></a></main>
+            <h1 class="no-space">Welcome to the Group Detail WebPage</h1>
+    </header>
+    <p>Here you can have all the information for the chosen group.</p>
+    <main class="container">
+        <div class="frame">
+            <img class="groupImage" src="{{.Image}}" alt="{{.Name}}">
+            <h2 class="box">{{.Name}}</h2>
+            <div class="buttons">
+                <button class="btn" id="prev-btn"> ⏮︎</button>
+                <button class="btn" id="play-pause-btn">⏯︎︎</button>
+                <button class="btn" id="next-btn">⏭︎</button>
+            </div>
+        </div>
+        <div class="card">
+        <u><h2 class="groupName">{{.Name}}</h2></u>
         <h4 class="groupCreationDate">Creation date : {{.CreationDate}}</h4>
-        <h2 class="groupName">{{.Name}}</h2>
-    </div>
-    <div class="group2ndCard">
         <h3 class="group1stAlbum">First Album date : {{.FirstAlbum}}</h3>
-        <h3 class="groupMembers">Members :</h3>
-        <ul>
-            {{range .Members}}
-            <li>{{.}}</li>
-            {{end}}
-        </ul>
-        <h3 class="groupConcerts">Concerts :</h3>
-        <ul>
-        {{range $location,$date := .Relations.DatesLocations}}
-            <li>{{$location}} :
-            <ul>
-                {{range $date}}
-                <li>{{.}}</li>
-                {{end}}
-            </ul>
-            </li>
-        {{end}}
-        </ul>
-    </div>
-</main>
-<footer>
-    <p>&copy; 2023 Groupie Tracker</p>
+            <details>
+                <summary>Members:</summary>
+                <ul class="sous">
+                    {{range .Members}}
+                        <li>{{.}}</li>
+                    {{end}}
+                </ul>
+            </details>
+
+            <details>
+                <summary>Concerts:</summary>
+                <ul class="sous">
+                    {{range $location, $date := .Relations.DatesLocations}}
+                        <li>
+                            <details>
+                                <summary>{{$location}}</summary>
+                                <ul>
+                                    {{range $date}}
+                                        <li>{{.}}</li>
+                                    {{end}}
+                                </ul>
+                            </details>
+                        </li>
+                    {{end}}
+                </ul>
+            </details>
+
+        </div>
+    </main>
+
+    <footer class="TextEndPage">
+    <h3>© 2024 Groupie</h3>
+    <p> Amiard Renaud Castaing Gaetan </p>
 </footer>
 </body>
 </html>
