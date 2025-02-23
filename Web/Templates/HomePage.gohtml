@@ -5,7 +5,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../Static/HomePage.css">
-        <script src="../Static/DualRange.js"></script>
         <title>Groupie Tracker</title>
     </head>
     <body>
@@ -16,10 +15,12 @@
                 <!-- 'Creation Date' filter -->
                 <div class="filter">
                     <div class="dualRange-container">
-                        <input type="range" id="creation_date_min" name="filterBy-creationDate-min" min="{{.MinCreationDate}}"
+                        <input type="range" id="creation_date_min" name="filterBy-creationDate-min"
+                               min="{{.MinCreationDate}}"
                                max="{{.MaxCreationDate}}"
                                value="{{.MinCreationDate}}">
-                        <input type="range" id="creation_date_max" name="filterBy-creationDate-max" min="{{.MinCreationDate}}"
+                        <input type="range" id="creation_date_max" name="filterBy-creationDate-max"
+                               min="{{.MinCreationDate}}"
                                max="{{.MaxCreationDate}}"
                                value="{{.MaxCreationDate}}">
                         <div class="dualRange-values-container">
@@ -41,11 +42,11 @@
                 <div class="filter">
                     <div class="checkbox-container">
                         {{range .QtyOfMemberList}}
-                        <label>
-                            <input type="checkbox" name="filterBy-membersNumber" value="{{.}}">
-                            <div class="checkmark"></div>
-                            <span>{{.}}</span>
-                        </label>
+                            <label>
+                                <input type="checkbox" name="filterBy-membersNumber" value="{{.}}">
+                                <div class="checkmark"></div>
+                                <span>{{.}}</span>
+                            </label>
                         {{end}}
                     </div>
                     <div class="checkBox-label-container">
@@ -56,8 +57,10 @@
                 <!-- 'First Album Date' filter -->
                 <div class="filter">
                     <div class="dualRange-container">
-                        <input type="range" name="filterBy-firstAlbumDate-min" min="{{.MinFirstAlbum}}" max="{{.MaxFirstAlbum}}" value="{{.MinFirstAlbum}}">
-                        <input type="range" name="filterBy-firstAlbumDate-max" min="{{.MinFirstAlbum}}" max="{{.MaxFirstAlbum}}" value="{{.MaxFirstAlbum}}">
+                        <input type="range" name="filterBy-firstAlbumDate-min" min="{{.MinFirstAlbum}}"
+                               max="{{.MaxFirstAlbum}}" value="{{.MinFirstAlbum}}">
+                        <input type="range" name="filterBy-firstAlbumDate-max" min="{{.MinFirstAlbum}}"
+                               max="{{.MaxFirstAlbum}}" value="{{.MaxFirstAlbum}}">
                         <div class="dualRange-values-container">
                             <span class="dualRange-minValue">From : {{.MinFirstAlbum}}</span>
                             <span class="dualRange-maxValue">To : {{.MaxFirstAlbum}}</span>
@@ -108,11 +111,14 @@
     <footer>
         <p id="credits">Made by Amiard Renaud</p>
         <form action="/search" method="post">
-            <input type="text" name="search" placeholder="Search for a group" autocomplete="off">
+            <input id="searchBar" type="text" name="search" placeholder="Search for a group" autocomplete="off">
             <button type="submit">Search</button>
         </form>
         <p id="copyright">&copy; 2024 Groupie Tracker</p>
     </footer>
     </body>
+    <script src="../Static/DualRange.js"></script>
+    <script id="json-data" type="application/json">{{.}}</script>
+    <script src="../Static/SearchBar.js"></script>
     </html>
 {{end}}

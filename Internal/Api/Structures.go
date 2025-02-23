@@ -1,7 +1,7 @@
 package Api
 
 type Data struct {
-	Groups          []GroupInfos `json:"artists"`
+	Groups          []GroupInfos `json:"groups"`
 	SearchResults   []GroupInfos `json:"searchResults"`
 	Countries       []string     `json:"countries"`
 	MinCreationDate int
@@ -16,18 +16,18 @@ type GroupInfos struct {
 	Image        string   `json:"image"`
 	Name         string   `json:"name"`
 	Members      []string `json:"members"`
-	QtyOfMembers int
-	CreationDate int    `json:"creationDate"`
-	FirstAlbum   string `json:"firstAlbum"`
-	RelationsUrl string `json:"relations"`
-	Relations    Relation
+	QtyOfMembers int      `json:"qtyOfMembers"`
+	CreationDate int      `json:"creationDate"`
+	FirstAlbum   string   `json:"firstAlbum"`
+	RelationsUrl string   `json:"relations"`
+	Relations    Relation `json:"allRelations"`
 }
 
 type Relation struct {
 	Id             int                  `json:"id"`
 	DatesLocations map[string][]string  `json:"datesLocations"`
 	Coordinates    map[string][]float64 `json:"coordinates"`
-	CountriesList  []string
+	CountriesList  []string             `json:"countriesList"`
 }
 
 type Filters struct {
