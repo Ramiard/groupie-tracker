@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../Static/HomePage.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="../Static/DualRange.js"></script>
         <title>Search Results</title>
     </head>
     <body>
@@ -114,11 +113,15 @@
     <footer>
         <p id="credits">Made by Amiard Renaud</p>
         <form action="/search" method="post">
-            <input type="text" name="search" placeholder="Search for a group" autocomplete="off">
+            <input list="suggestionList" id="searchBar" type="text" name="search" placeholder="Search for a group" autocomplete="off">
+            <datalist id="suggestionList"></datalist>
             <button type="submit">Search</button>
         </form>
         <p id="copyright">&copy; 2024 Groupie Tracker</p>
     </footer>
     </body>
+    <script src="../Static/DualRange.js"></script>
+    <script id="json-data" type="application/json">{{.}}</script>
+    <script src="../Static/SearchBar.js"></script>
     </html>
 {{end}}

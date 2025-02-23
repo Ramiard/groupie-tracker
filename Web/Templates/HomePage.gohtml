@@ -111,7 +111,8 @@
     <footer>
         <p id="credits">Made by Amiard Renaud</p>
         <form action="/search" method="post">
-            <input id="searchBar" type="text" name="search" placeholder="Search for a group" autocomplete="off">
+            <input list="suggestionList" id="searchBar" type="text" name="search" placeholder="Search for a group" autocomplete="off">
+            <datalist id="suggestionList"></datalist>
             <button type="submit">Search</button>
         </form>
         <p id="copyright">&copy; 2024 Groupie Tracker</p>
