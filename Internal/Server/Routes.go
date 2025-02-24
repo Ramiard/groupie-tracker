@@ -6,10 +6,10 @@ import (
 )
 
 func Routes() {
-	// Route par défaut
+	// Default route
 	http.HandleFunc("/", Handlers.HomePageHandler)
 
-	// Reste des routes
+	//
 	http.HandleFunc("/group", Handlers.GroupPageHandler)
-	//http.HandleFunc("/search", Handlers.SearchHandler)
+	http.HandleFunc("/search", Handlers.SearchHandler)
 }

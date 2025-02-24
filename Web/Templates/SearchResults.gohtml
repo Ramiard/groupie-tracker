@@ -1,17 +1,19 @@
-{{define "HomePage"}}
+{{ define "SearchResults" }}
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../Static/HomePage.css">
-        <title>Groupie Tracker</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <title>Search Results</title>
     </head>
-    <body style="background: gray">
+    <body>
     <header>
-        <h1 class="no-padding">Welcome to the Groupie Tracker</h1>
+        <a href="/"><span class="material-icons">arrow_back</span></a>
+        <h1>Welcome to the Groupie Tracker</h1>
         <div class="filters-container">
-            <form action="/" method="post">
+            <form action="/search" method="post">
                 <!-- 'Creation Date' filter -->
                 <div class="filter">
                     <div class="dualRange-container">
@@ -97,18 +99,18 @@
         </div>
 
     </header>
-    <main class="container">
+    <main>
         <p>Here you can find all the music groups taken from an API</p>
-        {{range .Groups}}
-            <div class="image-frame frame">
+        {{range .SearchResults}}
+            <div>
                 <form method="post" action="/group">
                     <button type="submit" name="id" value="{{.Id}}"><img src="{{.Image}}" alt="{{.Name}}"></button>
-                    <h2 class="box">{{.Name}}</h2>
+                    <h2>{{.Name}}</h2>
                 </form>
             </div>
         {{end}}
     </main>
-    <footer class="TextEndPage">
+    <footer>
         <p id="credits">Made by Amiard Renaud</p>
         <form action="/search" method="post">
             <input list="suggestionList" id="searchBar" type="text" name="search" placeholder="Search for a group" autocomplete="off">
