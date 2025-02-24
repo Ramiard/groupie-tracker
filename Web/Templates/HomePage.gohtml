@@ -110,16 +110,17 @@
     </main>
     <footer>
         <p id="credits">Made by Amiard Renaud</p>
-        <form action="/search" method="post">
-            <input list="suggestionList" id="searchBar" type="text" name="search" placeholder="Search for a group" autocomplete="off">
-            <datalist id="suggestionList"></datalist>
+        <form id="search_form" action="/search" method="post">
+            <input id="search_bar" type="text" name="search" placeholder="Search for a group" autocomplete="off">
             <button type="submit">Search</button>
         </form>
         <p id="copyright">&copy; 2024 Groupie Tracker</p>
     </footer>
     </body>
     <script src="../Static/DualRange.js"></script>
-    <script id="json-data" type="application/json">{{.}}</script>
     <script src="../Static/SearchBar.js"></script>
+    <script id="json_data" type="application/json">{{.}}</script>
     </html>
 {{end}}
+
+
