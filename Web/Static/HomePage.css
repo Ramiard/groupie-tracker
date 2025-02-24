@@ -295,3 +295,113 @@
     font-size: 1rem;
 }
 /* DROPDOWN RELATIVE CSS END */
+
+/* FOOTER RELATIVE CSS */
+
+footer {
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1ed760;
+    color: white;
+    height: 5rem;
+    width: 100%;
+    bottom: 0;
+}
+footer #copyright , footer #credits {
+    margin : auto 1rem;
+}
+
+footer input[type="text"] {
+    border: black 2px solid;
+    border-radius: 15px;
+}
+/* FOOTER RELATIVE CSS END */
+
+
+/* SEARCH SUGGESTIONS RELATIVE CSS */
+
+/* Make the suggestion container being upside the search bar*/
+/* and make it stock all the suggestions with the possibility to scroll*/
+#suggestions_container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    bottom: 3.5rem;
+    border: solid 3px #159342;
+    border-radius: 10px;
+    max-height: 15rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #9d9d9d;
+}
+/*---------------------------*/
+
+/* Scrollbar Styling */
+@-moz-document url-prefix() {
+    #suggestions_container {
+        scrollbar-color: #159342 #9d9d9d;
+        scrollbar-width: thin;
+    }
+}
+
+#suggestions_container::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 10px;
+}
+#suggestions_container::-webkit-scrollbar-thumb{
+    background: #159342;
+    border: solid 1px #000000;
+    border-radius: 10px;
+}
+/*---------------------------*/
+
+/* Suggestion styling */
+.suggestion {
+    list-style: none;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: black 2px solid;
+    padding: 0.5rem;
+
+}
+
+.suggestion:last-child {
+    border-bottom: none;
+}
+
+.suggestion:hover {
+    background-color: #656565;
+}
+/*---------------------------*/
+
+/* Suggestion image styling */
+.suggestion .suggestion-image {
+    width: 2rem;
+    height: 2rem;
+    border: solid 2px #159342FF;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+/*---------------------------*/
+
+
+/* Suggestion text styling */
+.suggestion .suggestion-text {
+    font-size: 0.8rem;
+    text-decoration: none;
+    position: relative;
+}
+.suggestion .suggestion-text:visited {
+    color: #ffffff;
+}
+/*---------------------------*/
+
+
+/* SEARCH SUGGESTIONS CSS END */

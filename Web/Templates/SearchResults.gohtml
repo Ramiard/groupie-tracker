@@ -1,17 +1,19 @@
-{{define "HomePage"}}
+{{ define "SearchResults" }}
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../Static/HomePage.css">
-        <title>Groupie Tracker</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <title>Search Results</title>
     </head>
     <body>
     <header>
+        <a href="/"><span class="material-icons">arrow_back</span></a>
         <h1>Welcome to the Groupie Tracker</h1>
         <div class="filters-container">
-            <form action="/" method="post">
+            <form action="/search" method="post">
                 <!-- 'Creation Date' filter -->
                 <div class="filter">
                     <div class="dualRange-container">
@@ -99,7 +101,7 @@
     </header>
     <main>
         <p>Here you can find all the music groups taken from an API</p>
-        {{range .Groups}}
+        {{range .SearchResults}}
             <div>
                 <form method="post" action="/group">
                     <button type="submit" name="id" value="{{.Id}}"><img src="{{.Image}}" alt="{{.Name}}"></button>
@@ -118,7 +120,7 @@
     </footer>
     </body>
     <script src="../Static/DualRange.js"></script>
-    <script src="../Static/SearchBar.js"></script>
     <script id="json_data" type="application/json">{{.}}</script>
+    <script src="../Static/SearchBar.js"></script>
     </html>
 {{end}}
