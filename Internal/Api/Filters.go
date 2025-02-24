@@ -6,9 +6,12 @@ import (
 	"strconv"
 )
 
+// ApplyFilters will apply the all the filters sent by the user to the groupList
+// and if a filter isn't 'complete' (the user didn't send all the entries needed)
+// the filter will not be applied
 func ApplyFilters(filters Filters, groupList []GroupInfos, w http.ResponseWriter) []GroupInfos {
 	var filteredGroups []GroupInfos
-	// Apply the 'CreationDate' filter
+	// Check for the 'CreationDate' filter
 	if filters.IsCreationDateFilter == true {
 		fmt.Println("FILTER LOG : minCreationDate = [", filters.MinCreationDate, "] AND maxCreationDate = [", filters.MaxCreationDate, "]")
 		// Check if the user sent an integer
@@ -23,6 +26,7 @@ func ApplyFilters(filters Filters, groupList []GroupInfos, w http.ResponseWriter
 			filteredGroups = filterGroupsByCreationDate(minCreationDate, maxCreationDate, groupList)
 		}
 	}
+	// Check for the 'QtyOfMembers' filter
 	if filters.IsQtyOfMembersFilter == true {
 		fmt.Println("FILTER LOG : QtyOfMembers = [", filters.QtyOfMembersList, "]")
 		// Check if the user sent an integer list
@@ -34,7 +38,7 @@ func ApplyFilters(filters Filters, groupList []GroupInfos, w http.ResponseWriter
 		}
 	}
 
-	// Apply the 'FirstAlbumDate' filter
+	// Check the 'FirstAlbumDate' filter
 	if filters.IsFirstAlbumDateFilter == true {
 		fmt.Println("FILTER LOG : minFirstAlbumDate = [", filters.MinFirstAlbumDate, "] AND maxFirstAlbumDate = [", filters.MaxFirstAlbumDate, "]")
 		// Check if the user sent an integer
@@ -47,7 +51,7 @@ func ApplyFilters(filters Filters, groupList []GroupInfos, w http.ResponseWriter
 		}
 	}
 
-	// Apply the 'Country' filter
+	// Check the 'Country' filter
 	if filters.IsCountryFilter == true {
 		fmt.Println("FILTER LOG : Country = [", filters.CountryToFilter, "]")
 		// Check if the user sent a string
@@ -85,6 +89,8 @@ func filterGroupsByQtyOfMembers(qtyList []int, groups []GroupInfos) []GroupInfos
 func filterGroupsByCountry(countryToFilter string, groupList []GroupInfos) []GroupInfos {
 	var filteredGroups []GroupInfos
 
+	// Check if there is the default value of the 'Country' filter
+	// i added 'tous' in case we want to upgrade the wep app to support french
 	if countryToFilter == "All Countries" || countryToFilter == "Tous" {
 		return groupList
 	}
@@ -105,6 +111,7 @@ func filterGroupsByFirstAlbumDate(minFirstAlbumDate int, maxFirstAlbumDate int, 
 
 	for _, group := range groups {
 		// Extract the year from the 'FirstAlbum' string and pass it to an integer
+		// the 'firstAlbumDate' is in the format 'DD-MM-YYYY' so we need to extract the last 4 characters to get the year
 		groupFirstAlbum, _ := strconv.Atoi(group.FirstAlbum[len(group.FirstAlbum)-4:])
 		if groupFirstAlbum >= minFirstAlbumDate && groupFirstAlbum <= maxFirstAlbumDate {
 			filteredGroups = append(filteredGroups, group)
