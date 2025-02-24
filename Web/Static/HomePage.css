@@ -1,0 +1,64 @@
+body {
+    padding-left: 4vh; /* Espace entre la bordure et le contenu */
+}
+.no-padding{
+    padding-left: 0; /* Force l'annulation du padding */
+}
+
+header {
+    background-color: black;
+    color: green;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre le contenu verticalement */
+    height: 20vh; /* Prend toute la hauteur de la fenêtre */
+    text-align: center;
+    width: 100%; /* Prend toute la largeur de la page */
+    position: relative; /* Assurez-vous que tout est correctement positionné */
+    border-radius: 25px;
+}
+
+.container {
+    display: flex; /* Utilise Flexbox */
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne */
+    justify-content: center; /* Centre les cases horizontalement */
+    margin-right: 30px; /* Espace entre les éléments */
+    text-align: center; /* Centrer le texte sous l'image */
+}
+
+.image-frame {
+    margin: 10px;
+    border-radius: 25px;
+}
+
+.frame{
+    border: 10px solid black; /* Cadre rouge pour le premier élément */
+}
+
+.box{
+    background-color: black;
+    color: white;
+    width: 252px;    /* Largeur fixe */
+    height: 60px;   /* Hauteur fixe */
+    margin: auto;
+}
+
+.TextEndPage {
+    background-color: black;
+    color: green;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap; /* Empêche le saut de ligne */
+    position: fixed; /* Fixe l'élément à la fenêtre */
+    bottom: 0; /* Place l'élément en bas de la fenêtre */
+    left: 0; /* Aligne l'élément à gauche */
+    right: 0; /* Aligne l'élément à droite */
+    z-index: 1000; /* Assure que l'élément est au-dessus des autres éléments */
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+
