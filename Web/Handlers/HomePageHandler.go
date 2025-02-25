@@ -18,7 +18,8 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 
 	var homePageData Api.Data
 	// Get the groups and countries
-	homePageData.Groups = Api.GetAllGroups()
+	homePageData.AllGroups = Api.GetAllGroups()
+	homePageData.Groups = homePageData.AllGroups
 	homePageData.Countries = Api.GetAllCountries(homePageData.Groups)
 	// Get the filters 'min' and 'max' values
 	Api.GetFiltersMinAndMax(homePageData.Groups, &homePageData)
@@ -57,11 +58,14 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 			filters.MinFirstAlbumDate = r.FormValue("filterBy-firstAlbumDate-min")
 			filters.MaxFirstAlbumDate = r.FormValue("filterBy-firstAlbumDate-max")
 		}
+
 		if r.FormValue("filterBy-country") != "" {
 			filters.IsCountryFilter = true
 			filters.CountryToFilter = r.FormValue("filterBy-country")
 		}
+
 		// Apply the filters
+
 		homePageData.Groups = Api.ApplyFilters(filters, homePageData.Groups, w)
 
 		//// --------------------------------------------------------------------------------------------------------- //

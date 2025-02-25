@@ -26,7 +26,8 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 	var searchResultsData Api.Data
 	// Get all the groups before making a search
-	searchResultsData.Groups = Api.GetAllGroups()
+	searchResultsData.AllGroups = Api.GetAllGroups()
+	searchResultsData.Groups = searchResultsData.AllGroups
 
 	var searchQuery string
 	// If the user send a POST request with a search we make the search and stock the results in a cookie
@@ -35,10 +36,10 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("SEARCH PAGE LOG: Search query : '", searchQuery, "'")
 
 		// Let's make the search results list
-		searchResultsData.SearchResults = Api.SearchGroups(searchQuery, searchResultsData.Groups)
+		searchResultsData.Groups = Api.SearchGroups(searchQuery, searchResultsData.Groups)
 		// Update the filters 'min' and 'max' values according to the search results and the countries
-		searchResultsData.Countries = Api.GetAllCountries(searchResultsData.SearchResults)
-		Api.GetFiltersMinAndMax(searchResultsData.SearchResults, &searchResultsData)
+		searchResultsData.Countries = Api.GetAllCountries(searchResultsData.Groups)
+		Api.GetFiltersMinAndMax(searchResultsData.Groups, &searchResultsData)
 
 		// Setting up a cookie to store the search query
 		// Encode it in base64
@@ -76,10 +77,10 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Read the cookie and apply the search
 		var previousSearchQuery = string(decodedSearchCookie)
-		searchResultsData.SearchResults = Api.SearchGroups(previousSearchQuery, searchResultsData.Groups)
+		searchResultsData.Groups = Api.SearchGroups(previousSearchQuery, searchResultsData.Groups)
 		// Setting up the filters 'min' and 'max' values according to the search results and the countries
-		searchResultsData.Countries = Api.GetAllCountries(searchResultsData.SearchResults)
-		Api.GetFiltersMinAndMax(searchResultsData.SearchResults, &searchResultsData)
+		searchResultsData.Countries = Api.GetAllCountries(searchResultsData.Groups)
+		Api.GetFiltersMinAndMax(searchResultsData.Groups, &searchResultsData)
 
 		// Check if there is any filter applied
 		// Get the form value
@@ -110,7 +111,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 			filters.CountryToFilter = r.FormValue("filterBy-country")
 		}
 		// Apply the filters
-		searchResultsData.SearchResults = Api.ApplyFilters(filters, searchResultsData.SearchResults, w)
+		searchResultsData.Groups = Api.ApplyFilters(filters, searchResultsData.AllGroups, w)
 
 	}
 

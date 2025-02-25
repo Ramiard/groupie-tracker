@@ -2,7 +2,7 @@ package Api
 
 type Data struct {
 	Groups          []GroupInfos `json:"groups"`
-	SearchResults   []GroupInfos `json:"searchResults"`
+	AllGroups       []GroupInfos `json:"allGroups"`
 	Countries       []string     `json:"countries"`
 	MinCreationDate int
 	MaxCreationDate int

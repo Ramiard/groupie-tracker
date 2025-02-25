@@ -10,7 +10,9 @@ func IsValidRange(min int, max int, w http.ResponseWriter) bool {
 	// Checking if the min isn't higher than the max
 	if min > max {
 		fmt.Println("ENTRIES CHECK LOG: Error, the minimum value is higher than the maximum value")
-		http.Error(w, "Error, the minimum value is higher than the maximum value", http.StatusBadRequest)
+		errorAlert := "<script>alert('" + "FILTER ERROR: The minimum value of the range is higher than the maximum value')</script>"
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(errorAlert))
 		return false
 	}
 	return true
@@ -21,9 +23,11 @@ func IsAnInteger(variableName string, value string, w http.ResponseWriter) (int,
 	// if Atoi returns an error, it means that the value isn't an integer
 	intValue, err := strconv.Atoi(value)
 	if err != nil {
+		errorAlert := "<script>alert('" + "FILTER ERROR: The value of \\'" + variableName + "\\' is not an integer')</script>"
 		errorMsg := "Error, the value of '" + variableName + "' that you sent is not an integer"
 		fmt.Println("ENTRIES CHECK LOG:", errorMsg)
-		http.Error(w, errorMsg, http.StatusBadRequest)
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(errorAlert))
 		return 0, false
 	}
 	return intValue, true
@@ -36,9 +40,11 @@ func IsAString(variableName string, value string, w http.ResponseWriter) bool {
 		if (char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z') || (char == ' ') || (char == '-') {
 			continue
 		} else {
+			errorAlert := "<script>alert('" + "FILTER ERROR: The value of \\'" + variableName + "\\' that you sent contains an invalid character')</script>"
 			errorMsg := "Error, the value of '" + variableName + "' that you sent contains an invalid character"
 			fmt.Println("ENTRIES CHECK LOG:", errorMsg)
-			http.Error(w, errorMsg, http.StatusBadRequest)
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte(errorAlert))
 			return false
 		}
 	}
