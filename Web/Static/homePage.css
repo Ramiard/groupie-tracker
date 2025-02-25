@@ -64,6 +64,7 @@ body::-webkit-scrollbar{
 }
 
 .group-card form {
+    border: 2px #121212FF solid;
     border-radius: 10px;
     padding-top: 1rem;
     padding-left: 1rem;
@@ -72,6 +73,7 @@ body::-webkit-scrollbar{
     justify-items: center;
     background-color: #121212;
     color: beige;
+    margin: 1rem;
 }
 
 .group-card button {
@@ -424,11 +426,14 @@ footer {
 }
 footer #copyright , footer #credits {
     margin : auto 1rem;
+    text-decoration: none;
+    color: #1DB954;
     justify-content: center;
 }
 
 footer img {
     position: relative;
+    margin-right: 0.5rem;
     top:0.2rem;
     height: 1rem;
     width: 1rem;
@@ -453,16 +458,16 @@ footer input[type="text"] {
     position: absolute;
     display: flex;
     flex-direction: column;
-    width: auto;
-    bottom: 3.5rem;
-    border: solid 3px #159342;
+    width: 20rem;
+    bottom: 4rem;
+    border: solid 3px #1DB954;
     border-radius: 10px;
     max-height: 15rem;
     overflow-y: scroll;
     overflow-x: hidden;
     margin: 0;
     padding: 0;
-    background-color: #9d9d9d;
+    background-color: #363636;
 }
 /*---------------------------*/
 
@@ -502,7 +507,7 @@ footer input[type="text"] {
 }
 
 .suggestion:hover {
-    background-color: #656565;
+    background-color: #121212;
 }
 /*---------------------------*/
 
@@ -510,7 +515,7 @@ footer input[type="text"] {
 .suggestion .suggestion-image {
     width: 2rem;
     height: 2rem;
-    border: solid 2px #159342FF;
+    border: solid 2px #159342;
     border-radius: 50%;
     margin-right: 0.5rem;
 }
@@ -519,12 +524,9 @@ footer input[type="text"] {
 
 /* Suggestion text styling */
 .suggestion .suggestion-text {
+    color : beige;
     font-size: 0.8rem;
-    text-decoration: none;
     position: relative;
-}
-.suggestion .suggestion-text:visited {
-    color: #ffffff;
 }
 /*---------------------------*/
 
