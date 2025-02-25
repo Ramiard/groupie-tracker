@@ -26,7 +26,7 @@ func GroupPageHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Print("LOG: Given ID : '", r.FormValue("id"), "' \n")
+	fmt.Print("GROUP-PAGE LOG: Given ID : '", r.FormValue("id"), "' \n")
 
 	// Get the group infos
 	groupInfos := Api.GetGroupInfos(r.FormValue("id"))
