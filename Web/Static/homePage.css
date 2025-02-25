@@ -372,6 +372,15 @@ body::-webkit-scrollbar{
     background-color: black;
 }
 
+@-moz-document url-prefix() {
+    .range-markers::before,
+    .range-markers::after,
+    .range-markers-middle {
+        top: 0.1rem;
+    }
+
+}
+
 .range-markers::before {
     left: 0;
 }
