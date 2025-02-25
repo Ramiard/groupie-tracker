@@ -2,7 +2,6 @@ package Handlers
 
 import (
 	"encoding/base64"
-	"encoding/json"
 	"fmt"
 	"groupie-tracker/Internal/Api"
 	"html/template"
@@ -41,12 +40,9 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		Api.GetFiltersMinAndMax(SearchResultsData.SearchResults, &SearchResultsData)
 
 		// Setting up a cookie to store the search query
-		searchQueryJson, err := json.Marshal(searchQuery)
-		if err != nil {
-			http.Error(w, "Error while marshalling the search query", http.StatusInternalServerError)
-			return
-		}
-		encodedQuery := base64.StdEncoding.EncodeToString(searchQueryJson)
+		// Encode it in base64
+		encodedQuery := base64.StdEncoding.EncodeToString([]byte(searchQuery))
+		// Set the cookie
 		http.SetCookie(w, &http.Cookie{
 			Name:   "searchQuery",
 			Value:  encodedQuery,
@@ -66,6 +62,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/", http.StatusSeeOther)
 			return
 		}
+
 		fmt.Println("SEARCH PAGE LOG: Search cookie found")
 
 		// Decode the cookie
@@ -75,13 +72,8 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		// Unmarshal the cookie
-		var previousSearchQuery string
-		err = json.Unmarshal(decodedSearchCookie, &previousSearchQuery)
-		if err != nil {
-			http.Error(w, "Error while unmarshalling the search results cookie", http.StatusInternalServerError)
-			return
-		}
+		// Read the cookie and apply the search
+		var previousSearchQuery = string(decodedSearchCookie)
 		SearchResultsData.SearchResults = Api.SearchGroups(previousSearchQuery, SearchResultsData.Groups)
 		// Setting up the filters 'min' and 'max' values according to the search results and the countries
 		SearchResultsData.Countries = Api.GetAllCountries(SearchResultsData.SearchResults)

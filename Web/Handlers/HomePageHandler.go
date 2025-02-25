@@ -1,7 +1,6 @@
 package Handlers
 
 import (
-	"encoding/json"
 	"fmt"
 	"groupie-tracker/Internal/Api"
 	"html/template"
@@ -66,14 +65,14 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		//// --------------------------------------------------------------------------------------------------------- //
 
 		// JSON the data so it can be sent to the javascript
-		jsonData, err := json.Marshal(HomePageData)
-		if err != nil {
-			http.Error(w, "Error while marshalling the data", http.StatusInternalServerError)
-			return
-		}
+		//jsonData, err := json.Marshal(HomePageData)
+		//if err != nil {
+		//	http.Error(w, "Error while marshalling the data", http.StatusInternalServerError)
+		//	return
+		//}
 
 		// Run the template with the filtered data
-		err = tmpl.ExecuteTemplate(w, "HomePage", string(jsonData))
+		err = tmpl.ExecuteTemplate(w, "HomePage", HomePageData)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Error while loading the template : %v", err), http.StatusInternalServerError)
 		}
