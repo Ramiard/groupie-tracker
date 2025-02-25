@@ -1,3 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+.k2d-regular {
+    font-family: "K2D", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* HEADER RELATIVE CSS */
+html, body {
+    margin: 0;
+    /*font-family: "K2D", sans-serif;*/
+    /*font-weight: 500;*/
+    /*font-style: normal;*/
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    z-index: 100;
+    width: 100%;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: #121212;
+}
+
+header .header-title {
+    display: flex;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #1DB954;
+}
+
+
+/* HEADER RELATIVE CSS END */
+
+/* BODY RELATIVE CSS */
+
+body {
+    background-color: #757575;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+/* GROUPS CARD CONTAINER RELATIVE CSS */
+
+.groups-cards-container {
+    position: relative;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, 20rem);
+    grid-column-gap: 2rem;
+    /*grid-row-gap: 5rem;*/
+    margin-top: 6rem;
+}
+
+.group-card {
+    margin: 1rem;
+}
+
+.group-card form {
+    border-radius: 10px;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: fit-content;
+    justify-items: center;
+    background-color: #121212;
+    color: beige;
+}
+
+.group-card button {
+    cursor: pointer;
+    border-radius: 10px;
+    opacity: 1;
+    all: unset;
+}
+.group-card button img {
+    border-radius: 10px;
+}
+
+.group-card-name {
+    margin : 0;
+    text-align: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    /*white-space: nowrap;*/
+}
+
+.group-card form:hover {
+    border : 2px solid #1DB954;
+    color: #1DB954;
+}
+
+/* GROUPS CARD CONTAINER CSS END */
+
+/* BODY RELATIVE CSS END */
+
+
+
+
+/* FILTERS RELATIVE CSS */
+
 /* Filters container */
 .filters-container {
     background: #ffffff;
@@ -238,6 +346,9 @@
 }
 /*---------------------------*/
 
+/* FILTERS RELATIVE CSS END */
+
+
 
 /* Range markers */
 .range-markers {
@@ -303,20 +414,34 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #1ed760;
-    color: white;
+    background: #121212;
+    color: #1DB954;
     height: 5rem;
+    border-top-left-radius:  25px;
+    border-top-right-radius: 25px;
     width: 100%;
     bottom: 0;
 }
 footer #copyright , footer #credits {
     margin : auto 1rem;
+    justify-content: center;
+}
+
+footer img {
+    position: relative;
+    top:0.2rem;
+    height: 1rem;
+    width: 1rem;
 }
 
 footer input[type="text"] {
+    height: 2rem;
+    width: 20rem;
     border: black 2px solid;
     border-radius: 15px;
 }
+
+
 /* FOOTER RELATIVE CSS END */
 
 
