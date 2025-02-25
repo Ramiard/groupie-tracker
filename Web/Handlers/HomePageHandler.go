@@ -16,15 +16,17 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var HomePageData Api.Data
-	HomePageData.Groups = Api.GetAllGroups()
-	HomePageData.Countries = Api.GetAllCountries(HomePageData.Groups)
-	Api.GetFiltersMinAndMax(HomePageData.Groups, &HomePageData)
+	var homePageData Api.Data
+	// Get the groups and countries
+	homePageData.Groups = Api.GetAllGroups()
+	homePageData.Countries = Api.GetAllCountries(homePageData.Groups)
+	// Get the filters 'min' and 'max' values
+	Api.GetFiltersMinAndMax(homePageData.Groups, &homePageData)
 
 	// Check if the user send a POST request containing a filter
 	if r.Method != http.MethodPost {
 		// Run the template without filtering
-		err := tmpl.ExecuteTemplate(w, "HomePage", HomePageData)
+		err := tmpl.ExecuteTemplate(w, "HomePage", homePageData)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Error while loading the template : %v", err), http.StatusInternalServerError)
 		}
@@ -60,19 +62,12 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 			filters.CountryToFilter = r.FormValue("filterBy-country")
 		}
 		// Apply the filters
-		HomePageData.Groups = Api.ApplyFilters(filters, HomePageData.Groups, w)
+		homePageData.Groups = Api.ApplyFilters(filters, homePageData.Groups, w)
 
 		//// --------------------------------------------------------------------------------------------------------- //
 
-		// JSON the data so it can be sent to the javascript
-		//jsonData, err := json.Marshal(HomePageData)
-		//if err != nil {
-		//	http.Error(w, "Error while marshalling the data", http.StatusInternalServerError)
-		//	return
-		//}
-
 		// Run the template with the filtered data
-		err = tmpl.ExecuteTemplate(w, "HomePage", HomePageData)
+		err = tmpl.ExecuteTemplate(w, "HomePage", homePageData)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Error while loading the template : %v", err), http.StatusInternalServerError)
 		}

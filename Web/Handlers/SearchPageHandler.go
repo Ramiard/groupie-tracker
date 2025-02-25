@@ -24,8 +24,9 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var SearchResultsData Api.Data
-	SearchResultsData.Groups = Api.GetAllGroups()
+	var searchResultsData Api.Data
+	// Get all the groups before making a search
+	searchResultsData.Groups = Api.GetAllGroups()
 
 	var searchQuery string
 	// If the user send a POST request with a search we make the search and stock the results in a cookie
@@ -34,20 +35,21 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("SEARCH PAGE LOG: Search query : '", searchQuery, "'")
 
 		// Let's make the search results list
-		SearchResultsData.SearchResults = Api.SearchGroups(searchQuery, SearchResultsData.Groups)
+		searchResultsData.SearchResults = Api.SearchGroups(searchQuery, searchResultsData.Groups)
 		// Update the filters 'min' and 'max' values according to the search results and the countries
-		SearchResultsData.Countries = Api.GetAllCountries(SearchResultsData.SearchResults)
-		Api.GetFiltersMinAndMax(SearchResultsData.SearchResults, &SearchResultsData)
+		searchResultsData.Countries = Api.GetAllCountries(searchResultsData.SearchResults)
+		Api.GetFiltersMinAndMax(searchResultsData.SearchResults, &searchResultsData)
 
 		// Setting up a cookie to store the search query
 		// Encode it in base64
 		encodedQuery := base64.StdEncoding.EncodeToString([]byte(searchQuery))
 		// Set the cookie
 		http.SetCookie(w, &http.Cookie{
-			Name:   "searchQuery",
-			Value:  encodedQuery,
-			Path:   "/search",
-			MaxAge: 60, // Expire after 1 minute
+			Name:  "searchQuery",
+			Value: encodedQuery,
+			Path:  "/search",
+			// Make it expire after 1 minute
+			MaxAge: 60,
 		})
 		fmt.Println("SEARCH PAGE LOG: Search query cookie set")
 	}
@@ -74,10 +76,10 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Read the cookie and apply the search
 		var previousSearchQuery = string(decodedSearchCookie)
-		SearchResultsData.SearchResults = Api.SearchGroups(previousSearchQuery, SearchResultsData.Groups)
+		searchResultsData.SearchResults = Api.SearchGroups(previousSearchQuery, searchResultsData.Groups)
 		// Setting up the filters 'min' and 'max' values according to the search results and the countries
-		SearchResultsData.Countries = Api.GetAllCountries(SearchResultsData.SearchResults)
-		Api.GetFiltersMinAndMax(SearchResultsData.SearchResults, &SearchResultsData)
+		searchResultsData.Countries = Api.GetAllCountries(searchResultsData.SearchResults)
+		Api.GetFiltersMinAndMax(searchResultsData.SearchResults, &searchResultsData)
 
 		// Check if there is any filter applied
 		// Get the form value
@@ -108,12 +110,12 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 			filters.CountryToFilter = r.FormValue("filterBy-country")
 		}
 		// Apply the filters
-		SearchResultsData.SearchResults = Api.ApplyFilters(filters, SearchResultsData.SearchResults, w)
+		searchResultsData.SearchResults = Api.ApplyFilters(filters, searchResultsData.SearchResults, w)
 
 	}
 
 	// Run the template
-	err := tmpl.ExecuteTemplate(w, "SearchResults", SearchResultsData)
+	err := tmpl.ExecuteTemplate(w, "SearchResults", searchResultsData)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error while loading the template : %v", err), http.StatusInternalServerError)
 	}
