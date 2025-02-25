@@ -10,12 +10,16 @@ header {
     color: green;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centre le contenu verticalement */
-    height: 20vh; /* Prend toute la hauteur de la fenêtre */
+    justify-content: center;
+    height: 20vh;
     text-align: center;
-    width: 100%; /* Prend toute la largeur de la page */
-    position: relative; /* Assurez-vous que tout est correctement positionné */
+    width: 100%;
+    position: relative;
     border-radius: 25px;
+}
+
+p{
+    margin-top: 40px;
 }
 
 .container {
@@ -38,8 +42,8 @@ header {
 .box{
     background-color: black;
     color: white;
-    width: 252px;    /* Largeur fixe */
-    height: 60px;   /* Hauteur fixe */
+    width: 252px;
+    height: 60px;
     margin: auto;
 }
 

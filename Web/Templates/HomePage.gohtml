@@ -97,12 +97,13 @@
         </div>
 
     </header>
+    <p>Here you can find all the music groups taken from an API</p>
     <main class="container">
-        <p>Here you can find all the music groups taken from an API</p>
         {{range .Groups}}
             <div class="image-frame frame">
                 <form method="post" action="/group">
-                    <button type="submit" name="id" value="{{.Id}}"><img src="{{.Image}}" alt="{{.Name}}"></button>
+                    <button type="submit" name="id" value="{{.Id}}">
+                        <img src="{{.Image}}" alt="{{.Name}}"></button>
                     <h2 class="box">{{.Name}}</h2>
                 </form>
             </div>

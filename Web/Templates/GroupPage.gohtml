@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{.Name}}'s details</title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="../Static/GroupPage.css">
         <link rel="icon" type="image/jpeg" href="{{.Image}}">
 
         <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.2/mapbox-gl.css" rel="stylesheet">
@@ -21,8 +22,8 @@
         <main class="BackButton"><a href="/"><span class="material-icons">arrow_back</span></a></main>
         <h1 class="no-space">Welcome to the Group Detail WebPage</h1>
     </header>
+    <p>Here you can have all the information for the chosen group.</p>
     <main>
-        <p>Here you can have all the information for the chosen group.</p>
         <main class="container">
             <div class="frame">
                 <img class="groupImage" src="{{.Image}}" alt="{{.Name}}">
@@ -65,7 +66,7 @@
 
             </div>
         </main>
-        <div id="map"></div>
+        <div id="map" class="map"></div>
         <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
         <script>
             // Setting up the mapbox accessToken
