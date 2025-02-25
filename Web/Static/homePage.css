@@ -6,116 +6,111 @@
     font-style: normal;
 }
 
+.k2d-thin {
+    font-family: "K2D", serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
 /* HEADER RELATIVE CSS */
 html, body {
+    height: 100%;
     margin: 0;
+    display: flex;
+    flex-direction: column;
     /*font-family: "K2D", sans-serif;*/
     /*font-weight: 500;*/
     /*font-style: normal;*/
 }
 
 header{
-    position: fixed;
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
     top: 0;
     left: 0;
-    padding: 0;
-    margin: 0;
+    margin-bottom: 1rem;
     z-index: 100;
     width: 100%;
+    border-bottom: 1px solid beige;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
     background-color: #121212;
 }
 
 header .header-title {
-    display: flex;
-    justify-content: center;
     font-size: 2.5rem;
     color: #1DB954;
 }
 
+header #filters_button {
+    position: absolute;
+    background-color: #7e7e74;
+    color: beige;
+    right: 2rem;
+    max-width: 4rem;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+header #filters_button:hover {
+    background-color: #5d5d55;
+    border: #159342 2px solid;
+}
+
+header #back_button {
+    position: absolute;
+    background-color: #7e7e74;
+    color: beige;
+    left: 2rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: 20px;
+}
+header #back_button:hover {
+    background-color: #5d5d55;
+    color: #1ab955;
+    left: 2rem;
+    cursor: pointer;
+    border-radius: 20px;
+    border: #159342 2px solid;
+}
 
 /* HEADER RELATIVE CSS END */
+
+/* Make the main content take all the page */
+main {
+    flex: 1;
+}
 
 /* BODY RELATIVE CSS */
 
 body {
     background-color: #757575;
+    align-items: center;
+    justify-items: center;
 }
 
 body::-webkit-scrollbar{
     display: none;
 }
 
-/* GROUPS CARD CONTAINER RELATIVE CSS */
-
-.groups-cards-container {
-    position: relative;
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(4, 20rem);
-    grid-column-gap: 2rem;
-    /*grid-row-gap: 5rem;*/
-    margin-top: 6rem;
-}
-
-.group-card {
-    margin: 1rem;
-}
-
-.group-card form {
-    border: 2px #121212FF solid;
-    border-radius: 10px;
-    padding-top: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    width: fit-content;
-    justify-items: center;
-    background-color: #121212;
-    color: beige;
-    margin: 1rem;
-}
-
-.group-card button {
-    cursor: pointer;
-    border-radius: 10px;
-    opacity: 1;
-    all: unset;
-}
-.group-card button img {
-    border-radius: 10px;
-}
-
-.group-card-name {
-    margin : 0;
-    text-align: center;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    /*white-space: nowrap;*/
-}
-
-.group-card form:hover {
-    border : 2px solid #1DB954;
-    color: #1DB954;
-}
-
-/* GROUPS CARD CONTAINER CSS END */
-
-/* BODY RELATIVE CSS END */
-
-
-
-
 /* FILTERS RELATIVE CSS */
 
 /* Filters container */
 .filters-container {
-    background: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    background: #121212;
     border-radius: 10px;
-    border: 3px solid #000000;
-    box-shadow: 0 5px 20px rgb(30, 215, 96);
-    color:#121212;
+    border-bottom: 1px solid beige;
+    border-left: 1px solid beige;
+    border-right: 1px solid beige;
+    box-shadow: 0 5px 8px rgb(25, 178, 77);
+    color: beige;
     padding : 0.5em;
+    width: 100%;
 }
 /* All the form will be displayed in row on all the width of the container */
 .filters-container form {
@@ -129,7 +124,20 @@ body::-webkit-scrollbar{
 .filter {
     display: flex;
     flex-direction: column;
-    width: 20vw;
+    width: 15em;
+}
+
+#filters_apply_button {
+    cursor: pointer;
+    border-radius: 10px;
+    color: beige;
+    background-color: #7e7e74;
+    max-width: 4rem;
+}
+#filters_apply_button:hover {
+    color: beige;
+    border: #159342 2px solid;
+    background-color: #5d5d55;
 }
 
 /* CHECKBOXES RELATIVE CSS */
@@ -198,14 +206,13 @@ body::-webkit-scrollbar{
 .checkBox-label-container {
     padding: 0.3rem;
     margin: 0.8rem auto auto;
-    border: 1px solid black;
+    border: 2px solid beige;
     border-radius: 25px;
-    background: white;
+    background: #7e7e74;
 }
 
 .checkBox-label {
     font-size: 1rem;
-    background: white;
 }
 /*---------------------------*/
 /* CHECKBOXES RELATIVE CSS END */
@@ -244,14 +251,13 @@ body::-webkit-scrollbar{
     width: auto;
     padding: 0.3rem;
     margin-top: 0.3rem;
-    border: 1px solid black;
+    border: 2px solid beige;
     border-radius: 25px;
-    background: white;
+    background: #7e7e74;
 }
 
 .dualRange-label {
-    font-size: 1rem;
-    background: white;
+    font-size: 0.8rem;
 }
 /*---------------------------*/
 
@@ -286,9 +292,9 @@ body::-webkit-scrollbar{
 .dualRange-container input[type="range"]::-webkit-slider-thumb{
     width: 1rem;
     height: 1rem;
-    border: black 2px solid;
+    border: beige 2px solid;
     border-radius: 50%;
-    background: #1ed760;
+    background: #1DB954;
     cursor: pointer;
     pointer-events: all;
 }
@@ -348,10 +354,6 @@ body::-webkit-scrollbar{
 }
 /*---------------------------*/
 
-/* FILTERS RELATIVE CSS END */
-
-
-
 /* Range markers */
 .range-markers {
     display: flex;
@@ -365,7 +367,7 @@ body::-webkit-scrollbar{
     content: "";
     position: absolute;
     height: 0.5rem;
-    top:0.1rem;
+    top:0.17rem;
     width: 2px;
     background-color: black;
 }
@@ -394,20 +396,77 @@ body::-webkit-scrollbar{
 
 .dropdown-container select {
     width: 100%;
+    border-radius: 20px;
 }
 
 .dropdown-label-container{
     padding: 0.3rem;
     margin: 0.5rem auto auto;
-    border: 1px solid black;
+    border: 2px solid beige;
     border-radius: 25px;
-    background: white;
-}
-
-.dropdown-label {
+    background: #7e7e74;
     font-size: 1rem;
 }
+
 /* DROPDOWN RELATIVE CSS END */
+
+/* FILTERS RELATIVE CSS END */
+
+/* GROUPS CARD CONTAINER RELATIVE CSS */
+
+.groups-cards-container {
+    position: relative;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, 20rem);
+    grid-column-gap: 2rem;
+    /*grid-row-gap: 5rem;*/
+    margin-top: 1rem;
+}
+
+.group-card {
+    margin: 1rem;
+}
+
+.group-card form {
+    border: 2px solid beige;
+    border-radius: 10px;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: fit-content;
+    justify-items: center;
+    background-color: #121212;
+    color: beige;
+    margin: 1rem;
+}
+
+.group-card form:hover {
+    border : 2px solid #1DB954;
+    color: #1DB954;
+}
+
+.group-card button {
+    cursor: pointer;
+    border-radius: 10px;
+    opacity: 1;
+    all: unset;
+}
+.group-card button img {
+    border-radius: 10px;
+}
+
+.group-card-name {
+    margin : 0;
+    text-align: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    /*white-space: nowrap;*/
+}
+
+/* GROUPS CARD CONTAINER CSS END */
+
+/* BODY RELATIVE CSS END */
 
 /* FOOTER RELATIVE CSS */
 
@@ -418,7 +477,9 @@ footer {
     justify-content: space-between;
     background: #121212;
     color: #1DB954;
-    height: 5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: 1px solid beige;
     border-top-left-radius:  25px;
     border-top-right-radius: 25px;
     width: 100%;
