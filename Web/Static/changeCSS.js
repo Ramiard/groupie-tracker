@@ -14,6 +14,12 @@ function alternateCSS() {
         } else {
             document.getElementById('style_sheet').setAttribute("href", '../Static/groupPage.css')
         }
+    } else if (window.location.pathname === '/search') {
+        if (styleSheetHref === '../Static/homePage.css') {
+            document.getElementById('style_sheet').setAttribute("href", '../Static/alternative.css')
+        } else {
+            document.getElementById('style_sheet').setAttribute("href", '../Static/homePage.css')
+        }
     }
 }
 
@@ -27,7 +33,7 @@ function showFilters() {
     }
 }
 
-function showMembers () {
+function showMembers() {
     const membersListContainer = window.document.getElementById('members_list').getAttribute('style');
 
     if (membersListContainer === 'display: none;') {
@@ -39,7 +45,7 @@ function showMembers () {
     }
 }
 
-function showConcerts () {
+function showConcerts() {
     const concertsListContainer = window.document.getElementById('concerts_list').getAttribute('style');
 
     if (concertsListContainer === 'display: none;') {

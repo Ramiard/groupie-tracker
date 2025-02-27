@@ -58,23 +58,36 @@ header #filters_button {
 header #filters_button:hover {
     background-color: #5d5d55;
     border: #159342 2px solid;
+    transform: scale(1.05);
+    transition: 0.3s;
+
 }
 
 header #back_button {
     position: absolute;
-    background-color: #7e7e74;
-    color: beige;
+    background-color: #121212;
+    color: #1ab955;
+    font-weight: 100;
     left: 2rem;
-    padding: 0.4rem 0.5rem;
+    padding: 0.3rem 0.4rem;
+    border: #1ab955 3px solid;
     border-radius: 20px;
 }
+
+header #back_button span {
+    position: relative;
+    top: 0.1rem;
+}
+
 header #back_button:hover {
-    background-color: #5d5d55;
-    color: #1ab955;
+    background-color: #2c2c2c;
+    color: beige;
     left: 2rem;
     cursor: pointer;
     border-radius: 20px;
-    border: #159342 2px solid;
+    border: beige 3px solid;
+    transform: scale(1.105);
+    transition: 0.3s;
 }
 
 /* HEADER RELATIVE CSS END */
@@ -107,7 +120,7 @@ body::-webkit-scrollbar{
     border-bottom: 1px solid beige;
     border-left: 1px solid beige;
     border-right: 1px solid beige;
-    box-shadow: 0 5px 8px rgb(25, 178, 77);
+    box-shadow: 0 5px 8px beige;
     color: beige;
     padding : 0.5em;
     width: 100%;
@@ -138,6 +151,8 @@ body::-webkit-scrollbar{
     color: beige;
     border: #159342 2px solid;
     background-color: #5d5d55;
+    transform: scale(1.05);
+    transition: 0.3s;
 }
 
 /* CHECKBOXES RELATIVE CSS */
@@ -149,6 +164,7 @@ body::-webkit-scrollbar{
     margin-top: 1.1rem;
     height: 1rem;
 }
+
 /*---------------------------*/
 /* Checkbox numbers */
 .checkbox-container span {
@@ -158,12 +174,14 @@ body::-webkit-scrollbar{
     margin : 0;
     padding : 0;
 }
+
 /*---------------------------*/
 /* Checkbox styling */
 .checkbox-container input {
     position: relative;
     cursor: pointer;
 }
+
 /*---------------------------*/
 /* Checkbox checkmark (the visible box)  */
 .checkmark {
@@ -274,9 +292,20 @@ body::-webkit-scrollbar{
 .dualRange-container input[type="range"]::-webkit-slider-thumb {
     appearance: none;
 }
+.dualRange-container input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
 .dualRange-container input[type="range"]::-moz-range-thumb {
     appearance: none;
 }
+
+.dualRange-container input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
 .dualRange-container input[type="range"]:focus {
     outline: none;
 }
@@ -302,7 +331,7 @@ body::-webkit-scrollbar{
 .dualRange-container input[type="range"]::-moz-range-thumb {
     width: 1rem;
     height: 1rem;
-    border: black 2px solid;
+    border: beige 2px solid;
     border-radius: 50%;
     background: #1ed760;
     cursor: pointer;
@@ -433,6 +462,11 @@ body::-webkit-scrollbar{
     margin-top: 1rem;
 }
 
+.groups-cards-container .group-card:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
 .group-card {
     margin: 1rem;
 }
@@ -501,6 +535,11 @@ footer #copyright, footer #credits {
     text-decoration: none;
     color: #1DB954;
     justify-content: center;
+}
+
+footer #copyright:hover, footer #credits:hover, footer img:hover {
+    transform: scale(1.005);
+    transition: 0.3s;
 }
 
 footer img {
