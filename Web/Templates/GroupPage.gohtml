@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{.Name}}'s details</title>
-        <link id="style_sheet" rel="stylesheet" href="../Static/alternativeGroupPage.css">
+        <link id="style_sheet" rel="stylesheet" href="../Static/groupPage.css">
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
         <link rel="icon" type="image/jpeg" href="{{.Image}}">
 
@@ -14,6 +14,7 @@
     </head>
     <body>
     <header>
+        <span id="contrast_button" class="material-symbols-outlined"  onclick="alternateCSS()">light_mode</span>
         <a id="back_button" href="/"><span class="material-symbols-outlined">arrow_back</span></a>
         <h1 class="header-title k2d-regular" onclick="alternateCSS()">Groupie Tracker</h1>
     </header>
