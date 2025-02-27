@@ -1,3 +1,4 @@
+/* Page title with back button*/
 header {
     background-color: black;
     color: green;
@@ -13,15 +14,6 @@ header {
     position: static;
     top: 0;
     left: 0;
-}
-
-body {
-    margin-bottom: 80px;
-    padding-top: 20vh;
-}
-
-.no-space {
-    white-space: nowrap;
 }
 
 .material-icons{
@@ -41,6 +33,7 @@ body {
     left: 10px; /* Ajustez la position selon vos besoins */
 }
 
+/* Artist's frame */
 .frame {
     text-align: center;
     display: flex;
@@ -50,6 +43,22 @@ body {
     border-radius: 25px;
     margin: 100px;
     background: black;
+    transition: box-shadow 0.3s ease;
+}
+
+.frame:hover {
+    box-shadow: 0 5px 20px rgb(34, 139, 34);
+}
+
+.frame img {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+.frame:hover img {
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0);
 }
 
 .box{
@@ -85,8 +94,10 @@ body {
 
 .btn:hover {
     background-color: green;
+    box-shadow: 0 5px 20px rgb(34, 139, 34);
 }
 
+/* Detail of artist's group */
 .card {
     border: 8px solid black;
     border-radius: 8px;
@@ -145,14 +156,16 @@ li {
     display: inline-block;
 }
 
+/* Location of the artist's concerts on the map */
 .map{
     border-radius: 8px;
     left: 100px;
     position: fixed;
     margin-top: 45vh;
-    height: 60vh;
+    height: 38vh;
 }
 
+/* End of page */
 .TextEndPage {
     background-color: black;
     color: green;
@@ -167,6 +180,7 @@ li {
     z-index: 1000;
 }
 
+/* Page background color */
 .background{
     background: #bac4b8;
 }

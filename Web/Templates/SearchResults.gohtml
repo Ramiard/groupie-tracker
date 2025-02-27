@@ -99,18 +99,19 @@
         </div>
 
     </header>
-    <main>
-        <p>Here you can find all the music groups taken from an API</p>
+    <p>Here you can find all the music groups taken from an API</p>
+        <main class="container">
         {{range .SearchResults}}
-            <div>
+            <div class="image-frame frame">
                 <form method="post" action="/group">
-                    <button type="submit" name="id" value="{{.Id}}"><img src="{{.Image}}" alt="{{.Name}}"></button>
-                    <h2>{{.Name}}</h2>
+                    <button type="submit" name="id" value="{{.Id}}">
+                        <img src="{{.Image}}" alt="{{.Name}}"></button>
+                    <h2 class="box">{{.Name}}</h2>
                 </form>
             </div>
         {{end}}
     </main>
-    <footer>
+    <footer class="TextEndPage">
         <p id="credits">Made by Amiard Renaud</p>
         <form id="search_form" action="/search" method="post">
             <input id="search_bar" type="text" name="search" placeholder="Search for a group" autocomplete="off">
