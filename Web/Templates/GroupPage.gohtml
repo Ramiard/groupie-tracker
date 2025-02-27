@@ -25,13 +25,13 @@
                 <div class="group-infos bricolage-grotesque">
                     <h3 class="group-creation-date">Creation date : {{.CreationDate}}</h3>
                     <h3 class="group-1st-album">First Album date : {{.FirstAlbum}}</h3>
-                    <h3 class="group-members">Members <span onclick="showMembers()">▶️</span></h3>
+                    <h3 class="group-members">Members <span id="test" onclick="showMembers()">➡️</span></h3>
                     <ul id="members_list" style="display: none;">
                         {{range .Members}}
                             <li>{{.}}</li>
                         {{end}}
                     </ul>
-                    <h3 class="group-concerts">Concerts <span onclick="showConcerts()">▶️</span></h3>
+                    <h3 class="group-concerts">Concerts <span onclick="showConcerts()">➡️</span></h3>
                     <ul id="concerts_list" style="display: none;">
                         {{range $location,$date := .Relations.DatesLocations}}
                             <li>{{$location}} :
@@ -55,11 +55,13 @@
         <div id="second_part">
             <div class="group-2scd-card-container">
                 <img class="group-image" src="{{.Image}}" alt="{{.Name}}">
-                <h2 class="group-name">{{.Name}}</h2>
+                <h2 class="group-name bricolage-grotesque">{{.Name}}</h2>
                 <div class="group-buttons">
-                    <span class="material-symbols-outlined">skip_previous</span>
-                    <span class="material-symbols-outlined">play_arrow</span>
-                    <span class="material-symbols-outlined">skip_next</span>
+                    <form action="/group" method="post">
+                        <button id="previous_button" type="submit" name="id" value="{{.Id}}"><span class="material-symbols-outlined">skip_previous</span></button>
+                        <span id="play_button"class="material-symbols-outlined">play_arrow</span>
+                        <button id="next_button" type="submit" name="id" value="{{.Id}}"><span class="material-symbols-outlined">skip_next</span></button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -86,5 +88,11 @@
             {{end}}
         };
     </script>
+    <script>
+        const id = document.getElementById("previous_button").getAttribute('value'); let previousId = parseInt(id)-1; let nextId = parseInt(id)+1;
+        if (previousId < 1) {previousId = 1;}
+        document.getElementById("previous_button").setAttribute('value',previousId);
+        document.getElementById("next_button").setAttribute('value',nextId);
+        </script>
     </html>
 {{end}}

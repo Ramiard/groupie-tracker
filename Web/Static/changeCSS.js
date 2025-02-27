@@ -32,10 +32,10 @@ function showMembers () {
 
     if (membersListContainer === 'display: none;') {
         window.document.getElementById('members_list').setAttribute("style", 'display: block;')
-        window.document.querySelector('.group-members span').innerText = '🔽';
+        window.document.querySelector('.group-members span').innerText = '⬇️';
     } else {
         window.document.getElementById('members_list').setAttribute("style", 'display: none;')
-        window.document.querySelector('.group-members span').innerText = '▶️';
+        window.document.querySelector('.group-members span').innerText = '➡️';
     }
 }
 
@@ -44,9 +44,9 @@ function showConcerts () {
 
     if (concertsListContainer === 'display: none;') {
         window.document.getElementById('concerts_list').setAttribute("style", 'display: block;')
-        window.document.querySelector('.group-concerts span').innerText = '🔽';
+        window.document.querySelector('.group-concerts span').innerText = '⬇️';
     } else {
         window.document.getElementById('concerts_list').setAttribute("style", 'display: none;')
-        window.document.querySelector('.group-concerts span').innerText = '▶️';
+        window.document.querySelector('.group-concerts span').innerText = '⬇️';
     }
 }
