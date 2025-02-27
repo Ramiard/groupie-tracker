@@ -5,11 +5,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link id="style_sheet"rel="stylesheet" href="../Static/homePage.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
         <title>Search Results</title>
     </head>
     <header>
-        <a id="back_button" href="/"><span class="material-icons">arrow_back</span></a>
+        <span id="contrast_button" class="material-symbols-outlined"  onclick="alternateCSS()">light_mode</span>
+        <a id="back_button" href="/"><span class="material-symbols-outlined">arrow_back</span></a>
         <h1 class="header-title k2d-regular" onclick="alternateCSS()">Groupie Tracker</h1>
         <button id="filters_button" onclick="showFilters()">Show Filters</button>
     </header>

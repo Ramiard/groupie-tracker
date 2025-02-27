@@ -1,24 +1,31 @@
 function alternateCSS() {
     const styleSheetHref = document.getElementById('style_sheet').getAttribute('href');
+    const contrastButton = document.getElementById('contrast_button');
 
     if (window.location.pathname === '/') {
         if (styleSheetHref === '../Static/homePage.css') {
-            document.getElementById('style_sheet').setAttribute("href", '../Static/alternativeGroupPage.css')
+            document.getElementById('style_sheet').setAttribute("href", '../Static/alternativeHomePage.css')
+            contrastButton.innerText = 'dark_mode';
         } else {
             document.getElementById('style_sheet').setAttribute("href", '../Static/homePage.css')
+            contrastButton.innerText = 'light_mode';
         }
 
     } else if (window.location.pathname === '/group') {
         if (styleSheetHref === '../Static/groupPage.css') {
             document.getElementById('style_sheet').setAttribute("href", '../Static/alternativeGroupPage.css')
+            contrastButton.innerText = 'dark_mode';
         } else {
             document.getElementById('style_sheet').setAttribute("href", '../Static/groupPage.css')
+            contrastButton.innerText = 'light_mode';
         }
     } else if (window.location.pathname === '/search') {
         if (styleSheetHref === '../Static/homePage.css') {
-            document.getElementById('style_sheet').setAttribute("href", '../Static/alternativeGroupPage.css')
+            document.getElementById('style_sheet').setAttribute("href", '../Static/alternativeHomePage.css')
+            contrastButton.innerText = 'dark_mode';
         } else {
             document.getElementById('style_sheet').setAttribute("href", '../Static/homePage.css')
+            contrastButton.innerText = 'light_mode';
         }
     }
 }
