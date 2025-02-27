@@ -1,0 +1,301 @@
+/* FONT IMPORTS */
+@import url('https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+    /* ----------------- */
+
+/* K2D FONT */
+.k2d-regular {
+    font-family: "K2D", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.k2d-thin {
+    font-family: "K2D", serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+/* ----------------- */
+
+/* BRICOLAGE FONT */
+
+.bricolage-grotesque {
+    font-family: "Bricolage Grotesque", serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-variation-settings: "wdth" 300;
+}
+
+/* ----------------- */
+
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0,
+    'wght' 700,
+    'GRAD' 200,
+    'opsz' 40;
+    padding: 0;
+}
+
+
+/* Scrollbar Styling */
+@-moz-document url-prefix() {
+    #suggestions_container {
+        scrollbar-color: #159342 #9d9d9d;
+        scrollbar-width: thin;
+    }
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+#members_list::-webkit-scrollbar, #concerts_list::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 10px;
+}
+
+#members_list::-webkit-scrollbar-thumb, #concerts_list::-webkit-scrollbar-thumb {
+    background: beige;
+    border: solid 1px #000000;
+    border-radius: 10px;
+}
+
+/*---------------------------*/
+
+/* HEADER RELATIVE CSS */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+    top: 0;
+    left: 0;
+    margin-bottom: 1rem;
+    z-index: 100;
+    width: 100%;
+    border-bottom: 1px solid beige;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: #121212;
+}
+
+header .header-title {
+    font-size: 2.5rem;
+    color: #1DB954;
+}
+
+header #back_button {
+    position: absolute;
+    background-color: #121212;
+    color: #1ab955;
+    font-weight: 100;
+    left: 2rem;
+    padding: 0.3rem 0.4rem;
+    border: #1ab955 3px solid;
+    border-radius: 20px;
+}
+
+header #back_button span {
+    position: relative;
+    top: 0.1rem;
+}
+
+
+header #back_button:hover {
+    background-color: #2c2c2c;
+    color: beige;
+    left: 2rem;
+    cursor: pointer;
+    border-radius: 20px;
+    border: beige 3px solid;
+}
+
+/* HEADER RELATIVE CSS END */
+
+/* BODY RELATIVE CSS */
+
+body {
+    background-color: #7e7e74;
+}
+
+/* MAIN RELATIVE CSS */
+
+main {
+    display: flex;
+    flex: 1;
+}
+
+#group_cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1rem;
+}
+
+#first_part {
+    right: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 65%;
+    height: 100%;
+}
+
+#second_part {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    width: 40%;
+    height: 100%;
+}
+
+/* GROUP 1st CARD RELATIVE CSS */
+
+.group-1st-card-container {
+    position: relative;
+    /*border: 2px red solid;*/
+    background-color: #121212;
+    border: 2px beige solid;
+    border-radius: 25px;
+    color: beige;
+    max-height: 25rem;
+    width: 50%;
+
+
+    box-shadow: -0.5px 0 19.5px 3px #f5f5dc;
+    box-shadow: inset -0.5px 0 19.5px 3px #f5f5dc;
+}
+
+.group-1st-card-container .group-infos {
+    margin-left: 1rem;
+}
+
+
+.group-1st-card-container .group-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: center;
+}
+
+
+.group-1st-card-container #members_list {
+    max-height: 3rem;
+    overflow-y: scroll;
+}
+
+.group-1st-card-container #concerts_list {
+    max-height: 5rem;
+    overflow-y: scroll;
+}
+
+/* MAP RELATIVE CSS */
+
+#map_container {
+    position: relative;
+    left: 2rem;
+    margin: 1rem 0;
+    border: 2px red solid;
+    width: fit-content;
+}
+
+
+#map {
+    height: 20rem;
+    width: 62rem;
+    border: 2px beige solid;
+    border-radius: 15px;
+}
+
+/* MAP RELATIVE CSS END */
+
+
+/* GROUP 1st CARD RELATIVE CSS END */
+
+
+/* GROUP 2scd CARD RELATIVE CSS */
+
+.group-2scd-card-container {
+    position: relative;
+    right: 2rem;
+    border: 2px red solid;
+    padding: 1rem;
+    background-color: #121212;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 25px;
+}
+
+.group-2scd-card-container .group-name {
+    margin: 0.5rem 0;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    color: beige;
+}
+
+.group-2scd-card-container .group-image {
+    width: 18rem;
+    height: 18rem;
+    border-radius: 25px;
+}
+
+/* GROUP 2scd CARD RELATIVE CSS END */
+
+
+/* MAIN RELATIVE CSS END */
+
+/* BODY RELATIVE CSS END */
+
+/* FOOTER RELATIVE CSS */
+
+footer {
+    position: sticky;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #121212;
+    color: #1DB954;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: 1px solid beige;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    height: 1.5rem;
+    width: 100%;
+    bottom: 0;
+}
+
+footer #copyright, footer #credits {
+    margin: auto 1rem;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #1DB954;
+    justify-content: center;
+}
+
+footer img {
+    position: relative;
+    margin-right: 0.5rem;
+    top: 0.2rem;
+    height: 1.1rem;
+    width: 1.1rem;
+}
+
+/* FOOTER RELATIVE CSS END */
