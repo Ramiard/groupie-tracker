@@ -81,7 +81,6 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		searchResultsData.Groups = Api.SearchGroups(previousSearchQuery, searchResultsData.Groups)
 		// Setting up the filters 'min' and 'max' values according to the search results and the countries
 		searchResultsData.Countries = Api.GetAllCountries(searchResultsData.Groups)
-		Api.GetFiltersMinAndMax(searchResultsData.Groups, &searchResultsData)
 
 		// Check if there is any filter applied
 		// Get the form value
@@ -113,6 +112,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		// Apply the filters
 		searchResultsData.Groups = Api.ApplyFilters(filters, searchResultsData.Groups, w)
+		Api.GetFiltersMinAndMax(searchResultsData.Groups, &searchResultsData)
 
 	}
 

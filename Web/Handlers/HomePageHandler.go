@@ -67,6 +67,7 @@ func HomePageHandler(w http.ResponseWriter, r *http.Request) {
 		// Apply the filters
 
 		homePageData.Groups = Api.ApplyFilters(filters, homePageData.Groups, w)
+		Api.GetFiltersMinAndMax(homePageData.Groups, &homePageData)
 
 		//// --------------------------------------------------------------------------------------------------------- //
 
