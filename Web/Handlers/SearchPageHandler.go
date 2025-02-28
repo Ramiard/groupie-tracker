@@ -77,6 +77,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Read the cookie and apply the search
 		var previousSearchQuery = string(decodedSearchCookie)
+		fmt.Println("SEARCH PAGE LOG: Search cookie =", previousSearchQuery)
 		searchResultsData.Groups = Api.SearchGroups(previousSearchQuery, searchResultsData.Groups)
 		// Setting up the filters 'min' and 'max' values according to the search results and the countries
 		searchResultsData.Countries = Api.GetAllCountries(searchResultsData.Groups)
@@ -111,7 +112,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 			filters.CountryToFilter = r.FormValue("filterBy-country")
 		}
 		// Apply the filters
-		searchResultsData.Groups = Api.ApplyFilters(filters, searchResultsData.AllGroups, w)
+		searchResultsData.Groups = Api.ApplyFilters(filters, searchResultsData.Groups, w)
 
 	}
 
