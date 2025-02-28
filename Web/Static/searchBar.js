@@ -33,7 +33,7 @@ window.addEventListener('load', () => {
 
         if (input.length >= 1) {
             // Parcours all the groups
-            data.groups.forEach((group) => {
+            data.forEach((group) => {
                 // Check if the group 'name' contains the input
                 if (group.name.toLowerCase().includes(input)) {
                     makeSuggestion(`${group.image}`,`${group.name}`,`${group.id}`);

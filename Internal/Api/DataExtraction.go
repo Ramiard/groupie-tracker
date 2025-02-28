@@ -14,6 +14,8 @@ import (
 
 func GetAllGroups() []GroupInfos {
 	// Getting all the groups present in the API
+
+	// Creation of the struct that will contain all the groups
 	var groups []GroupInfos
 
 	// Sending a GET request to the API
@@ -31,22 +33,24 @@ func GetAllGroups() []GroupInfos {
 	}
 
 	// We need to Unmarshal the data and put it in a Struct to be able to use it
-	var UnmarshalledData []GroupInfos
-	err = json.Unmarshal(responseData, &UnmarshalledData)
+	var unmarshalledData []GroupInfos
+	err = json.Unmarshal(responseData, &unmarshalledData)
 	if err != nil {
 		fmt.Print("LOG: Error while unmarshalling the data (", err, ")")
 		return groups
 	}
 
-	for index, group := range UnmarshalledData {
-		group.Relations = GetGroupRelations(fmt.Sprint(group.Id))
+	// Now we need to parcours all the groups to get the relations and more informations
+	// (countries list, qty of members, ...)
+	for index, group := range unmarshalledData {
+		group.Relations = getGroupRelations(fmt.Sprint(group.Id))
 		group.Relations = setCountriesList(group.Relations)
 		qtyOfMembers := len(group.Members)
 		group.QtyOfMembers = qtyOfMembers
-		UnmarshalledData[index] = group
+		unmarshalledData[index] = group
 	}
 
-	groups = UnmarshalledData
+	groups = unmarshalledData
 	return groups
 }
 
@@ -67,28 +71,29 @@ func GetGroupInfos(id string) GroupInfos {
 	}
 
 	// Now we need to Unmarshal the data and put it in a Struct to be able to use it
-	var UnmarshalledData GroupInfos
-	err = json.Unmarshal(responseData, &UnmarshalledData)
+	var unmarshalledData GroupInfos
+	err = json.Unmarshal(responseData, &unmarshalledData)
 	if err != nil {
 		fmt.Print("LOG: Error while unmarshalling the data (", err, ")")
 		return chosenGroupInfos
 	}
 
 	// Checking if the group is present in the API
-	if UnmarshalledData.Name == "" {
+	if unmarshalledData.Name == "" {
 		fmt.Println("LOG: Group not found")
 		return chosenGroupInfos
 	}
 
-	chosenGroupInfos = UnmarshalledData
+	chosenGroupInfos = unmarshalledData
+	// Getting the relations of the group and the other informations
 	chosenGroupInfos.QtyOfMembers = len(chosenGroupInfos.Members)
-	chosenGroupInfos.Relations = GetGroupRelations(id)
+	chosenGroupInfos.Relations = getGroupRelations(id)
 	chosenGroupInfos.Relations.Coordinates = getConcertsCoordinates(chosenGroupInfos.Relations.DatesLocations)
 	chosenGroupInfos.Relations = setCountriesList(chosenGroupInfos.Relations)
 	return chosenGroupInfos
 }
 
-func GetGroupRelations(id string) Relation {
+func getGroupRelations(id string) Relation {
 	// Sending a GET request to the API
 	var relations Relation
 	response, err := http.Get("https://groupietrackers.herokuapp.com/api/relation/" + id)
@@ -105,18 +110,18 @@ func GetGroupRelations(id string) Relation {
 	}
 
 	// Now we need to Unmarshal the data and put it in a Struct to be able to use it
-	var UnmarshalledData Relation
-	err = json.Unmarshal(responseData, &UnmarshalledData)
+	var unmarshalledData Relation
+	err = json.Unmarshal(responseData, &unmarshalledData)
 	if err != nil {
 		fmt.Print("LOG: Error while unmarshalling the data (", err, ")")
 		return relations
 	}
 	// Checking if the group is present in the API
-	if UnmarshalledData.Id == 0 {
+	if unmarshalledData.Id == 0 {
 		fmt.Println("LOG: Group not found")
 		return relations
 	}
-	relations = UnmarshalledData
+	relations = unmarshalledData
 
 	return relations
 }
@@ -127,6 +132,7 @@ func getConcertsCoordinates(datesLocations map[string][]string) map[string][]flo
 	for key, _ := range datesLocations {
 
 		// Creation of all structures needed to get the coordinates from the Geocoding API
+		// according to the geocoding api response's structure
 		type geoResponse struct {
 			Features []struct {
 				Geometry struct {
@@ -150,14 +156,14 @@ func getConcertsCoordinates(datesLocations map[string][]string) map[string][]flo
 		}
 
 		// Now we need to Unmarshal the data and put it into our previous 'geoResponse' struct to be able to use it
-		var UnmarshalledGeoData geoResponse
-		err = json.Unmarshal(apiResponseData, &UnmarshalledGeoData)
+		var unmarshalledGeoData geoResponse
+		err = json.Unmarshal(apiResponseData, &unmarshalledGeoData)
 		if err != nil {
 			fmt.Println("LOG Geocoding: Error while unmarshalling the data from the Geocoding API (", err, ")")
 			return coordinates
 		}
 		// Add to the map the coordinates of the locations
-		coordinates[key] = UnmarshalledGeoData.Features[0].Geometry.Coordinates
+		coordinates[key] = unmarshalledGeoData.Features[0].Geometry.Coordinates
 	}
 	return coordinates
 }
@@ -170,6 +176,7 @@ func setCountriesList(relations Relation) Relation {
 		keyStylized := key
 		keyStylized = strings.ReplaceAll(keyStylized, "_", " ")
 		keyStylized = cases.Title(language.English).String(keyStylized)
+		// Delete the old key and add the new one (because in go we cant change the key of a map)
 		delete(groupRelation.DatesLocations, key)
 		groupRelation.DatesLocations[keyStylized] = value
 	}
@@ -177,6 +184,7 @@ func setCountriesList(relations Relation) Relation {
 	var countriesList []string
 	for key, _ := range groupRelation.DatesLocations {
 		_, after, _ := strings.Cut(key, "-")
+		// If 'countriesList' already contains the country, we don't add it
 		if slices.Contains(countriesList, after) {
 			continue
 		}
@@ -186,11 +194,13 @@ func setCountriesList(relations Relation) Relation {
 	return groupRelation
 }
 
+// GetAllCountries is a function that returns a list of all the countries present in the API
 func GetAllCountries(groupList []GroupInfos) []string {
 
 	var countriesList []string
 	for _, group := range groupList {
 		for _, country := range group.Relations.CountriesList {
+			// If 'countriesList' already contains the country, we don't add it
 			if slices.Contains(countriesList, country) {
 				continue
 			}
@@ -201,14 +211,19 @@ func GetAllCountries(groupList []GroupInfos) []string {
 	return countriesList
 }
 
+// GetFiltersMinAndMax is a function that returns the min and max values of the API data
 func GetFiltersMinAndMax(groupList []GroupInfos, data *Data) {
 	// Getting the 'min' creation date
+
+	// We need to set the 'min' creation date to a very high value to be able to compare it with the real values
 	minCreationDate := 9999999
 	for _, group := range groupList {
 		if group.CreationDate < minCreationDate {
 			minCreationDate = group.CreationDate
 		}
 	}
+	// If the 'min' creation date is still the same, it means that there is no group in the API
+	// so we set it to 0 to avoid to display '9999999' in the template
 	if minCreationDate == 9999999 {
 		minCreationDate = 0
 	}
@@ -230,6 +245,7 @@ func GetFiltersMinAndMax(groupList []GroupInfos, data *Data) {
 			maxQtyOfMembers = group.QtyOfMembers
 		}
 	}
+
 	// Making a list containing all the possible qty of members to use it in our go template
 	qtyOfMemberList := []int{}
 	for i := 0; i < maxQtyOfMembers; i++ {
@@ -241,6 +257,7 @@ func GetFiltersMinAndMax(groupList []GroupInfos, data *Data) {
 	data.QtyOfMemberList = qtyOfMemberList
 
 	// Getting the 'min' first album date
+	// We need to set the 'min' first album date to a very high value to be able to compare it with the real values
 	minFirstAlbum := 9999999
 	for _, group := range groupList {
 		firstAlbum, _ := strconv.Atoi(group.FirstAlbum[len(group.FirstAlbum)-4:])
@@ -248,6 +265,8 @@ func GetFiltersMinAndMax(groupList []GroupInfos, data *Data) {
 			minFirstAlbum = firstAlbum
 		}
 	}
+	// If the 'min' creation date is still the same, it means that there is no group in the API
+	// so we set it to 0 to avoid to display '9999999' in the template
 	if minFirstAlbum == 9999999 {
 		minFirstAlbum = 0
 	}

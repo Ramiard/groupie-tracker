@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// SearchGroups will parcours all the groups and check if the search query is in the group's fields
 func SearchGroups(searchQuery string, groups []GroupInfos) []GroupInfos {
 	var searchResults []GroupInfos
 	for _, group := range groups {
