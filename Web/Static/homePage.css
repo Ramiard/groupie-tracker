@@ -1,11 +1,151 @@
+/* LIGHT MODE */
+
+@import url('https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+.k2d-regular {
+    font-family: "K2D", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.k2d-thin {
+    font-family: "K2D", serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+/* HEADER RELATIVE CSS */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    /*font-family: "K2D", sans-serif;*/
+    /*font-weight: 500;*/
+    /*font-style: normal;*/
+}
+
+header{
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+    top: 0;
+    left: 0;
+    margin-bottom: 1rem;
+    z-index: 100;
+    width: 100%;
+    border-bottom: 3px solid #cca43b;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: #242f40;
+}
+
+header .header-title {
+    font-size: 2.5rem;
+    color: #e5e5e5;
+}
+
+header #filters_button {
+    position: absolute;
+    background-color: #7e7e74;
+    color: #e5e5e5;
+    right: 2rem;
+    max-width: 4rem;
+    cursor: pointer;
+    border: #E5E5E5 2px solid;
+    border-radius: 10px;
+}
+
+header #filters_button:hover {
+    background-color: #5d5d55;
+    border: #cca43b 2px solid;
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+header #contrast_button {
+    position: absolute;
+    background-color: #7e7e74;
+    color: #e5e5e5;
+    font-weight: 100;
+    left: 6rem;
+    padding: 0.3rem 0.4rem;
+    border: #E5E5E5 2px solid;
+    border-radius: 20px;
+}
+
+header #contrast_button:hover {
+    background-color: #5d5d55;
+    color: #E5E5E5;
+    cursor: pointer;
+    border: #cca43b 2px solid;
+    transform: scale(1.105);
+    transition: 0.3s;
+}
+
+header #back_button {
+    position: absolute;
+    background-color: #7e7e74;;
+    color: #e5e5e5;
+    font-weight: 100;
+    left: 2rem;
+    padding: 0.3rem 0.4rem;
+    border: #E5E5E5 2px solid;
+    border-radius: 20px;
+}
+
+header #back_button span {
+    position: relative;
+    top: 0.1rem;
+}
+
+header #back_button:hover {
+    background-color: #5d5d55;
+    color: #E5E5E5;
+    left: 2rem;
+    cursor: pointer;
+    border-radius: 20px;
+    border: #cca43b 2px solid;
+    transform: scale(1.105);
+    transition: 0.3s;
+}
+
+/* HEADER RELATIVE CSS END */
+
+/* Make the main content take all the page */
+main {
+    flex: 1;
+}
+
+/* BODY RELATIVE CSS */
+
+body {
+    background-color: #e5e5e5;
+    align-items: center;
+    justify-items: center;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+/* FILTERS RELATIVE CSS */
+
 /* Filters container */
 .filters-container {
-    background: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    background: #363636;
     border-radius: 10px;
-    border: 3px solid #000000;
-    box-shadow: 0 5px 20px rgb(30, 215, 96);
-    color:#121212;
+    border-bottom: 2px solid #cca43b;
+    border-left: 2px solid #cca43b;
+    border-right: 2px solid #cca43b;
+    box-shadow: 0 8px 25px #4f668f;
+    color: #e5e5e5;
     padding : 0.5em;
+    width: 100%;
 }
 /* All the form will be displayed in row on all the width of the container */
 .filters-container form {
@@ -19,7 +159,22 @@
 .filter {
     display: flex;
     flex-direction: column;
-    width: 20vw;
+    width: 15em;
+}
+
+#filters_apply_button {
+    cursor: pointer;
+    border-radius: 10px;
+    color: beige;
+    background-color: #7e7e74;
+    border: #E5E5E5 2px solid;
+    max-width: 4rem;
+}
+#filters_apply_button:hover {
+    background-color: #5d5d55;
+    border: #cca43b 2px solid;
+    transform: scale(1.05);
+    transition: 0.3s;
 }
 
 /* CHECKBOXES RELATIVE CSS */
@@ -31,6 +186,7 @@
     margin-top: 1.1rem;
     height: 1rem;
 }
+
 /*---------------------------*/
 /* Checkbox numbers */
 .checkbox-container span {
@@ -40,12 +196,14 @@
     margin : 0;
     padding : 0;
 }
+
 /*---------------------------*/
 /* Checkbox styling */
 .checkbox-container input {
     position: relative;
     cursor: pointer;
 }
+
 /*---------------------------*/
 /* Checkbox checkmark (the visible box)  */
 .checkmark {
@@ -54,9 +212,9 @@
     position: relative;
     bottom: 1.2rem;
     content :" ";
-    border: 2px solid #323232;
+    border: 2px solid #282828;
     border-radius: 5px;
-    box-shadow: 4px 4px #323232;
+    box-shadow: 4px 4px #282828;
     background-color: #ccc;
     transition: all 0.5s;
     cursor: pointer;
@@ -88,14 +246,15 @@
 .checkBox-label-container {
     padding: 0.3rem;
     margin: 0.8rem auto auto;
-    border: 1px solid black;
+    border: 3px solid #cca43b;
     border-radius: 25px;
-    background: white;
+    background: #E5E5E5;
+    font-weight: bolder;
+    color: #4f668f;
 }
 
 .checkBox-label {
     font-size: 1rem;
-    background: white;
 }
 /*---------------------------*/
 /* CHECKBOXES RELATIVE CSS END */
@@ -134,14 +293,15 @@
     width: auto;
     padding: 0.3rem;
     margin-top: 0.3rem;
-    border: 1px solid black;
+    border: 3px solid #cca43b;
     border-radius: 25px;
-    background: white;
+    background: #E5E5E5;
+    font-weight: bolder;
+    color: #4f668f;
 }
 
 .dualRange-label {
-    font-size: 1rem;
-    background: white;
+    font-size: 0.8rem;
 }
 /*---------------------------*/
 
@@ -158,9 +318,20 @@
 .dualRange-container input[type="range"]::-webkit-slider-thumb {
     appearance: none;
 }
+.dualRange-container input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
 .dualRange-container input[type="range"]::-moz-range-thumb {
     appearance: none;
 }
+
+.dualRange-container input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
 .dualRange-container input[type="range"]:focus {
     outline: none;
 }
@@ -176,9 +347,9 @@
 .dualRange-container input[type="range"]::-webkit-slider-thumb{
     width: 1rem;
     height: 1rem;
-    border: black 2px solid;
+    border: #e5e5e5 2px solid;
     border-radius: 50%;
-    background: #1ed760;
+    background: #CCA43B;
     cursor: pointer;
     pointer-events: all;
 }
@@ -186,9 +357,9 @@
 .dualRange-container input[type="range"]::-moz-range-thumb {
     width: 1rem;
     height: 1rem;
-    border: black 2px solid;
+    border: #e5e5e5 2px solid;
     border-radius: 50%;
-    background: #1ed760;
+    background: #CCA43B;
     cursor: pointer;
     pointer-events: all;
 }
@@ -238,7 +409,6 @@
 }
 /*---------------------------*/
 
-
 /* Range markers */
 .range-markers {
     display: flex;
@@ -252,9 +422,18 @@
     content: "";
     position: absolute;
     height: 0.5rem;
-    top:0.1rem;
+    top:0.17rem;
     width: 2px;
     background-color: black;
+}
+
+@-moz-document url-prefix() {
+    .range-markers::before,
+    .range-markers::after,
+    .range-markers-middle {
+        top: 0.1rem;
+    }
+
 }
 
 .range-markers::before {
@@ -281,20 +460,85 @@
 
 .dropdown-container select {
     width: 100%;
+    border-radius: 20px;
 }
 
 .dropdown-label-container{
     padding: 0.3rem;
     margin: 0.5rem auto auto;
-    border: 1px solid black;
+    border: 3px solid #cca43b;
     border-radius: 25px;
-    background: white;
+    font-size: 1rem;
+    background: #E5E5E5;
+    font-weight: bolder;
+    color: #4f668f;
 }
 
-.dropdown-label {
-    font-size: 1rem;
-}
 /* DROPDOWN RELATIVE CSS END */
+
+/* FILTERS RELATIVE CSS END */
+
+/* GROUPS CARD CONTAINER RELATIVE CSS */
+
+.groups-cards-container {
+    position: relative;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, 20rem);
+    grid-column-gap: 2rem;
+    /*grid-row-gap: 5rem;*/
+    margin-top: 1rem;
+}
+
+.groups-cards-container .group-card:hover {
+    transform: scale(1.05);
+
+    transition: 0.3s;
+}
+
+.group-card {
+    margin: 1rem;
+}
+
+.group-card form {
+    border: 4px solid #cca43b;
+    border-radius: 10px;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: fit-content;
+    justify-items: center;
+    background-color: #363636;
+    color: #cca43b;
+    margin: 1rem;
+}
+
+.group-card form:hover {
+    border : 4px solid #708bc7;
+    color: #e5e5e5;
+}
+
+.group-card button {
+    cursor: pointer;
+    border-radius: 10px;
+    opacity: 1;
+    all: unset;
+}
+.group-card button img {
+    border-radius: 10px;
+}
+
+.group-card-name {
+    margin : 0;
+    text-align: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    /*white-space: nowrap;*/
+}
+
+/* GROUPS CARD CONTAINER CSS END */
+
+/* BODY RELATIVE CSS END */
 
 /* FOOTER RELATIVE CSS */
 
@@ -303,20 +547,45 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #1ed760;
-    color: white;
-    height: 5rem;
+    background: #242f40;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: 3px solid #cca43b;
+    border-top-left-radius:  25px;
+    border-top-right-radius: 25px;
     width: 100%;
     bottom: 0;
 }
-footer #copyright , footer #credits {
-    margin : auto 1rem;
+footer #copyright, footer #credits {
+    margin: auto 1rem;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #E5E5E5;
+    justify-content: center;
+}
+
+footer #copyright:hover, footer #credits:hover, footer img:hover {
+    transform: scale(1.005);
+    transition: 0.3s;
+}
+
+footer img {
+    position: relative;
+    margin-right: 0.5rem;
+    top:0.2rem;
+    height: 1.1rem;
+    width: 1.1rem;
 }
 
 footer input[type="text"] {
+    height: 2rem;
+    width: 20rem;
     border: black 2px solid;
     border-radius: 15px;
 }
+
+
 /* FOOTER RELATIVE CSS END */
 
 
@@ -328,33 +597,33 @@ footer input[type="text"] {
     position: absolute;
     display: flex;
     flex-direction: column;
-    width: auto;
-    bottom: 3.5rem;
-    border: solid 3px #159342;
+    width: 20rem;
+    bottom: 4rem;
+    border: solid 3px #cca43b;
     border-radius: 10px;
     max-height: 15rem;
     overflow-y: scroll;
     overflow-x: hidden;
     margin: 0;
     padding: 0;
-    background-color: #9d9d9d;
+    background-color: #363636;
 }
 /*---------------------------*/
 
 /* Scrollbar Styling */
 @-moz-document url-prefix() {
     #suggestions_container {
-        scrollbar-color: #159342 #9d9d9d;
+        scrollbar-color: #cca43b rgba(157, 157, 157, 0);
         scrollbar-width: thin;
     }
 }
 
 #suggestions_container::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
     border-radius: 10px;
 }
 #suggestions_container::-webkit-scrollbar-thumb{
-    background: #159342;
+    background: #cca43b;
     border: solid 1px #000000;
     border-radius: 10px;
 }
@@ -377,7 +646,7 @@ footer input[type="text"] {
 }
 
 .suggestion:hover {
-    background-color: #656565;
+    background-color: #121212;
 }
 /*---------------------------*/
 
@@ -385,7 +654,7 @@ footer input[type="text"] {
 .suggestion .suggestion-image {
     width: 2rem;
     height: 2rem;
-    border: solid 2px #159342FF;
+    border: solid 2px #cca43b;
     border-radius: 50%;
     margin-right: 0.5rem;
 }
@@ -394,12 +663,9 @@ footer input[type="text"] {
 
 /* Suggestion text styling */
 .suggestion .suggestion-text {
+    color : #E5E5E5;
     font-size: 0.8rem;
-    text-decoration: none;
     position: relative;
-}
-.suggestion .suggestion-text:visited {
-    color: #ffffff;
 }
 /*---------------------------*/
 

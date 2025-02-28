@@ -1,0 +1,1307 @@
+/* DARK MODE */
+
+@import url('https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+.k2d-regular {
+    font-family: "K2D", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.k2d-thin {
+    font-family: "K2D", serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+/* HEADER RELATIVE CSS */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    /*font-family: "K2D", sans-serif;*/
+    /*font-weight: 500;*/
+    /*font-style: normal;*/
+}
+
+header{
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+    top: 0;
+    left: 0;
+    margin-bottom: 1rem;
+    z-index: 100;
+    width: 100%;
+    border-bottom: 1px solid beige;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: #121212;
+}
+
+header .header-title {
+    font-size: 2.5rem;
+    color: #1DB954;
+}
+
+header #filters_button {
+    position: absolute;
+    background-color: #7e7e74;
+    color: beige;
+    right: 2rem;
+    max-width: 4rem;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+header #filters_button:hover {
+    background-color: #5d5d55;
+    border: #159342 2px solid;
+    transform: scale(1.05);
+    transition: 0.3s;
+
+}
+
+header #contrast_button {
+    position: absolute;
+    background-color: #121212;
+    color: #1ab955;
+    font-weight: 100;
+    left: 6rem;
+    padding: 0.3rem 0.4rem;
+    border: #1ab955 2px solid;
+    border-radius: 20px;
+}
+
+header #contrast_button:hover {
+    background-color: #5d5d55;
+    color: #E5E5E5;
+    cursor: pointer;
+    border: #cca43b 2px solid;
+    transform: scale(1.105);
+    transition: 0.3s;
+}
+
+header #back_button {
+    position: absolute;
+    background-color: #121212;
+    color: #1ab955;
+    font-weight: 100;
+    left: 2rem;
+    padding: 0.3rem 0.4rem;
+    border: #1ab955 2px solid;
+    border-radius: 20px;
+}
+
+header #back_button span {
+    position: relative;
+    top: 0.1rem;
+}
+
+header #back_button:hover {
+    background-color: #5d5d55;
+    color: #E5E5E5;
+    left: 2rem;
+    cursor: pointer;
+    border-radius: 20px;
+    border: #cca43b 2px solid;
+    transform: scale(1.105);
+    transition: 0.3s;
+}
+
+/* HEADER RELATIVE CSS END */
+
+/* Make the main content take all the page */
+main {
+    flex: 1;
+}
+
+/* BODY RELATIVE CSS */
+
+body {
+    background-color: #7e7e74;
+    align-items: center;
+    justify-items: center;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+/* FILTERS RELATIVE CSS */
+
+/* Filters container */
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    background: #121212;
+    border-radius: 10px;
+    border-bottom: 1px solid beige;
+    border-left: 1px solid beige;
+    border-right: 1px solid beige;
+    box-shadow: 0 5px 8px beige;
+    color: beige;
+    padding : 0.5em;
+    width: 100%;
+}
+/* All the form will be displayed in row on all the width of the container */
+.filters-container form {
+    display : flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width : 100%;
+}
+/* The content of the filter will be in column */
+.filter {
+    display: flex;
+    flex-direction: column;
+    width: 15em;
+}
+
+#filters_apply_button {
+    cursor: pointer;
+    border-radius: 10px;
+    color: beige;
+    background-color: #7e7e74;
+    max-width: 4rem;
+}
+#filters_apply_button:hover {
+    color: beige;
+    border: #159342 2px solid;
+    background-color: #5d5d55;
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+/* CHECKBOXES RELATIVE CSS */
+/* Checkbox container */
+.checkbox-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1.1rem;
+    height: 1rem;
+}
+
+/*---------------------------*/
+/* Checkbox numbers */
+.checkbox-container span {
+    position: relative;
+    bottom: 3.5rem;
+    left: 0.35rem;
+    margin : 0;
+    padding : 0;
+}
+
+/*---------------------------*/
+/* Checkbox styling */
+.checkbox-container input {
+    position: relative;
+    cursor: pointer;
+}
+
+/*---------------------------*/
+/* Checkbox checkmark (the visible box)  */
+.checkmark {
+    width : 1rem;
+    height: 1rem;
+    position: relative;
+    bottom: 1.2rem;
+    content :" ";
+    border: 2px solid #323232;
+    border-radius: 5px;
+    box-shadow: 4px 4px #323232;
+    background-color: #ccc;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+/* Change the background color when checked */
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #2d8cf0;
+}
+/* Make appear a checkmark after it's clicked with a smooth transition */
+.checkmark::after {
+    content: " ";
+    width: 0.3rem;
+    height: 0.5rem;
+    position: absolute;
+    left: 0.3rem;
+    display: none;
+    border: solid #fff;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+/*---------------------------*/
+
+
+/* Checkbox label */
+.checkBox-label-container {
+    padding: 0.3rem;
+    margin: 0.8rem auto auto;
+    border: 2px solid beige;
+    border-radius: 25px;
+    background: #7e7e74;
+}
+
+.checkBox-label {
+    font-size: 1rem;
+}
+/*---------------------------*/
+/* CHECKBOXES RELATIVE CSS END */
+
+
+/* DUAL RANGE RELATIVE CSS */
+/* dualRange containers */
+.dualRange-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    margin-top: 2rem;
+}
+/*---------------------------*/
+
+/* Selected values */
+.dualRange-values-container {
+    display: flex;
+    position: relative;
+    bottom: 2rem;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+/*---------------------------*/
+
+/* Dual Range name container*/
+.dualRange-label-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    padding: 0.3rem;
+    margin-top: 0.3rem;
+    border: 2px solid beige;
+    border-radius: 25px;
+    background: #7e7e74;
+}
+
+.dualRange-label {
+    font-size: 0.8rem;
+}
+/*---------------------------*/
+
+/* Customizing the range */
+/* Hide default appearance */
+/* Make the 2 ranges being superposed */
+.dualRange-container input[type="range"] {
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+    appearance: none;
+    background: none;
+}
+.dualRange-container input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+}
+.dualRange-container input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.dualRange-container input[type="range"]::-moz-range-thumb {
+    appearance: none;
+}
+
+.dualRange-container input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.dualRange-container input[type="range"]:focus {
+    outline: none;
+}
+.dualRange-container input[type="range"]::-webkit-slider-thumb {
+    pointer-events: all;
+}
+.dualRange-container input[type="range"]::-moz-range-thumb {
+    pointer-events: all;
+}
+/*---------------------------*/
+
+/* Styling the cursor (thumb) */
+.dualRange-container input[type="range"]::-webkit-slider-thumb{
+    width: 1rem;
+    height: 1rem;
+    border: beige 2px solid;
+    border-radius: 50%;
+    background: #1DB954;
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.dualRange-container input[type="range"]::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    border: beige 2px solid;
+    border-radius: 50%;
+    background: #1ed760;
+    cursor: pointer;
+    pointer-events: all;
+}
+/*---------------------------*/
+
+
+/* Styling the track */
+/* Chrome, set the background, up the track and the thumb */
+.dualRange-container input[type="range"]:first-child::-webkit-slider-runnable-track {
+    background: #9d9d9d;
+}
+
+.dualRange-container input[type="range"]::-webkit-slider-runnable-track {
+    height: 0.5rem;
+}
+.dualRange-container input[type="range"]::-webkit-slider-thumb {
+    margin-top: -0.25rem ;
+}
+
+/* Firefox, set the background and the height, and put the range correctly on the markers */
+.dualRange-container input[type="range"]:first-child::-moz-range-track {
+    height: 0.5rem;
+    background: #9d9d9d;
+}
+@-moz-document url-prefix() {
+    .dualRange-container input[type="range"] {
+        margin-top: -0.2rem;
+    }
+}
+/*---------------------------*/
+
+
+
+/* Min/Max Labels */
+.dualRange-label-min, .dualRange-label-max {
+    position: absolute;
+    top: 1rem;
+    font-size: 0.9rem;
+}
+
+.dualRange-label-min {
+    left: 0;
+}
+
+.dualRange-label-max {
+    right: 0;
+}
+/*---------------------------*/
+
+/* Range markers */
+.range-markers {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -1rem;
+}
+
+.range-markers::before,
+.range-markers::after,
+.range-markers-middle {
+    content: "";
+    position: absolute;
+    height: 0.5rem;
+    top:0.17rem;
+    width: 2px;
+    background-color: black;
+}
+
+@-moz-document url-prefix() {
+    .range-markers::before,
+    .range-markers::after,
+    .range-markers-middle {
+        top: 0.1rem;
+    }
+
+}
+
+.range-markers::before {
+    left: 0;
+}
+
+.range-markers::after {
+    right: 0;
+}
+
+.range-markers-middle {
+    left: 50%;
+}
+/*---------------------------*/
+/* DUAL RANGE RELATIVE CSS END */
+
+/* DROPDOWN RELATIVE CSS */
+.dropdown-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.dropdown-container select {
+    width: 100%;
+    border-radius: 20px;
+}
+
+.dropdown-label-container{
+    padding: 0.3rem;
+    margin: 0.5rem auto auto;
+    border: 2px solid beige;
+    border-radius: 25px;
+    background: #7e7e74;
+    font-size: 1rem;
+}
+
+/* DROPDOWN RELATIVE CSS END */
+
+/* FILTERS RELATIVE CSS END */
+
+/* GROUPS CARD CONTAINER RELATIVE CSS */
+
+.groups-cards-container {
+    position: relative;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, 20rem);
+    grid-column-gap: 2rem;
+    /*grid-row-gap: 5rem;*/
+    margin-top: 1rem;
+}
+
+.groups-cards-container .group-card:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.group-card {
+    margin: 1rem;
+}
+
+.group-card form {
+    border: 2px solid beige;
+    border-radius: 10px;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: fit-content;
+    justify-items: center;
+    background-color: #121212;
+    color: beige;
+    margin: 1rem;
+}
+
+.group-card form:hover {
+    border : 2px solid #1DB954;
+    color: #1DB954;
+}
+
+.group-card button {
+    cursor: pointer;
+    border-radius: 10px;
+    opacity: 1;
+    all: unset;
+}
+.group-card button img {
+    border-radius: 10px;
+}
+
+.group-card-name {
+    margin : 0;
+    text-align: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    /*white-space: nowrap;*/
+}
+
+/* GROUPS CARD CONTAINER CSS END */
+
+/* BODY RELATIVE CSS END */
+
+/* FOOTER RELATIVE CSS */
+
+footer {
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #121212;
+    color: #1DB954;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: 1px solid beige;
+    border-top-left-radius:  25px;
+    border-top-right-radius: 25px;
+    width: 100%;
+    bottom: 0;
+}
+footer #copyright, footer #credits {
+    margin: auto 1rem;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #1DB954;
+    justify-content: center;
+}
+
+footer #copyright:hover, footer #credits:hover, footer img:hover {
+    transform: scale(1.005);
+    transition: 0.3s;
+}
+
+footer img {
+    position: relative;
+    margin-right: 0.5rem;
+    top:0.2rem;
+    height: 1.1rem;
+    width: 1.1rem;
+}
+
+footer input[type="text"] {
+    height: 2rem;
+    width: 20rem;
+    border: black 2px solid;
+    border-radius: 15px;
+}
+
+
+/* FOOTER RELATIVE CSS END */
+
+
+/* SEARCH SUGGESTIONS RELATIVE CSS */
+
+/* Make the suggestion container being upside the search bar*/
+/* and make it stock all the suggestions with the possibility to scroll*/
+#suggestions_container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    bottom: 4rem;
+    border: solid 3px #1DB954;
+    border-radius: 10px;
+    max-height: 15rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #363636;
+}
+/*---------------------------*/
+
+/* Scrollbar Styling */
+@-moz-document url-prefix() {
+    #suggestions_container {
+        scrollbar-color: #159342 #9d9d9d;
+        scrollbar-width: thin;
+    }
+}
+
+#suggestions_container::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 10px;
+}
+#suggestions_container::-webkit-scrollbar-thumb{
+    background: #159342;
+    border: solid 1px #000000;
+    border-radius: 10px;
+}
+/*---------------------------*/
+
+/* Suggestion styling */
+.suggestion {
+    list-style: none;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: black 2px solid;
+    padding: 0.5rem;
+
+}
+
+.suggestion:last-child {
+    border-bottom: none;
+}
+
+.suggestion:hover {
+    background-color: #121212;
+}
+/*---------------------------*/
+
+/* Suggestion image styling */
+.suggestion .suggestion-image {
+    width: 2rem;
+    height: 2rem;
+    border: solid 2px #159342;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+/*---------------------------*/
+
+
+/* Suggestion text styling */
+.suggestion .suggestion-text {
+    color : beige;
+    font-size: 0.8rem;
+    position: relative;
+}
+/*---------------------------*/
+
+
+/* SEARCH SUGGESTIONS CSS END */
+@import url('https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+.k2d-regular {
+    font-family: "K2D", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.k2d-thin {
+    font-family: "K2D", serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+/* HEADER RELATIVE CSS */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    /*font-family: "K2D", sans-serif;*/
+    /*font-weight: 500;*/
+    /*font-style: normal;*/
+}
+
+header{
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+    top: 0;
+    left: 0;
+    margin-bottom: 1rem;
+    z-index: 100;
+    width: 100%;
+    border-bottom: 1px solid beige;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: #121212;
+}
+
+header .header-title {
+    font-size: 2.5rem;
+    color: #1DB954;
+}
+
+header #filters_button {
+    position: absolute;
+    background-color: #7e7e74;
+    color: beige;
+    right: 2rem;
+    max-width: 4rem;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+header #filters_button:hover {
+    background-color: #5d5d55;
+    border: #159342 2px solid;
+    transform: scale(1.05);
+    transition: 0.3s;
+
+}
+
+header #back_button {
+    position: absolute;
+    background-color: #121212;
+    color: #1ab955;
+    font-weight: 100;
+    left: 2rem;
+    padding: 0.3rem 0.4rem;
+    border: #1ab955 3px solid;
+    border-radius: 20px;
+}
+
+header #back_button span {
+    position: relative;
+    top: 0.1rem;
+}
+
+header #back_button:hover {
+    background-color: #2c2c2c;
+    color: beige;
+    left: 2rem;
+    cursor: pointer;
+    border-radius: 20px;
+    border: beige 3px solid;
+    transform: scale(1.105);
+    transition: 0.3s;
+}
+
+/* HEADER RELATIVE CSS END */
+
+/* Make the main content take all the page */
+main {
+    flex: 1;
+}
+
+/* BODY RELATIVE CSS */
+
+body {
+    background-color: #7e7e74;
+    align-items: center;
+    justify-items: center;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+/* FILTERS RELATIVE CSS */
+
+/* Filters container */
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    background: #121212;
+    border-radius: 10px;
+    border-bottom: 1px solid beige;
+    border-left: 1px solid beige;
+    border-right: 1px solid beige;
+    box-shadow: 0 5px 8px beige;
+    color: beige;
+    padding : 0.5em;
+    width: 100%;
+}
+/* All the form will be displayed in row on all the width of the container */
+.filters-container form {
+    display : flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width : 100%;
+}
+/* The content of the filter will be in column */
+.filter {
+    display: flex;
+    flex-direction: column;
+    width: 15em;
+}
+
+#filters_apply_button {
+    cursor: pointer;
+    border-radius: 10px;
+    color: beige;
+    background-color: #7e7e74;
+    max-width: 4rem;
+}
+#filters_apply_button:hover {
+    color: beige;
+    border: #159342 2px solid;
+    background-color: #5d5d55;
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+/* CHECKBOXES RELATIVE CSS */
+/* Checkbox container */
+.checkbox-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1.1rem;
+    height: 1rem;
+}
+
+/*---------------------------*/
+/* Checkbox numbers */
+.checkbox-container span {
+    position: relative;
+    bottom: 3.5rem;
+    left: 0.35rem;
+    margin : 0;
+    padding : 0;
+}
+
+/*---------------------------*/
+/* Checkbox styling */
+.checkbox-container input {
+    position: relative;
+    cursor: pointer;
+}
+
+/*---------------------------*/
+/* Checkbox checkmark (the visible box)  */
+.checkmark {
+    width : 1rem;
+    height: 1rem;
+    position: relative;
+    bottom: 1.2rem;
+    content :" ";
+    border: 2px solid #323232;
+    border-radius: 5px;
+    box-shadow: 4px 4px #323232;
+    background-color: #ccc;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+/* Change the background color when checked */
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #2d8cf0;
+}
+/* Make appear a checkmark after it's clicked with a smooth transition */
+.checkmark::after {
+    content: " ";
+    width: 0.3rem;
+    height: 0.5rem;
+    position: absolute;
+    left: 0.3rem;
+    display: none;
+    border: solid #fff;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+/*---------------------------*/
+
+
+/* Checkbox label */
+.checkBox-label-container {
+    padding: 0.3rem;
+    margin: 0.8rem auto auto;
+    border: 2px solid beige;
+    border-radius: 25px;
+    background: #7e7e74;
+}
+
+.checkBox-label {
+    font-size: 1rem;
+}
+/*---------------------------*/
+/* CHECKBOXES RELATIVE CSS END */
+
+
+/* DUAL RANGE RELATIVE CSS */
+/* dualRange containers */
+.dualRange-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    margin-top: 2rem;
+}
+/*---------------------------*/
+
+/* Selected values */
+.dualRange-values-container {
+    display: flex;
+    position: relative;
+    bottom: 2rem;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+/*---------------------------*/
+
+/* Dual Range name container*/
+.dualRange-label-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    padding: 0.3rem;
+    margin-top: 0.3rem;
+    border: 2px solid beige;
+    border-radius: 25px;
+    background: #7e7e74;
+}
+
+.dualRange-label {
+    font-size: 0.8rem;
+}
+/*---------------------------*/
+
+/* Customizing the range */
+/* Hide default appearance */
+/* Make the 2 ranges being superposed */
+.dualRange-container input[type="range"] {
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+    appearance: none;
+    background: none;
+}
+.dualRange-container input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+}
+.dualRange-container input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.dualRange-container input[type="range"]::-moz-range-thumb {
+    appearance: none;
+}
+
+.dualRange-container input[type="range"]::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.dualRange-container input[type="range"]:focus {
+    outline: none;
+}
+.dualRange-container input[type="range"]::-webkit-slider-thumb {
+    pointer-events: all;
+}
+.dualRange-container input[type="range"]::-moz-range-thumb {
+    pointer-events: all;
+}
+/*---------------------------*/
+
+/* Styling the cursor (thumb) */
+.dualRange-container input[type="range"]::-webkit-slider-thumb{
+    width: 1rem;
+    height: 1rem;
+    border: beige 2px solid;
+    border-radius: 50%;
+    background: #1DB954;
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.dualRange-container input[type="range"]::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    border: beige 2px solid;
+    border-radius: 50%;
+    background: #1ed760;
+    cursor: pointer;
+    pointer-events: all;
+}
+/*---------------------------*/
+
+
+/* Styling the track */
+/* Chrome, set the background, up the track and the thumb */
+.dualRange-container input[type="range"]:first-child::-webkit-slider-runnable-track {
+    background: #9d9d9d;
+}
+
+.dualRange-container input[type="range"]::-webkit-slider-runnable-track {
+    height: 0.5rem;
+}
+.dualRange-container input[type="range"]::-webkit-slider-thumb {
+    margin-top: -0.25rem ;
+}
+
+/* Firefox, set the background and the height, and put the range correctly on the markers */
+.dualRange-container input[type="range"]:first-child::-moz-range-track {
+    height: 0.5rem;
+    background: #9d9d9d;
+}
+@-moz-document url-prefix() {
+    .dualRange-container input[type="range"] {
+        margin-top: -0.2rem;
+    }
+}
+/*---------------------------*/
+
+
+
+/* Min/Max Labels */
+.dualRange-label-min, .dualRange-label-max {
+    position: absolute;
+    top: 1rem;
+    font-size: 0.9rem;
+}
+
+.dualRange-label-min {
+    left: 0;
+}
+
+.dualRange-label-max {
+    right: 0;
+}
+/*---------------------------*/
+
+/* Range markers */
+.range-markers {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -1rem;
+}
+
+.range-markers::before,
+.range-markers::after,
+.range-markers-middle {
+    content: "";
+    position: absolute;
+    height: 0.5rem;
+    top:0.17rem;
+    width: 2px;
+    background-color: black;
+}
+
+@-moz-document url-prefix() {
+    .range-markers::before,
+    .range-markers::after,
+    .range-markers-middle {
+        top: 0.1rem;
+    }
+
+}
+
+.range-markers::before {
+    left: 0;
+}
+
+.range-markers::after {
+    right: 0;
+}
+
+.range-markers-middle {
+    left: 50%;
+}
+/*---------------------------*/
+/* DUAL RANGE RELATIVE CSS END */
+
+/* DROPDOWN RELATIVE CSS */
+.dropdown-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.dropdown-container select {
+    width: 100%;
+    border-radius: 20px;
+}
+
+.dropdown-label-container{
+    padding: 0.3rem;
+    margin: 0.5rem auto auto;
+    border: 2px solid beige;
+    border-radius: 25px;
+    background: #7e7e74;
+    font-size: 1rem;
+}
+
+/* DROPDOWN RELATIVE CSS END */
+
+/* FILTERS RELATIVE CSS END */
+
+/* GROUPS CARD CONTAINER RELATIVE CSS */
+
+.groups-cards-container {
+    position: relative;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, 20rem);
+    grid-column-gap: 2rem;
+    /*grid-row-gap: 5rem;*/
+    margin-top: 1rem;
+}
+
+.groups-cards-container .group-card:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.group-card {
+    margin: 1rem;
+}
+
+.group-card form {
+    border: 2px solid beige;
+    border-radius: 10px;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: fit-content;
+    justify-items: center;
+    background-color: #121212;
+    color: beige;
+    margin: 1rem;
+}
+
+.group-card form:hover {
+    border : 2px solid #1DB954;
+    color: #1DB954;
+}
+
+.group-card button {
+    cursor: pointer;
+    border-radius: 10px;
+    opacity: 1;
+    all: unset;
+}
+.group-card button img {
+    border-radius: 10px;
+}
+
+.group-card-name {
+    margin : 0;
+    text-align: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    /*white-space: nowrap;*/
+}
+
+/* GROUPS CARD CONTAINER CSS END */
+
+/* BODY RELATIVE CSS END */
+
+/* FOOTER RELATIVE CSS */
+
+footer {
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #121212;
+    color: #1DB954;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-top: 1px solid beige;
+    border-top-left-radius:  25px;
+    border-top-right-radius: 25px;
+    width: 100%;
+    bottom: 0;
+}
+footer #copyright, footer #credits {
+    margin: auto 1rem;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #1DB954;
+    justify-content: center;
+}
+
+footer img {
+    position: relative;
+    margin-right: 0.5rem;
+    top:0.2rem;
+    height: 1.1rem;
+    width: 1.1rem;
+}
+
+footer input[type="text"] {
+    height: 2rem;
+    width: 20rem;
+    border: black 2px solid;
+    border-radius: 15px;
+}
+
+
+/* FOOTER RELATIVE CSS END */
+
+
+/* SEARCH SUGGESTIONS RELATIVE CSS */
+
+/* Make the suggestion container being upside the search bar*/
+/* and make it stock all the suggestions with the possibility to scroll*/
+#suggestions_container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    bottom: 4rem;
+    border: solid 3px #1DB954;
+    border-radius: 10px;
+    max-height: 15rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #363636;
+}
+/*---------------------------*/
+
+/* Scrollbar Styling */
+@-moz-document url-prefix() {
+    #suggestions_container {
+        scrollbar-color: #159342 #9d9d9d;
+        scrollbar-width: thin;
+    }
+}
+
+#suggestions_container::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 10px;
+}
+#suggestions_container::-webkit-scrollbar-thumb{
+    background: #159342;
+    border: solid 1px #000000;
+    border-radius: 10px;
+}
+/*---------------------------*/
+
+/* Suggestion styling */
+.suggestion {
+    list-style: none;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: black 2px solid;
+    padding: 0.5rem;
+
+}
+
+.suggestion:last-child {
+    border-bottom: none;
+}
+
+.suggestion:hover {
+    background-color: #121212;
+}
+/*---------------------------*/
+
+/* Suggestion image styling */
+.suggestion .suggestion-image {
+    width: 2rem;
+    height: 2rem;
+    border: solid 2px #159342;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+/*---------------------------*/
+
+
+/* Suggestion text styling */
+.suggestion .suggestion-text {
+    color : beige;
+    font-size: 0.8rem;
+    position: relative;
+}
+/*---------------------------*/
+
+
+/* SEARCH SUGGESTIONS CSS END */

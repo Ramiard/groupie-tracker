@@ -1,75 +1,99 @@
 {{define "GroupPage"}}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.Name}}'s details</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="icon" type="image/jpeg" href="{{.Image}}">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{.Name}}'s details</title>
+        <link id="style_sheet" rel="stylesheet" href="../Static/groupPage.css">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+        <link rel="icon" type="image/jpeg" href="{{.Image}}">
 
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.2/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.2/mapbox-gl.js"></script>
-    <style>
-        body { margin: 0; padding: 0; }
-        #map { position: absolute; top: 25vh; bottom: 0; right: 10vh; width: 50%; }
-    </style>
+        <link href="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.css" rel="stylesheet">
+        <script src="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.js"></script>
+    </head>
+    <body>
+    <header>
+        <span id="contrast_button" class="material-symbols-outlined"  onclick="alternateCSS()">light_mode</span>
+        <a id="back_button" href="/"><span class="material-symbols-outlined">arrow_back</span></a>
+        <h1 class="header-title k2d-regular" onclick="alternateCSS()">Groupie Tracker</h1>
+    </header>
+    <main>
+        <div id="first_part">
 
-</head>
-<body>
-<header>
-    <a href="/"><span class="material-icons">arrow_back</span></a>
-    <h1>Welcome to the Group Detail WebPage</h1>
-</header>
-<main>
-    <p>Here you can have all the informations for the chosen group.</p>
-    <div class="group1stCard">
-        <img class="groupImage" src="{{.Image}}" alt="{{.Name}}">
-        <h4 class="groupCreationDate">Creation date : {{.CreationDate}}</h4>
-        <h2 class="groupName">{{.Name}}</h2>
-    </div>
-    <div class="group2ndCard">
-        <h3 class="group1stAlbum">First Album date : {{.FirstAlbum}}</h3>
-        <h3 class="groupMembers">Members :</h3>
-        <ul>
-            {{range .Members}}
-            <li>{{.}}</li>
+            <div class="group-1st-card-container">
+                <h2 class="group-name k2d-regular">{{.Name}}</h2>
+                <div class="group-infos bricolage-grotesque">
+                    <h3 class="group-creation-date">Creation date : {{.CreationDate}}</h3>
+                    <h3 class="group-1st-album">First Album date : {{.FirstAlbum}}</h3>
+                    <h3 class="group-members">Members <span id="test" onclick="showMembers()">➡️</span></h3>
+                    <ul id="members_list" style="display: none;">
+                        {{range .Members}}
+                            <li>{{.}}</li>
+                        {{end}}
+                    </ul>
+                    <h3 class="group-concerts">Concerts <span onclick="showConcerts()">➡️</span></h3>
+                    <ul id="concerts_list" style="display: none;">
+                        {{range $location,$date := .Relations.DatesLocations}}
+                            <li>{{$location}} :
+                                <ul>
+                                    {{range $date}}
+                                        <li>{{.}}</li>
+                                    {{end}}
+                                </ul>
+                            </li>
+                        {{end}}
+                    </ul>
+                </div>
+            </div>
+
+            <div id="map_container">
+                <div id="map"></div>
+            </div>
+
+        </div>
+
+        <div id="second_part">
+            <div class="group-2scd-card-container">
+                <img class="group-image" src="{{.Image}}" alt="{{.Name}}">
+                <h2 class="group-name bricolage-grotesque">{{.Name}}</h2>
+                <div class="group-buttons">
+                    <form action="/group" method="post">
+                        <button id="previous_button" type="submit" name="id" value="{{.Id}}"><span class="material-symbols-outlined">skip_previous</span></button>
+                        <span id="play_button"class="material-symbols-outlined">play_arrow</span>
+                        <button id="next_button" type="submit" name="id" value="{{.Id}}"><span class="material-symbols-outlined">skip_next</span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer class="k2d-regular">
+        <p id="copyright">&copy; 2024 Groupie Tracker</p>
+        <a id="credits" href="https://linkedin.com/in/renaud-amiard-98b512340" target="_blank"><img
+                    src="../Static/img/linkedin-icon.svg">Made by Amiard Renaud</a>
+    </footer>
+    </body>
+    <script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
+    <script src="../Static/changeCSS.js"></script>
+    <script src="../Static/interactiveMap.js"></script>
+    <script>
+        const concertCoordinates = [
+            {{range $coordinates := .Relations.Coordinates}}
+            {{$coordinates}},
             {{end}}
-        </ul>
-        <h3 class="groupConcerts">Concerts :</h3>
-        <ul>
-        {{range $location,$date := .Relations.DatesLocations}}
-            <li>{{$location}} :
-            <ul>
-                {{range $date}}
-                <li>{{.}}</li>
-                {{end}}
-            </ul>
-            </li>
-        {{end}}
-        </ul>
-    </div>
-
-    <div id="map"></div>
-
-</main>
-<footer>
-    <p>&copy; 2023 Groupie Tracker</p>
-</footer>
-</body>
-<script src="https://unpkg.com/@mapbox/mapbox-sdk/umd/mapbox-sdk.min.js"></script>
-<script src="../Static/interactiveMap.js"></script>
-<script>
-    const concertCoordinates = [
-        {{range $coordinates := .Relations.Coordinates}}
-        {{$coordinates}},
-        {{end}}
-    ];
-    const relation = {
-    {{range $location, $value := .Relations.DatesLocations}}
-        ["{{$location}}"]: {{$value}},
-    {{end}}
-    };
-</script>
-</html>
+        ];
+        const relation = {
+            {{range $location, $value := .Relations.DatesLocations}}
+            ["{{$location}}"]: {{$value}},
+            {{end}}
+        };
+    </script>
+    <script>
+        const id = document.getElementById("previous_button").getAttribute('value'); let previousId = parseInt(id)-1; let nextId = parseInt(id)+1;
+        if (previousId < 1) {previousId = 1;}
+        document.getElementById("previous_button").setAttribute('value',previousId);
+        document.getElementById("next_button").setAttribute('value',nextId);
+        </script>
+    </html>
 {{end}}

@@ -4,13 +4,21 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../Static/homePage.css">
+        <link id="style_sheet" rel="stylesheet" href="../Static/homePage.css">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
         <title>Groupie Tracker</title>
     </head>
     <body>
     <header>
-        <h1>Welcome to the Groupie Tracker</h1>
-        <div class="filters-container">
+        <span id="contrast_button" class="material-symbols-outlined" onclick="alternateCSS()">light_mode</span>
+        <h1 class="header-title k2d-regular">Groupie Tracker</h1>
+        <button id="filters_button" onclick="showFilters()">Show Filters</button>
+    </header>
+    <main>
+        <div style="display: none;" class="filters-container k2d-thin">
             <form action="/" method="post">
                 <!-- 'Creation Date' filter -->
                 <div class="filter">
@@ -92,31 +100,31 @@
                     </div>
                 </div>
 
-                <button type="submit">Filter</button>
+                <button id="filters_apply_button" type="submit">Apply Filters</button>
             </form>
         </div>
 
-    </header>
-    <main>
-        <p>Here you can find all the music groups taken from an API</p>
+        <div class="groups-cards-container k2d-regular">
         {{range .Groups}}
-            <div>
+            <div class="group-card">
                 <form method="post" action="/group">
                     <button type="submit" name="id" value="{{.Id}}"><img src="{{.Image}}" alt="{{.Name}}"></button>
-                    <h2>{{.Name}}</h2>
+                    <h2 class="group-card-name">{{.Name}}</h2>
                 </form>
             </div>
         {{end}}
+        </div>
     </main>
-    <footer>
-        <p id="credits">Made by Amiard Renaud</p>
+    <footer class="k2d-regular">
+        <p id="copyright">&copy; 2024 Groupie Tracker</p>
         <form id="search_form" action="/search" method="post">
             <input id="search_bar" type="text" name="search" placeholder="Search for a group" autocomplete="off">
-            <button type="submit">Search</button>
+            <button hidden="hidden" type="submit">Search</button>
         </form>
-        <p id="copyright">&copy; 2024 Groupie Tracker</p>
+        <a id="credits" href="https://linkedin.com/in/renaud-amiard-98b512340" target="_blank"><img src="../Static/img/linkedin-icon.svg">Made by Amiard Renaud</a>
     </footer>
     </body>
+    <script src="../Static/changeCSS.js"></script>
     <script src="../Static/dualRange.js"></script>
     <script src="../Static/searchBar.js"></script>
     <script id="json_data" type="application/json">{{.AllGroups}}</script>
